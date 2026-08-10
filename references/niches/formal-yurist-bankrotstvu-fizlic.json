@@ -1,0 +1,93 @@
+{
+  "key": "formal-yurist-bankrotstvu-fizlic",
+  "name": "документы и деньги, продаёт надёжность — собрано по 5 референсам (pinned + pinterest)",
+  "profile": "formal",
+  "fonts": "'Playfair Display' на заголовки + 'Josefin Sans' на текст — или ближайшая пара с Google Fonts, если этих нет",
+  "palette": "фон #FFFFFF · текст #000000 · единственный акцент #2962FF · приглушённый #959595",
+  "layout": "скругления около 3px, шкала кеглей 9→130px, плотная сетка, факты в строку, воздух вокруг блока действия, тонкие линейки 1px между секциями",
+  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(0.215,0.61,0.355,1)",
+  "gallery": false,
+  "slots": [],
+  "measured": {
+    "palette": {
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#2962FF",
+      "muted": "#959595"
+    },
+    "fonts": [
+      {
+        "name": "Josefin Sans",
+        "count": 632
+      },
+      {
+        "name": "Century Gothic",
+        "count": 186
+      },
+      {
+        "name": "Ubuntu Light",
+        "count": 25
+      },
+      {
+        "name": "Playfair Display",
+        "count": 17
+      },
+      {
+        "name": "Font Awesome 6 Pro !important",
+        "count": 11
+      },
+      {
+        "name": "Young Serif",
+        "count": 7
+      },
+      {
+        "name": "Font Awesome 6 Pro",
+        "count": 5
+      },
+      {
+        "name": "acumin-pro-wide",
+        "count": 5
+      }
+    ],
+    "rhythm": {
+      "scaleMin": 9,
+      "scaleMax": 130,
+      "radius": "3px",
+      "sharp": false,
+      "easings": [
+        "cubic-bezier(0.215,0.61,0.355,1)",
+        "cubic-bezier(0.4,0,0.22,1)",
+        "cubic-bezier(0.55,0.055,0.675,0.19)"
+      ]
+    },
+    "subjects": []
+  },
+  "sources": [
+    {
+      "name": "закреплён владельцем: https://shiraliev.ru/",
+      "url": "https://shiraliev.ru/",
+      "from": "pinned"
+    },
+    {
+      "name": "закреплён владельцем: https://mont-fort.com/",
+      "url": "https://mont-fort.com/",
+      "from": "pinned"
+    },
+    {
+      "name": "ADVMARC Advocacia e Soluções",
+      "url": "https://www.behance.net",
+      "from": "pinterest"
+    },
+    {
+      "name": "",
+      "url": "https://www.sitebuilderreport.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "Bernstein : le thème WordPress idéal pour avocats",
+      "url": "https://solutions-pro-b2b.fr",
+      "from": "pinterest"
+    }
+  ],
+  "date": "2026-08-10"
+}
