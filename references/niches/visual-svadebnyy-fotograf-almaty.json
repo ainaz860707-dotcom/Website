@@ -1,81 +1,129 @@
 {
   "key": "visual-svadebnyy-fotograf-almaty",
-  "name": "бизнес продаёт картинку — собрано по 4 референсам из Mobbin",
+  "name": "бизнес продаёт картинку — собрано по 4 референсам (pinterest)",
   "profile": "visual",
-  "fonts": "'Caslon Ionic' на заголовки + 'GillSansNova-Book' на текст — или ближайшая пара с Google Fonts, если этих нет",
-  "palette": "фон #FFFFFF · текст #10100F · единственный акцент #522C25 · приглушённый #B3B3B2",
-  "layout": "скругления нулевые, шкала кеглей 10→120px, крупные рамки-слоты под снимки с подписями, много воздуха и широкие поля, тонкие линейки 1px между секциями",
-  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(.4,0,.2,1)",
+  "fonts": "'Carefree Serif Italic' на заголовки + 'La Bohemia' на текст — или ближайшая пара с Google Fonts, если этих нет",
+  "palette": "фон #FAFAFA · текст #262626 · акцента в референсах не нашлось — держи страницу монохромной · приглушённый #766E61",
+  "layout": "скругления нулевые, шкала кеглей 9→70px, крупные рамки-слоты под снимки с подписями, много воздуха и широкие поля, тонкие линейки 1px между секциями",
+  "detail": "выделение — только весом шрифта и линейкой, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(.4,0,.2,1)",
   "gallery": true,
+  "slots": [
+    "кольца и детали",
+    "платье невесты",
+    "сервировка и застолье",
+    "церемония",
+    "сборы",
+    "букет и флористика",
+    "жених",
+    "приглашения и детали"
+  ],
   "measured": {
     "palette": {
-      "paper": "#FFFFFF",
-      "ink": "#10100F",
-      "accent": "#522C25",
-      "muted": "#B3B3B2"
+      "paper": "#FAFAFA",
+      "ink": "#262626",
+      "accent": null,
+      "muted": "#766E61"
     },
     "fonts": [
       {
-        "name": "GillSansNova-Book",
-        "count": 58
-      },
-      {
-        "name": "GillSansNova-SemiBold",
-        "count": 31
-      },
-      {
-        "name": "CezannePro-M",
-        "count": 27
-      },
-      {
-        "name": "CezannePro-DB",
+        "name": "La Bohemia",
         "count": 21
       },
       {
-        "name": "EuropaGroNr2SH",
-        "count": 17
+        "name": "Newsreader",
+        "count": 12
       },
       {
-        "name": "DM Sans",
-        "count": 11
+        "name": "Poppins",
+        "count": 12
       },
       {
-        "name": "Mier A",
-        "count": 11
+        "name": "Manrope",
+        "count": 12
       },
       {
-        "name": "GillSansNova-Medium",
+        "name": "Space Grotesk",
+        "count": 10
+      },
+      {
+        "name": "Carefree Serif Italic",
+        "count": 9
+      },
+      {
+        "name": "Commuters Sans Regular",
         "count": 7
+      },
+      {
+        "name": "Commuters Sans Thin Italic",
+        "count": 6
       }
     ],
     "rhythm": {
-      "scaleMin": 10,
-      "scaleMax": 120,
+      "scaleMin": 9,
+      "scaleMax": 70,
       "radius": "0",
       "sharp": true,
       "easings": [
         "cubic-bezier(.4,0,.2,1)",
-        "cubic-bezier(.4,0,.6,1)",
-        "cubic-bezier(.4,0,1,1)"
+        "cubic-bezier(0,0,.2,1)",
+        "cubic-bezier(.4,0,.6,1)"
       ]
-    }
+    },
+    "subjects": [
+      {
+        "label": "кольца и детали",
+        "count": 26
+      },
+      {
+        "label": "платье невесты",
+        "count": 22
+      },
+      {
+        "label": "сервировка и застолье",
+        "count": 7
+      },
+      {
+        "label": "церемония",
+        "count": 5
+      },
+      {
+        "label": "сборы",
+        "count": 4
+      },
+      {
+        "label": "букет и флористика",
+        "count": 4
+      },
+      {
+        "label": "жених",
+        "count": 3
+      },
+      {
+        "label": "приглашения и детали",
+        "count": 3
+      }
+    ]
   },
   "sources": [
     {
-      "name": "Rains",
-      "url": "https://www.rains.com/"
+      "name": "Photography Website Design | Modern Photographer Portfolio UI/UX Inspiration | WordPress & Custom We",
+      "url": "https://ardntlogic.com",
+      "from": "pinterest"
     },
     {
-      "name": "Little Amps Coffee",
-      "url": "https://littleampscoffee.com/"
+      "name": "Squarespace Design for Photographers | Florence",
+      "url": "https://www.sophiewuthrich.com",
+      "from": "pinterest"
     },
     {
-      "name": "In Common With",
-      "url": "https://www.incommonwith.com/"
+      "name": "Brand and Website Design for Wedding Photographer",
+      "url": "https://tila.studio",
+      "from": "pinterest"
     },
     {
-      "name": "Shupatto",
-      "url": "https://www.shupatto.com/en/"
+      "name": "Showit Website Template for Wedding Photographers and Elopements",
+      "url": "https://designsbyjosephine.com",
+      "from": "pinterest"
     }
   ],
   "date": "2026-08-10"

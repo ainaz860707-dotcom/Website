@@ -4,6 +4,7 @@ import { homedir } from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { extractTokens, luminance, saturation, toHex } from './reference-tokens.mjs';
+import { cosmosCaptions, mobbinSites, pinterestSites, withOwnerBrowser } from './reference-sources.mjs';
 
 const CACHE_DIR = path.join('references', 'niches');
 const DEFAULT_PROFILE = path.join(homedir(), 'Library', 'Caches', 'ms-playwright-mcp', 'mcp-chrome-2d32ba4');
@@ -17,6 +18,8 @@ const PROFILES = [
     marks: /фото|видео|свадеб|тату|флорист|букет|интерьер|дизайн|барбершоп|маникюр|педикюр|стилист|бров|ресниц|кондитер|торт|мебел|декор|съёмк|съемк/i,
     styles: ['Photography'],
     categories: ['Shopping'],
+    pinterest: 'wedding photographer portfolio website design',
+    cosmos: 'weddings',
     gallery: true,
   },
   {
@@ -25,6 +28,8 @@ const PROFILES = [
     marks: /кофейн|пекарн|кафе|ресторан|бар\b|хлеб|закваск|ферм|сыровар|пивовар|мастерск|керамик|свеч/i,
     styles: ['Photography'],
     categories: ['Shopping'],
+    pinterest: 'coffee shop bakery website design',
+    cosmos: null,
     gallery: true,
   },
   {
@@ -33,6 +38,8 @@ const PROFILES = [
     marks: /стоматолог|клиник|ветеринар|психолог|массаж|врач|медиц|терапевт|реабилитац|зуб|лечен/i,
     styles: ['Minimal'],
     categories: null,
+    pinterest: 'clinic health website design minimal',
+    cosmos: null,
     gallery: false,
   },
   {
@@ -41,6 +48,8 @@ const PROFILES = [
     marks: /юрист|адвокат|бухгалт|банкрот|налог|страхов|нотариус|аудит|консалт|учёт|учет/i,
     styles: ['Minimal'],
     categories: ['Business'],
+    pinterest: 'law firm accountant website design',
+    cosmos: null,
     gallery: false,
   },
   {
@@ -49,6 +58,8 @@ const PROFILES = [
     marks: /автосервис|ремонт|перетяжк|стиральн|грузоперевоз|сантехник|электрик|производств|теплиц|монтаж|установк|клининг|уборк|окн|кровл/i,
     styles: ['Minimal', 'Motion'],
     categories: ['Business'],
+    pinterest: 'service repair company website design',
+    cosmos: null,
     gallery: false,
   },
   {
@@ -57,11 +68,13 @@ const PROFILES = [
     marks: /школ|курс|репетитор|детск|робототехник|танц|музык|язык|обучен|студи[яию]\s|секц/i,
     styles: ['Illustration', 'Colorful'],
     categories: null,
+    pinterest: 'kids school studio website design',
+    cosmos: null,
     gallery: false,
   },
 ];
 
-const FALLBACK_PROFILE = { key: 'plain', title: 'общий случай', styles: ['Minimal'], categories: null, gallery: false };
+const FALLBACK_PROFILE = { key: 'plain', title: 'общий случай', styles: ['Minimal'], categories: null, pinterest: 'small business landing page design', cosmos: null, gallery: false };
 
 const TECH_TAGLINE =
   /\bAI\b|platform|software|cloud|API|SaaS|autonomous|robotics|developer|infrastructure|analytics|crypto|fintech|agent|smart |telehealth|electric|vehicle|computer|energy|instruments|aviation|\bRV\b/i;
@@ -96,54 +109,73 @@ export function nicheKey(description) {
   return [profile.key, ...words].join('-') || profile.key;
 }
 
-async function fetchCuratedSites(styles, categories, { profileDir, pages = 1 }) {
-  const { chromium } = await import('playwright');
-  let context;
-  try {
-    context = await chromium.launchPersistentContext(profileDir, { channel: 'chrome', headless: true });
-  } catch (e) {
-    throw new Error(
-      `браузер с сессией владельца не поднялся: ${e.message}\n` +
-        'закрой окно этого профиля (kill -TERM по главному pid Chrome) и повтори'
-    );
-  }
+const SUBJECT_VOCABULARY = [
+  [/\bdress|gown|bridal\b/i, 'платье невесты'],
+  [/\bring|engagement|diamond|band\b/i, 'кольца и детали'],
+  [/\bceremony|altar|vows|officiant\b/i, 'церемония'],
+  [/\bbouquet|florals?|flowers?|floral\b/i, 'букет и флористика'],
+  [/\btable|tablescape|place setting|reception|dinner\b/i, 'сервировка и застолье'],
+  [/\bportrait|couple|bride and groom|newlyweds\b/i, 'портрет пары'],
+  [/\bdance|dancing|party\b/i, 'первый танец'],
+  [/\bvenue|location|landscape|beach|mountain|chapel|estate\b/i, 'локация съёмки'],
+  [/\binvitation|stationery|calligraphy|card\b/i, 'приглашения и детали'],
+  [/\bcake|dessert|food\b/i, 'торт и угощение'],
+  [/\bveil|hair|makeup|getting ready|robe\b/i, 'сборы'],
+  [/\bsuit|groom|tuxedo\b/i, 'жених'],
+  [/\bguests?|family|toast\b/i, 'гости и эмоции'],
+];
 
-  try {
-    const page = context.pages()[0] ?? (await context.newPage());
-    await page.goto('https://mobbin.com/discover/sites/latest', { waitUntil: 'domcontentloaded' });
-
-    const collected = [];
-    for (let pageIndex = 0; pageIndex < pages; pageIndex += 1) {
-      const batch = await page.evaluate(
-        async ({ styles: s, categories: c, pageIndex: i }) => {
-          const body = {
-            searchRequestId: crypto.randomUUID(),
-            pageIndex: i,
-            searchQuery: { contentType: 'sites', type: 'filters', activeFilterTags: [], categories: c, styles: s, sortBy: 'popularity' },
-          };
-          const res = await fetch('/api/search/fetch-search-page-sites', {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(body),
-          });
-          const json = await res.json();
-          if (json?.error) return { error: json.error.message ?? 'unknown' };
-          const data = json?.value?.data ?? [];
-          return { items: data.map((d) => ({ name: d.name, tagline: d.tagline, url: d.url })), total: json?.value?.totalCount ?? null };
-        },
-        { styles, categories, pageIndex }
-      );
-      if (batch.error) throw new Error(`Mobbin ответил «${batch.error}» — сессия владельца потеряна, нужен вход руками`);
-      collected.push(...(batch.items ?? []));
-      if (!batch.items?.length) break;
+export function subjectsFromCaptions(captions) {
+  const counts = new Map();
+  for (const caption of captions) {
+    for (const [mark, label] of SUBJECT_VOCABULARY) {
+      if (mark.test(caption)) counts.set(label, (counts.get(label) ?? 0) + 1);
     }
-    return collected;
-  } finally {
-    await context.close();
   }
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8)
+    .map(([label, count]) => ({ label, count }));
 }
 
-const FRAMEWORK_BLUE = new Set(['#2563EB', '#3B82F6', '#1D4ED8', '#0D6EFD', '#007BFF', '#3858E9', '#0000EE', '#0000FF']);
+async function gatherSources(profile, { profileDir, log }) {
+  return withOwnerBrowser(
+    async (page) => {
+      const result = { sites: [], subjects: [], captionCount: 0 };
+
+      const fromPinterest = await pinterestSites(page, { query: profile.pinterest, pages: 2 }).catch((e) => {
+        log(`Pinterest мимо: ${e.message}`);
+        return [];
+      });
+      log(`Pinterest: сайтов ниши ${fromPinterest.length}`);
+
+      const fromMobbin = await mobbinSites(page, { styles: profile.styles, categories: profile.categories, pages: 2 }).catch((e) => {
+        log(`Mobbin мимо: ${e.message}`);
+        return [];
+      });
+      log(`Mobbin: кураторских сайтов ${fromMobbin.length}`);
+
+      if (profile.cosmos) {
+        const captions = await cosmosCaptions(page, { slug: profile.cosmos, scrolls: 4 }).catch((e) => {
+          log(`Cosmos мимо: ${e.message}`);
+          return [];
+        });
+        result.captionCount = captions.length;
+        result.subjects = subjectsFromCaptions(captions);
+        log(`Cosmos: подписей ${captions.length} → сюжетов ${result.subjects.length}`);
+      }
+
+      result.sites = [...fromPinterest, ...fromMobbin.filter((s) => !TECH_TAGLINE.test(s.tagline ?? ''))];
+      return result;
+    },
+    { profileDir }
+  );
+}
+
+const NOT_A_BRAND_COLOR = new Set([
+  '#2563EB', '#3B82F6', '#1D4ED8', '#0D6EFD', '#007BFF', '#3858E9', '#0000EE', '#0000FF',
+  '#25D366', '#0088CC', '#229ED9', '#1877F2', '#E4405F', '#FF0000', '#0077FF', '#00B900', '#1DA1F2',
+]);
 
 function pickPalette(colors) {
   const scored = colors
@@ -154,7 +186,7 @@ function pickPalette(colors) {
   const paper = scored.filter((c) => c.lum > 0.86 && c.sat < 0.25).sort(byCount)[0];
   const ink = scored.filter((c) => c.lum < 0.28).sort(byCount)[0];
   const accent = scored
-    .filter((c) => c.sat > 0.4 && c.lum > 0.12 && c.lum < 0.8 && c.count > 1 && !FRAMEWORK_BLUE.has(c.value))
+    .filter((c) => c.sat > 0.4 && c.lum > 0.12 && c.lum < 0.8 && c.count > 1 && !NOT_A_BRAND_COLOR.has(c.value))
     .sort((a, b) => b.count - a.count || b.sat - a.sat)[0];
   const muted = scored.filter((c) => c.lum >= 0.35 && c.lum <= 0.75 && c.sat < 0.35).sort(byCount)[0];
 
@@ -205,7 +237,7 @@ function pickRhythm(tokens) {
   };
 }
 
-export function synthesizeDirection(description, profile, sources, tokens) {
+export function synthesizeDirection(description, profile, sources, tokens, subjects = []) {
   const usable = tokens.filter((t) => t.ok);
   const palette = pickPalette(usable.flatMap((t) => t.colors ?? []));
   const fonts = pickFonts(usable);
@@ -237,17 +269,20 @@ export function synthesizeDirection(description, profile, sources, tokens) {
     rhythm.easings.length ? `кривые переходов как в референсах: ${rhythm.easings[0]}` : 'переходы 200–300мс, без пружин',
   ].join(', ');
 
+  const usedSources = [...new Set(sources.map((s) => s.source ?? 'mobbin'))].join(' + ');
+
   return {
     key: nicheKey(description),
-    name: `${profile.title} — собрано по ${usable.length} референсам из Mobbin`,
+    name: `${profile.title} — собрано по ${usable.length} референсам (${usedSources})`,
     profile: profile.key,
     fonts: fontsLine,
     palette: paletteLine,
     layout,
     detail,
     gallery: profile.gallery,
-    measured: { palette, fonts: fonts.ranked, rhythm },
-    sources: sources.map((s) => ({ name: s.name, url: s.url })),
+    slots: subjects.map((s) => s.label),
+    measured: { palette, fonts: fonts.ranked, rhythm, subjects },
+    sources: sources.map((s) => ({ name: s.name, url: s.url, from: s.source ?? 'mobbin' })),
     date: new Date().toISOString().slice(0, 10),
   };
 }
@@ -280,12 +315,12 @@ export async function resolveNicheDirection(description, options = {}) {
   }
 
   const profile = nicheProfile(description);
-  log(`ниша распознана как «${profile.title}» → стили Mobbin: ${profile.styles.join(', ')}`);
+  log(`ниша «${profile.title}»: Pinterest «${profile.pinterest}» · Mobbin ${profile.styles.join('/')} · Cosmos ${profile.cosmos ?? '—'}`);
 
-  const curated = await fetchCuratedSites(profile.styles, profile.categories ?? null, { profileDir, pages: 2 });
-  const candidates = curated.filter((s) => s.url && !TECH_TAGLINE.test(s.tagline ?? ''));
-  if (!candidates.length) throw new Error('Mobbin вернул пусто по этим стилям');
-  log(`кандидатов после отсева технологических: ${candidates.length}`);
+  const gathered = await gatherSources(profile, { profileDir, log });
+  const candidates = gathered.sites.filter((s) => s.url);
+  if (!candidates.length) throw new Error('все три источника вернули пусто');
+  log(`кандидатов всего: ${candidates.length}`);
 
   const tokens = [];
   const taken = [];
@@ -300,7 +335,7 @@ export async function resolveNicheDirection(description, options = {}) {
   if (!tokens.length) throw new Error('ни с одного референса не удалось снять стили');
   log(`в дирекшен легли: ${taken.map((s) => s.name).join(', ')}`);
 
-  const direction = synthesizeDirection(description, profile, taken, tokens);
+  const direction = synthesizeDirection(description, profile, taken, tokens, gathered.subjects);
   mkdirSync(CACHE_DIR, { recursive: true });
   writeFileSync(cachePath(direction.key), `${JSON.stringify(direction, null, 2)}\n`, 'utf8');
   log(`записано в ${cachePath(direction.key)}`);
