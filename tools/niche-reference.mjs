@@ -20,6 +20,7 @@ const PROFILES = [
     categories: ['Shopping'],
     pinterest: 'wedding photographer portfolio website design',
     cosmos: 'weddings',
+    pinned: ['https://shiraliev.ru/'],
     gallery: true,
   },
   {
@@ -165,7 +166,8 @@ async function gatherSources(profile, { profileDir, log }) {
         log(`Cosmos: подписей ${captions.length} → сюжетов ${result.subjects.length}`);
       }
 
-      result.sites = [...fromPinterest, ...fromMobbin.filter((s) => !TECH_TAGLINE.test(s.tagline ?? ''))];
+      const pinned = (profile.pinned ?? []).map((url) => ({ name: `закреплён владельцем: ${url}`, url, source: 'pinned' }));
+      result.sites = [...pinned, ...fromPinterest, ...fromMobbin.filter((s) => !TECH_TAGLINE.test(s.tagline ?? ''))];
       return result;
     },
     { profileDir }

@@ -1,11 +1,11 @@
 {
   "key": "visual-svadebnyy-fotograf-almaty",
-  "name": "бизнес продаёт картинку — собрано по 4 референсам (pinterest)",
+  "name": "бизнес продаёт картинку — собрано по 4 референсам (pinned + pinterest)",
   "profile": "visual",
-  "fonts": "'Carefree Serif Italic' на заголовки + 'La Bohemia' на текст — или ближайшая пара с Google Fonts, если этих нет",
-  "palette": "фон #FAFAFA · текст #262626 · акцента в референсах не нашлось — держи страницу монохромной · приглушённый #766E61",
-  "layout": "скругления нулевые, шкала кеглей 9→70px, крупные рамки-слоты под снимки с подписями, много воздуха и широкие поля, тонкие линейки 1px между секциями",
-  "detail": "выделение — только весом шрифта и линейкой, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(.4,0,.2,1)",
+  "fonts": "'Playfair Display' на заголовки + 'Ubuntu Light' на текст — или ближайшая пара с Google Fonts, если этих нет",
+  "palette": "фон #FFFFFF · текст #1E1E1E · акцента в референсах не нашлось — держи страницу монохромной · приглушённый #656565",
+  "layout": "скругления нулевые, шкала кеглей 11→130px, крупные рамки-слоты под снимки с подписями, много воздуха и широкие поля, тонкие линейки 1px между секциями",
+  "detail": "выделение — только весом шрифта и линейкой, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(0.215,0.61,0.355,1)",
   "gallery": true,
   "slots": [
     "кольца и детали",
@@ -14,20 +14,24 @@
     "церемония",
     "сборы",
     "букет и флористика",
-    "жених",
-    "приглашения и детали"
+    "портрет пары",
+    "первый танец"
   ],
   "measured": {
     "palette": {
-      "paper": "#FAFAFA",
-      "ink": "#262626",
+      "paper": "#FFFFFF",
+      "ink": "#1E1E1E",
       "accent": null,
-      "muted": "#766E61"
+      "muted": "#656565"
     },
     "fonts": [
       {
-        "name": "La Bohemia",
-        "count": 21
+        "name": "Ubuntu Light",
+        "count": 25
+      },
+      {
+        "name": "Playfair Display",
+        "count": 17
       },
       {
         "name": "Newsreader",
@@ -42,41 +46,37 @@
         "count": 12
       },
       {
+        "name": "Font Awesome 6 Pro !important",
+        "count": 11
+      },
+      {
         "name": "Space Grotesk",
         "count": 10
       },
       {
-        "name": "Carefree Serif Italic",
-        "count": 9
-      },
-      {
-        "name": "Commuters Sans Regular",
-        "count": 7
-      },
-      {
-        "name": "Commuters Sans Thin Italic",
-        "count": 6
+        "name": "Font Awesome 6 Pro",
+        "count": 5
       }
     ],
     "rhythm": {
-      "scaleMin": 9,
-      "scaleMax": 70,
+      "scaleMin": 11,
+      "scaleMax": 130,
       "radius": "0",
       "sharp": true,
       "easings": [
-        "cubic-bezier(.4,0,.2,1)",
-        "cubic-bezier(0,0,.2,1)",
-        "cubic-bezier(.4,0,.6,1)"
+        "cubic-bezier(0.215,0.61,0.355,1)",
+        "cubic-bezier(0.4,0,0.22,1)",
+        "cubic-bezier(0.55,0.055,0.675,0.19)"
       ]
     },
     "subjects": [
       {
         "label": "кольца и детали",
-        "count": 26
+        "count": 22
       },
       {
         "label": "платье невесты",
-        "count": 22
+        "count": 17
       },
       {
         "label": "сервировка и застолье",
@@ -84,7 +84,7 @@
       },
       {
         "label": "церемония",
-        "count": 5
+        "count": 4
       },
       {
         "label": "сборы",
@@ -95,16 +95,21 @@
         "count": 4
       },
       {
-        "label": "жених",
+        "label": "портрет пары",
         "count": 3
       },
       {
-        "label": "приглашения и детали",
+        "label": "первый танец",
         "count": 3
       }
     ]
   },
   "sources": [
+    {
+      "name": "закреплён владельцем: https://shiraliev.ru/",
+      "url": "https://shiraliev.ru/",
+      "from": "pinned"
+    },
     {
       "name": "Photography Website Design | Modern Photographer Portfolio UI/UX Inspiration | WordPress & Custom We",
       "url": "https://ardntlogic.com",
@@ -118,11 +123,6 @@
     {
       "name": "Brand and Website Design for Wedding Photographer",
       "url": "https://tila.studio",
-      "from": "pinterest"
-    },
-    {
-      "name": "Showit Website Template for Wedding Photographers and Elopements",
-      "url": "https://designsbyjosephine.com",
       "from": "pinterest"
     }
   ],
