@@ -32,7 +32,31 @@ function caseId(description) {
 }
 
 const id = caseId(input);
-const dir = pickDirection(input, id);
+const fallbackDirection = pickDirection(input, id);
+const useReferences = process.env.SKIP_REFERENCES !== '1';
+
+let dir = fallbackDirection;
+let referenceNote = 'референсы не запрашивались, дирекшен из встроенного списка';
+
+if (useReferences) {
+  try {
+    const { resolveNicheDirection } = await import('./niche-reference.mjs');
+    const live = await resolveNicheDirection(input, { log: (m) => process.stderr.write(`[референсы] ${m}\n`) });
+    dir = {
+      ...fallbackDirection,
+      name: live.name,
+      fonts: live.fonts,
+      palette: live.palette,
+      layout: live.layout,
+      detail: live.detail,
+    };
+    referenceNote = `дирекшен собран по живым референсам: ${live.sources.map((s) => s.name).join(', ')}`;
+  } catch (e) {
+    process.stderr.write(`[референсы] не получилось (${e.message}); беру встроенный дирекшен ${fallbackDirection.key}\n`);
+  }
+}
+
+process.stderr.write(`[дирекшен] ${referenceNote}\n`);
 
 const DEFAULT_STRUCTURE = `1. Липкая шапка: название дела, якорные ссылки, кнопка действия справа.
 2. Первый экран: H1 с сутью и городом, честная подводка из описания, основная кнопка и

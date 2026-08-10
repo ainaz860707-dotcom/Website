@@ -1,0 +1,82 @@
+{
+  "key": "visual-svadebnyy-fotograf-almaty",
+  "name": "бизнес продаёт картинку — собрано по 4 референсам из Mobbin",
+  "profile": "visual",
+  "fonts": "'Caslon Ionic' на заголовки + 'GillSansNova-Book' на текст — или ближайшая пара с Google Fonts, если этих нет",
+  "palette": "фон #FFFFFF · текст #10100F · единственный акцент #522C25 · приглушённый #B3B3B2",
+  "layout": "скругления нулевые, шкала кеглей 10→120px, крупные рамки-слоты под снимки с подписями, много воздуха и широкие поля, тонкие линейки 1px между секциями",
+  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(.4,0,.2,1)",
+  "gallery": true,
+  "measured": {
+    "palette": {
+      "paper": "#FFFFFF",
+      "ink": "#10100F",
+      "accent": "#522C25",
+      "muted": "#B3B3B2"
+    },
+    "fonts": [
+      {
+        "name": "GillSansNova-Book",
+        "count": 58
+      },
+      {
+        "name": "GillSansNova-SemiBold",
+        "count": 31
+      },
+      {
+        "name": "CezannePro-M",
+        "count": 27
+      },
+      {
+        "name": "CezannePro-DB",
+        "count": 21
+      },
+      {
+        "name": "EuropaGroNr2SH",
+        "count": 17
+      },
+      {
+        "name": "DM Sans",
+        "count": 11
+      },
+      {
+        "name": "Mier A",
+        "count": 11
+      },
+      {
+        "name": "GillSansNova-Medium",
+        "count": 7
+      }
+    ],
+    "rhythm": {
+      "scaleMin": 10,
+      "scaleMax": 120,
+      "radius": "0",
+      "sharp": true,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(.4,0,.6,1)",
+        "cubic-bezier(.4,0,1,1)"
+      ]
+    }
+  },
+  "sources": [
+    {
+      "name": "Rains",
+      "url": "https://www.rains.com/"
+    },
+    {
+      "name": "Little Amps Coffee",
+      "url": "https://littleampscoffee.com/"
+    },
+    {
+      "name": "In Common With",
+      "url": "https://www.incommonwith.com/"
+    },
+    {
+      "name": "Shupatto",
+      "url": "https://www.shupatto.com/en/"
+    }
+  ],
+  "date": "2026-08-10"
+}

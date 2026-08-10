@@ -1,0 +1,12 @@
+{
+  "name": "website-site-generator",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "niche": "node tools/niche-reference.mjs",
+    "gen": "node tools/probe-site-gen.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}
