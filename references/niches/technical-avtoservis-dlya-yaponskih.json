@@ -1,29 +1,21 @@
 {
   "key": "technical-avtoservis-dlya-yaponskih",
-  "name": "техника и работа руками, продаёт результат — собрано по 5 референсам (pinned + pinterest)",
+  "name": "техника и работа руками, продаёт результат — собрано по 4 референсам (pinterest)",
   "profile": "technical",
-  "fonts": "'Playfair Display' на заголовки + 'Josefin Sans' на текст — или ближайшая пара с Google Fonts, если этих нет",
-  "palette": "фон #FFFFFF · текст #000000 · единственный акцент #2D628C · приглушённый #959595",
-  "layout": "скругления около 3px, шкала кеглей 9→130px, плотная сетка, факты в строку, воздух вокруг блока действия, тонкие линейки 1px между секциями",
-  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(0.215,0.61,0.355,1)",
+  "fonts": "'ui-sans-serif' на заголовки + 'Open Sans' на текст — или ближайшая пара с Google Fonts, если этих нет",
+  "palette": "фон #FFFFFF · текст #000000 · единственный акцент #0057FF · приглушённый #959595",
+  "layout": "скругления около 3px, шкала кеглей 9→120px, плотная сетка, факты в строку, воздух вокруг блока действия, тонкие линейки 1px между секциями",
+  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(.4,0,.2,1)",
   "gallery": false,
   "slots": [],
   "measured": {
     "palette": {
       "paper": "#FFFFFF",
       "ink": "#000000",
-      "accent": "#2D628C",
+      "accent": "#0057FF",
       "muted": "#959595"
     },
     "fonts": [
-      {
-        "name": "Josefin Sans",
-        "count": 632
-      },
-      {
-        "name": "Century Gothic",
-        "count": 186
-      },
       {
         "name": "Open Sans",
         "count": 51
@@ -33,46 +25,44 @@
         "count": 39
       },
       {
-        "name": "Ubuntu Light",
-        "count": 25
-      },
-      {
-        "name": "Playfair Display",
-        "count": 17
-      },
-      {
         "name": "open sans",
         "count": 14
       },
       {
         "name": "oswald",
         "count": 12
+      },
+      {
+        "name": "arial",
+        "count": 7
+      },
+      {
+        "name": "Droid Sans",
+        "count": 5
+      },
+      {
+        "name": "acumin-pro-wide",
+        "count": 5
+      },
+      {
+        "name": "adobe-clean",
+        "count": 5
       }
     ],
     "rhythm": {
       "scaleMin": 9,
-      "scaleMax": 130,
+      "scaleMax": 120,
       "radius": "3px",
       "sharp": false,
       "easings": [
-        "cubic-bezier(0.215,0.61,0.355,1)",
-        "cubic-bezier(0.4,0,0.22,1)",
-        "cubic-bezier(0.55,0.055,0.675,0.19)"
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(.175,.885,.32,1.275)",
+        "cubic-bezier(.4,0,.6,1)"
       ]
     },
     "subjects": []
   },
   "sources": [
-    {
-      "name": "закреплён владельцем: https://shiraliev.ru/",
-      "url": "https://shiraliev.ru/",
-      "from": "pinned"
-    },
-    {
-      "name": "закреплён владельцем: https://mont-fort.com/",
-      "url": "https://mont-fort.com/",
-      "from": "pinned"
-    },
     {
       "name": "Autorizen - Car Repair & Auto Service Elementor Template Kit",
       "url": "https://www.downloadnewthemes.com",
@@ -81,6 +71,11 @@
     {
       "name": "Custom website for We Done Right Appliance Repair",
       "url": "https://www.getfree-website.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "Gogrin – Car Repair Service Responsive WordPress Theme",
+      "url": "https://themebagan.com",
       "from": "pinterest"
     },
     {

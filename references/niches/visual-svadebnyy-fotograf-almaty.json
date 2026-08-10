@@ -1,11 +1,11 @@
 {
   "key": "visual-svadebnyy-fotograf-almaty",
-  "name": "бизнес продаёт картинку — собрано по 5 референсам (pinned + pinterest)",
+  "name": "бизнес продаёт картинку — собрано по 4 референсам (pinned + pinterest)",
   "profile": "visual",
-  "fonts": "'Playfair Display' на заголовки + 'Josefin Sans' на текст — или ближайшая пара с Google Fonts, если этих нет",
-  "palette": "фон #FFFFFF · текст #1E1E1E · единственный акцент #2D628C · приглушённый #A9BFD2",
+  "fonts": "'Playfair Display' на заголовки + 'Ubuntu Light' на текст — или ближайшая пара с Google Fonts, если этих нет",
+  "palette": "фон #FFFFFF · текст #1E1E1E · акцента в референсах не нашлось — держи страницу монохромной · приглушённый #656565",
   "layout": "скругления нулевые, шкала кеглей 11→130px, крупные рамки-слоты под снимки с подписями, много воздуха и широкие поля, тонкие линейки 1px между секциями",
-  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(0.215,0.61,0.355,1)",
+  "detail": "выделение — только весом шрифта и линейкой, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(0.215,0.61,0.355,1)",
   "gallery": true,
   "slots": [
     "кольца и детали",
@@ -21,18 +21,10 @@
     "palette": {
       "paper": "#FFFFFF",
       "ink": "#1E1E1E",
-      "accent": "#2D628C",
-      "muted": "#A9BFD2"
+      "accent": null,
+      "muted": "#656565"
     },
     "fonts": [
-      {
-        "name": "Josefin Sans",
-        "count": 632
-      },
-      {
-        "name": "Century Gothic",
-        "count": 186
-      },
       {
         "name": "Ubuntu Light",
         "count": 25
@@ -56,6 +48,14 @@
       {
         "name": "Font Awesome 6 Pro !important",
         "count": 11
+      },
+      {
+        "name": "Space Grotesk",
+        "count": 10
+      },
+      {
+        "name": "Font Awesome 6 Pro",
+        "count": 5
       }
     ],
     "rhythm": {
@@ -108,11 +108,6 @@
     {
       "name": "закреплён владельцем: https://shiraliev.ru/",
       "url": "https://shiraliev.ru/",
-      "from": "pinned"
-    },
-    {
-      "name": "закреплён владельцем: https://mont-fort.com/",
-      "url": "https://mont-fort.com/",
       "from": "pinned"
     },
     {

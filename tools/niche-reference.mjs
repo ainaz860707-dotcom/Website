@@ -8,9 +8,7 @@ import { cosmosCaptions, mobbinSites, pinterestSites, withOwnerBrowser } from '.
 
 const CACHE_DIR = path.join('references', 'niches');
 const DEFAULT_PROFILE = path.join(homedir(), 'Library', 'Caches', 'ms-playwright-mcp', 'mcp-chrome-2d32ba4');
-const SITES_PER_PASS = 5;
-
-const PINNED_EVERYWHERE = ['https://shiraliev.ru/', 'https://mont-fort.com/'];
+const SITES_PER_PASS = 4;
 const CACHE_DAYS = 30;
 
 const PROFILES = [
@@ -22,6 +20,7 @@ const PROFILES = [
     categories: ['Shopping'],
     pinterest: 'wedding photographer portfolio website design',
     cosmos: 'weddings',
+    pinned: ['https://shiraliev.ru/'],
     gallery: true,
   },
   {
@@ -52,6 +51,7 @@ const PROFILES = [
     categories: ['Business'],
     pinterest: 'law firm accountant website design',
     cosmos: null,
+    pinned: ['https://mont-fort.com/'],
     gallery: false,
   },
   {
@@ -167,7 +167,7 @@ async function gatherSources(profile, { profileDir, log }) {
         log(`Cosmos: подписей ${captions.length} → сюжетов ${result.subjects.length}`);
       }
 
-      const pinned = [...PINNED_EVERYWHERE, ...(profile.pinned ?? [])].map((url) => ({
+      const pinned = (profile.pinned ?? []).map((url) => ({
         name: `закреплён владельцем: ${url}`,
         url,
         source: 'pinned',

@@ -1,11 +1,11 @@
 {
   "key": "formal-yurist-bankrotstvu-fizlic",
-  "name": "документы и деньги, продаёт надёжность — собрано по 5 референсам (pinned + pinterest)",
+  "name": "документы и деньги, продаёт надёжность — собрано по 4 референсам (pinned + pinterest)",
   "profile": "formal",
-  "fonts": "'Playfair Display' на заголовки + 'Josefin Sans' на текст — или ближайшая пара с Google Fonts, если этих нет",
+  "fonts": "'Young Serif' на заголовки + 'Josefin Sans' на текст — или ближайшая пара с Google Fonts, если этих нет",
   "palette": "фон #FFFFFF · текст #000000 · единственный акцент #2962FF · приглушённый #959595",
-  "layout": "скругления около 3px, шкала кеглей 9→130px, плотная сетка, факты в строку, воздух вокруг блока действия, тонкие линейки 1px между секциями",
-  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(0.215,0.61,0.355,1)",
+  "layout": "скругления около 3px, шкала кеглей 9→90px, плотная сетка, факты в строку, воздух вокруг блока действия, тонкие линейки 1px между секциями",
+  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(.4,0,.1,1)",
   "gallery": false,
   "slots": [],
   "measured": {
@@ -25,49 +25,44 @@
         "count": 186
       },
       {
-        "name": "Ubuntu Light",
-        "count": 25
-      },
-      {
-        "name": "Playfair Display",
-        "count": 17
-      },
-      {
-        "name": "Font Awesome 6 Pro !important",
-        "count": 11
-      },
-      {
         "name": "Young Serif",
         "count": 7
       },
       {
-        "name": "Font Awesome 6 Pro",
+        "name": "acumin-pro-wide",
         "count": 5
       },
       {
-        "name": "acumin-pro-wide",
+        "name": "adobe-clean",
         "count": 5
+      },
+      {
+        "name": "adobe-clean-han-japanese",
+        "count": 5
+      },
+      {
+        "name": "acumin-pro",
+        "count": 4
+      },
+      {
+        "name": "Gotham SSm A",
+        "count": 3
       }
     ],
     "rhythm": {
       "scaleMin": 9,
-      "scaleMax": 130,
+      "scaleMax": 90,
       "radius": "3px",
       "sharp": false,
       "easings": [
-        "cubic-bezier(0.215,0.61,0.355,1)",
-        "cubic-bezier(0.4,0,0.22,1)",
-        "cubic-bezier(0.55,0.055,0.675,0.19)"
+        "cubic-bezier(.4,0,.1,1)",
+        "cubic-bezier(.32,.94,.6,1)",
+        "cubic-bezier(.9,0,.4,1)"
       ]
     },
     "subjects": []
   },
   "sources": [
-    {
-      "name": "закреплён владельцем: https://shiraliev.ru/",
-      "url": "https://shiraliev.ru/",
-      "from": "pinned"
-    },
     {
       "name": "закреплён владельцем: https://mont-fort.com/",
       "url": "https://mont-fort.com/",
