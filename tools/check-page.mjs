@@ -59,10 +59,17 @@ for (const file of files) {
   const found = [];
   const count = (re) => (html.match(re) || []).length;
 
+  const outsideSvg = html.replace(/<svg[\s\S]*?<\/svg>/gi, ' ');
+  const onlyInsideSvg = (selector) => {
+    const classes = [...selector.matchAll(/\.([a-zA-Z0-9_-]+)/g)].map((m) => m[1]);
+    if (!classes.length) return false;
+    return classes.every((name) => !new RegExp(`class="[^"]*\\b${name}\\b`).test(outsideSvg));
+  };
+
   for (const rule of rules(css)) {
-    if (HIDING.test(rule.body) && !BY_DESIGN.test(rule.selector)) {
-      found.push(`скрытие вне .js: «${rule.selector}» прячет содержимое без скриптов`);
-    }
+    if (!HIDING.test(rule.body) || BY_DESIGN.test(rule.selector)) continue;
+    if (onlyInsideSvg(rule.selector)) continue;
+    found.push(`скрытие вне .js: «${rule.selector}» прячет содержимое без скриптов`);
   }
 
   if (!/@media\s+print/i.test(css)) found.push('нет @media print — на печати останутся пустые блоки');
