@@ -4,6 +4,7 @@ import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { pickDirection } from './design-directions.mjs';
+import { motionBlock, pickPreset, resolveTechniques } from './motion-directions.mjs';
 
 const SLUG = process.env.PROBE_SLUG ?? 'site-gen';
 const CASES = path.join('plans', 'analysis', '2026-08-10-proba-yadra-site-gen', 'cases.yaml');
@@ -58,6 +59,16 @@ if (useReferences) {
 }
 
 process.stderr.write(`[дирекшен] ${referenceNote}\n`);
+
+const list = (value) => String(value ?? '').split(/[,\s]+/).filter(Boolean);
+const preset = pickPreset(process.env.MOTION);
+const motionOptions = { add: list(process.env.MOTION_ADD), drop: list(process.env.MOTION_DROP) };
+const motion = motionBlock(preset, motionOptions);
+const chosenNames = resolveTechniques(preset, motionOptions).map((t) => t.name);
+
+process.stderr.write(
+  `[движение] пресет ${preset.key} — ${preset.name}; приёмов ${chosenNames.length}: ${chosenNames.join(', ') || 'нет'}\n`,
+);
 
 const DEFAULT_STRUCTURE = `1. Липкая шапка: название дела, якорные ссылки, кнопка действия справа.
 2. Первый экран: H1 с сутью и городом, честная подводка из описания, основная кнопка и
@@ -123,31 +134,7 @@ ${structure}
 в самом низу: два списка, «сделано за тебя» и «допиши сам», человеческим языком, без
 терминов, визуально отделена рамкой и другим фоном.
 
-АНИМАЦИЯ (обязательна, делает страницу живой):
-- Появление первого экрана: срежиссированный вход со ступенчатыми задержками
-  (animation-delay 60–90ms между элементами) — заголовок, подводка, кнопка, строка фактов.
-- Появление секций при скролле — на CSS scroll-driven animations:
-  animation-timeline: view(); animation-range: entry 0% cover 35%.
-- Микровзаимодействия в духе арт-дирекшена: кнопки, карточки, ссылки — трансформации и
-  цвет на hover и focus-visible, длительность 150–400ms, кривая cubic-bezier.
-- Один запоминающийся приём на страницу под арт-дирекшен: бегущая строка на CSS,
-  параллакс через transform, «печатающийся» акцент, дышащая фоновая форма.
-- Никаких библиотек анимации.
-
-ПРАВИЛО, КОТОРОЕ НЕЛЬЗЯ НАРУШИТЬ (иначе половина сайта окажется невидимой):
-Любое скрытие ради анимации разрешено ТОЛЬКО под классом .js на <html>, который ставит
-инлайновый скрипт первой строкой в <head>:
-  <script>document.documentElement.classList.add('js')</script>
-и в CSS:
-  .js .reveal { opacity: 0; animation: reveal 700ms both; animation-timeline: view();
-                animation-range: entry 0% cover 30%; }
-Базовое правило .reveal — БЕЗ opacity:0 и без скрывающих transform: элемент виден всегда.
-Тогда там, где скрипт не выполнился и где страница не прокручивается — краулер нейросети,
-режим чтения, печать, скриншот целой страницы — весь текст на месте.
-
-Дополнительно обязательно:
-  @media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; animation: none; } }
-  @media print { .js .reveal { opacity: 1; animation: none; } }
+${motion}
 
 ГЛУБИНА (страница не должна читаться плоской):
 Заведи в :root три переменные тени и пользуйся только ими, не сочиняя тень на месте:

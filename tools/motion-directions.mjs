@@ -1,0 +1,440 @@
+export const MOTION_GROUPS = [
+  { key: 'function', title: 'Функциональные — помогают пользователю' },
+  { key: 'scroll', title: 'Скролл — страница разворачивается по мере чтения' },
+  { key: 'decor', title: 'Декоративные и атмосферные — держат настроение' },
+];
+
+export const TECHNIQUES = [
+  {
+    key: 'micro',
+    group: 'function',
+    name: 'Микроинтеракции',
+    trigger: 'hover · focus · нажатие',
+    tech: 'CSS transition',
+    duration: 'реактивная',
+    cost: '0 КБ',
+    crawlerRisk: 'нет',
+    rule: `Кнопки, ссылки, карточки и поля отзываются на hover, focus-visible и active:
+  трансформация и цвет, 120–260ms, cubic-bezier с лёгким перелётом; нажатие смещает на 1px.`,
+  },
+  {
+    key: 'state',
+    group: 'function',
+    name: 'Переходы состояний',
+    trigger: 'клик · открытие',
+    tech: 'CSS transition, details/summary',
+    duration: 'реактивная',
+    cost: '0 КБ',
+    crawlerRisk: 'скрытый контент — только через <details>',
+    rule: `Раскрытие показывает, откуда взялся элемент: у аккордеона поворачивается маркер и
+  разъезжается содержимое, выпадающее появляется от своей кнопки, а не из ниоткуда.
+  Аккордеон вопросов — на <details>/<summary>, его содержимое остаётся в разметке всегда.`,
+  },
+  {
+    key: 'feedback',
+    group: 'function',
+    name: 'Обратная связь',
+    trigger: 'отправка формы · ошибка',
+    tech: 'CSS + минимум JS',
+    duration: 'одноразовая',
+    cost: '0 КБ',
+    crawlerRisk: 'нет',
+    rule: `Форма отвечает человеку: подсветка неверного поля, состояние «отправляется»,
+  сообщение об успехе или ошибке появляется рядом с кнопкой, а не заменяет страницу.`,
+  },
+  {
+    key: 'loading',
+    group: 'function',
+    name: 'Загрузка',
+    trigger: 'ожидание',
+    tech: 'CSS keyframes',
+    duration: 'непрерывная до конца ожидания',
+    cost: '0 КБ',
+    crawlerRisk: 'скелетон поверх текста — запрещён',
+    rule: `Ожидание показано скелетоном или прогрессом в формах и тяжёлых блоках. Скелетон
+  не подменяет собой готовый текст страницы: смысловой текст отрисован сразу.`,
+  },
+  {
+    key: 'nav',
+    group: 'function',
+    name: 'Навигация',
+    trigger: 'клик · скролл',
+    tech: 'CSS + класс на скролле',
+    duration: 'реактивная',
+    cost: '0 КБ',
+    crawlerRisk: 'меню обязано быть в разметке ссылками',
+    rule: `Шапка живёт: на отрыве от верха уплотняется и получает тень, при скролле вверх
+  возвращается. Мобильное меню разворачивается на весь экран, гамбургер перетекает в крестик.
+  Ссылки меню лежат в разметке настоящими <a> и без скрипта.`,
+  },
+  {
+    key: 'page',
+    group: 'function',
+    name: 'Переходы между страницами',
+    trigger: 'переход по ссылке',
+    tech: 'View Transitions API',
+    duration: 'одноразовая',
+    cost: '0 КБ',
+    crawlerRisk: 'нет — деградирует сама',
+    rule: `Переходы между страницами — на View Transitions API через @view-transition,
+  с общим элементом там, где карточка раскрывается в страницу. Браузер без поддержки
+  переходит обычным способом.`,
+  },
+  {
+    key: 'intro',
+    group: 'function',
+    name: 'Интро первого экрана',
+    trigger: 'загрузка',
+    tech: 'CSS keyframes с задержками',
+    duration: 'одноразовая',
+    cost: '0 КБ',
+    crawlerRisk: 'высокий — только под классом .js',
+    rule: `Вход первого экрана срежиссирован: ступенчатые задержки 60–90ms между заголовком,
+  подводкой, кнопкой и строкой фактов. Прелоадер во весь экран не ставится: он крадёт
+  первые секунды и первый экран у поиска.`,
+  },
+  {
+    key: 'gallery',
+    group: 'function',
+    name: 'Слайдеры и галереи',
+    trigger: 'drag · клик · скролл',
+    tech: 'CSS scroll-snap',
+    duration: 'реактивная',
+    cost: '0 КБ',
+    crawlerRisk: 'нет при scroll-snap',
+    rule: `Галерея — лента на CSS scroll-snap с инерцией браузера, а не карусель на скрипте:
+  все кадры лежат в разметке, листается пальцем и колесом, клавиатура работает.`,
+  },
+  {
+    key: 'reveal',
+    group: 'scroll',
+    name: 'Появление по скроллу',
+    trigger: 'попадание во вьюпорт',
+    tech: 'animation-timeline: view()',
+    duration: 'управляемая прогрессом',
+    cost: '0 КБ',
+    crawlerRisk: 'высокий — только под классом .js',
+    rule: `Секции проявляются при подходе к экрану на CSS scroll-driven animations, без
+  наблюдателей на JS: animation-timeline: view(); animation-range: entry 0% cover 35%.`,
+  },
+  {
+    key: 'parallax',
+    group: 'scroll',
+    name: 'Параллакс',
+    trigger: 'прогресс скролла',
+    tech: 'animation-timeline: scroll()',
+    duration: 'управляемая прогрессом',
+    cost: '0 КБ',
+    crawlerRisk: 'нет',
+    rule: `Слои двигаются с разной скоростью через transform на animation-timeline: scroll().
+  Смещение сдержанное — десятки пикселей, не половина экрана: от сильного параллакса
+  у части людей кружится голова.`,
+  },
+  {
+    key: 'pinned',
+    group: 'scroll',
+    name: 'Закреплённая сцена',
+    trigger: 'прогресс скролла',
+    tech: 'position: sticky + scroll()',
+    duration: 'управляемая прогрессом',
+    cost: '0 КБ',
+    crawlerRisk: 'средний — содержимое сцены остаётся в разметке',
+    rule: `Одна секция закрепляется на position: sticky, и внутри неё по прогрессу скролла
+  сменяются кадры или шаги. Все кадры лежат в разметке и читаются подряд без прокрутки.`,
+  },
+  {
+    key: 'horizontal',
+    group: 'scroll',
+    name: 'Горизонтальный ход',
+    trigger: 'прогресс скролла',
+    tech: 'sticky + translateX',
+    duration: 'управляемая прогрессом',
+    cost: '0 КБ',
+    crawlerRisk: 'средний',
+    rule: `Один блок уходит вбок по мере вертикального скролла. Ровно один такой блок на
+  страницу, и на ширине до 640px он превращается в обычную вертикальную ленту.`,
+  },
+  {
+    key: 'progress',
+    group: 'scroll',
+    name: 'Прогресс чтения',
+    trigger: 'прогресс скролла',
+    tech: 'animation-timeline: scroll(root)',
+    duration: 'управляемая прогрессом',
+    cost: '0 КБ',
+    crawlerRisk: 'нет',
+    rule: `Полоса прогресса чтения или подсветка текущего раздела в шапке — на
+  animation-timeline: scroll(root), без обработчика скролла на JS.`,
+  },
+  {
+    key: 'story',
+    group: 'scroll',
+    name: 'Скроллителлинг',
+    trigger: 'прогресс скролла',
+    tech: 'sticky + scroll() + canvas или SVG',
+    duration: 'управляемая прогрессом',
+    cost: '0 КБ на CSS',
+    crawlerRisk: 'высокий — текст нарратива обязан быть в разметке',
+    rule: `Длинный нарратив: текст идёт колонкой, графика рядом закреплена и меняется по ходу
+  чтения. Весь текст нарратива лежит в HTML подряд и читается без прокрутки.`,
+  },
+  {
+    key: 'kinetic',
+    group: 'decor',
+    name: 'Кинетическая типографика',
+    trigger: 'загрузка · вьюпорт',
+    tech: 'CSS keyframes',
+    duration: 'одноразовая или непрерывная',
+    cost: '0 КБ',
+    crawlerRisk: 'критический при разбиении на буквы скриптом',
+    rule: `Бегущая строка, счётчик, проявление заголовка по словам. Разбиение на слова и буквы
+  делается в разметке заранее, а не скриптом: <span> с исходным словом внутри. Заголовок
+  обязан читаться как одна строка текста при снятой анимации.`,
+  },
+  {
+    key: 'svg',
+    group: 'decor',
+    name: 'SVG-анимация',
+    trigger: 'вьюпорт · hover',
+    tech: 'stroke-dasharray, CSS на путях',
+    duration: 'одноразовая',
+    cost: '0 КБ',
+    crawlerRisk: 'нет',
+    rule: `Отрисовка контура через stroke-dasharray и stroke-dashoffset, лёгкий морфинг форм.
+  SVG инлайновый, со <title> для доступности. Lottie не подключается: это чужой JSON и
+  ещё одна библиотека ради того, что рисуется путями.`,
+  },
+  {
+    key: 'imagehover',
+    group: 'decor',
+    name: 'Наведение на изображения',
+    trigger: 'hover',
+    tech: 'clip-path, mask, filter',
+    duration: 'реактивная',
+    cost: '0 КБ',
+    crawlerRisk: 'нет',
+    rule: `Кадр отвечает на наведение: раскрытие маской через clip-path, снятие blur, мягкий
+  зум внутри рамки, подпись, выезжающая снизу. Кадр не дёргается и не скачет по сетке.`,
+  },
+  {
+    key: 'cursor',
+    group: 'decor',
+    name: 'Курсорные эффекты',
+    trigger: 'позиция курсора',
+    tech: 'CSS-переменные + pointermove',
+    duration: 'непрерывная',
+    cost: '0 КБ',
+    crawlerRisk: 'нет',
+    rule: `Магнитная кнопка, подсветка-пятно за курсором, увеличенный курсор над кадрами.
+  Только на устройствах с мышью — под @media (hover: hover) и (pointer: fine); на тач-экране
+  не существует.`,
+  },
+  {
+    key: 'ambient',
+    group: 'decor',
+    name: 'Атмосферный фон',
+    trigger: 'постоянно',
+    tech: 'CSS keyframes на градиентах',
+    duration: 'непрерывная',
+    cost: '0 КБ',
+    crawlerRisk: 'нет',
+    rule: `Медленное дыхание фона: перетекающий градиент, зерно, плавающая форма. Цикл длинный —
+  от 8 секунд, амплитуда малая. Быстрое непрерывное движение утомляет и мешает читать.`,
+  },
+  {
+    key: 'physics',
+    group: 'decor',
+    name: 'Физика и пружины',
+    trigger: 'hover · drag',
+    tech: 'cubic-bezier с перелётом, linear() для пружины',
+    duration: 'реактивная',
+    cost: '0 КБ',
+    crawlerRisk: 'нет',
+    rule: `Пружинный отклик вместо линейного: перелёт и возврат на кривой linear(), инерция
+  при перетаскивании, мягкая деформация формы. Библиотека физики не подключается.`,
+  },
+  {
+    key: 'data',
+    group: 'decor',
+    name: 'Оживление данных',
+    trigger: 'вьюпорт',
+    tech: 'CSS keyframes на высоте и counter',
+    duration: 'одноразовая',
+    cost: '0 КБ',
+    crawlerRisk: 'критический — число обязано быть текстом',
+    rule: `Рост столбцов и набор счётчиков при подходе к экрану. Итоговое число написано
+  текстом в разметке, анимация только доводит до него. Числа берутся из описания бизнеса
+  и ниоткуда больше.`,
+  },
+  {
+    key: 'generative',
+    group: 'decor',
+    name: 'Генеративный холст',
+    trigger: 'загрузка · курсор',
+    tech: 'Canvas 2D своими руками',
+    duration: 'непрерывная',
+    cost: '0 КБ',
+    crawlerRisk: 'нет, пока холст — фон',
+    rule: `Один <canvas> как фон или сосед первого экрана: поле частиц, шум, линии за курсором.
+  Кадр останавливается, когда холст вне экрана и когда вкладка скрыта; devicePixelRatio не
+  выше 2; на ширине до 640px вместо холста статичный градиент того же настроения.`,
+  },
+  {
+    key: 'webgl',
+    group: 'decor',
+    name: 'WebGL и 3D',
+    trigger: 'загрузка · курсор · скролл',
+    tech: 'Three.js по ESM-импорту',
+    duration: 'непрерывная',
+    cost: '~150 КБ',
+    crawlerRisk: 'критический, если сценой рисуется контент',
+    rule: `Трёхмерная сцена подключается ТОЛЬКО ради настоящей геометрии, одним ESM-импортом
+  Three.js с зафиксированной версией через import map. Сцена — слой поверх готовой страницы:
+  убери <canvas> из документа, и страница обязана остаться законченной. Старт после отрисовки
+  текста, остановка вне экрана, отключение при prefers-reduced-motion и на ширине до 900px.`,
+  },
+  {
+    key: 'easter',
+    group: 'decor',
+    name: 'Эмоциональные мелочи',
+    trigger: 'событие · клик',
+    tech: 'CSS keyframes',
+    duration: 'одноразовая',
+    cost: '0 КБ',
+    crawlerRisk: 'нет',
+    rule: `Одна человеческая мелочь: отклик после отправки формы, живая иконка, оживший 404,
+  мягкое переключение тёмной темы. Ровно одна на страницу — иначе это шум, а не характер.`,
+  },
+];
+
+export const PRESETS = [
+  {
+    key: 'off',
+    name: 'Покоя — движения нет',
+    reference: '—',
+    when: 'печатные и документные страницы, высокий порог доверия, медленная мобильная сеть',
+    techniques: [],
+    tail: `Разрешены только смены цвета и подчёркивания на hover и focus-visible, 150ms,
+без трансформаций и без появления по скроллу. Класса .reveal и opacity:0 в CSS быть не должно.`,
+  },
+  {
+    key: 'interface',
+    name: 'Интерфейс — движется то, чего касается человек',
+    reference: 'rauno.me',
+    when: 'страницы записи и расчёта, услуги, личные страницы специалистов: ценна аккуратность, а не зрелищность',
+    techniques: ['micro', 'state', 'feedback', 'nav', 'easter'],
+    tail: 'Появления по скроллу нет: секции нарисованы сразу.',
+  },
+  {
+    key: 'landing',
+    name: 'Лендинг — страница разворачивается по мере чтения',
+    reference: 'hellomonday.com',
+    when: 'значение по умолчанию: посадочная страница бизнеса',
+    techniques: ['micro', 'state', 'feedback', 'nav', 'intro', 'gallery', 'reveal', 'kinetic', 'imagehover', 'easter'],
+    tail: `Ритм важнее количества: движение живёт на первом экране, на смене секций и на одном
+запоминающемся приёме. Анимированное всё подряд читается как дешёвый шаблон.`,
+  },
+  {
+    key: 'story',
+    name: 'История — скролл ведёт повествование',
+    reference: 'darkroom.engineering',
+    when: 'портфолио, студия, длинная страница услуги, где важен порядок раскрытия',
+    techniques: ['micro', 'state', 'nav', 'intro', 'gallery', 'reveal', 'parallax', 'pinned', 'progress', 'story', 'kinetic', 'imagehover', 'cursor', 'physics'],
+    tail: 'Закреплённая сцена на странице одна: две подряд превращают чтение в борьбу со скроллом.',
+  },
+  {
+    key: 'showcase',
+    name: 'Витрина — живой холст поверх обычной страницы',
+    reference: 'mont-fort.com, lusion.co',
+    when: 'бизнес продаёт впечатление и материал: премиальный товар, архитектура, трейдинг, студия',
+    techniques: ['micro', 'state', 'nav', 'intro', 'gallery', 'reveal', 'parallax', 'pinned', 'kinetic', 'imagehover', 'cursor', 'ambient', 'physics', 'generative', 'webgl'],
+    tail: `Так устроен mont-fort.com: WebGL сверху, а в HTML лежат 7559 знаков текста, которые
+читают и поиск, и нейросети. Убери <canvas> — страница обязана остаться законченной.`,
+  },
+  {
+    key: 'world',
+    name: 'Мир — страница и есть сцена',
+    reference: 'bruno-simon.com, activetheory.net',
+    when: 'портфолио и шоукейс, где сайт сам себе демонстрация. Для страницы, которую должны находить в поиске, пресет не годится',
+    techniques: ['micro', 'nav', 'loading', 'cursor', 'physics', 'generative', 'webgl'],
+    tail: `Обязательны шкала загрузки, экранная подсказка управления и видимый выход к текстовой
+версии страницы. На ширине до 900px и при prefers-reduced-motion показывается текстовая версия,
+а не заглушка «откройте с компьютера».
+Цена ошибки измерена: activetheory.net отдаёт машине 69 знаков текста — нейросети цитировать
+нечего. bruno-simon.com на том же уровне держит в HTML 3130 знаков и десяток заголовков;
+второй способ — правильный.`,
+  },
+];
+
+export const DEFAULT_PRESET = 'landing';
+
+const CONTENT_FIRST = `ИНВАРИАНТ ДВИЖЕНИЯ (сильнее любого приёма выше):
+Весь смысловой текст лежит в HTML и виден без единого выполненного скрипта. Движение —
+слой поверх готовой страницы, а не способ её собрать. Мысленно удали из документа все
+<script> и <canvas>: каждая секция — услуги, шаги, вопросы, контакты — обязана остаться
+на месте. Пропал хоть один блок — переделай.`;
+
+const REVEAL_GUARD = `ПРАВИЛО СКРЫТИЯ (иначе половина сайта окажется невидимой):
+Любое скрытие ради анимации разрешено ТОЛЬКО под классом .js на <html>, который ставит
+инлайновый скрипт первой строкой в <head>:
+  <script>document.documentElement.classList.add('js')</script>
+и в CSS:
+  .js .reveal { opacity: 0; animation: reveal 700ms both; animation-timeline: view();
+                animation-range: entry 0% cover 30%; }
+Базовое правило .reveal — БЕЗ opacity:0 и без скрывающих transform: элемент виден всегда.
+Тогда там, где скрипт не выполнился и где страница не прокручивается — краулер нейросети,
+режим чтения, печать, скриншот целой страницы — весь текст на месте.`;
+
+const PERFORMANCE = `ДВА ПРАВИЛА, КОТОРЫЕ НАРУШАЮТ ЧАЩЕ ВСЕГО:
+- Анимируются только transform и opacity. Ширина, высота, отступы, top/left в анимации
+  запрещены: каждый кадр пересчитывает раскладку и страница дёргается.
+- @media (prefers-reduced-motion: reduce) выключает движение целиком — анимации none,
+  сцены не стартуют, появления заменяются готовым видом. То же под @media print.
+  У части людей от параллакса и больших сдвигов реально кружится голова.`;
+
+const NO_LIBS = `Библиотеки анимации не подключаются: GSAP, ScrollTrigger, Lenis, Framer Motion,
+Lottie и AOS запрещены. Всё перечисленное делается на CSS. Единственное исключение —
+Three.js на пресетах «витрина» и «мир», и только ради настоящей трёхмерной геометрии.`;
+
+export function pickPreset(key) {
+  const wanted = String(key ?? '').trim().toLowerCase();
+  return PRESETS.find((p) => p.key === wanted) ?? PRESETS.find((p) => p.key === DEFAULT_PRESET);
+}
+
+export function resolveTechniques(preset, { add = [], drop = [] } = {}) {
+  const keys = new Set([...preset.techniques, ...add.map((k) => String(k).trim().toLowerCase())]);
+  for (const k of drop) keys.delete(String(k).trim().toLowerCase());
+  return TECHNIQUES.filter((t) => keys.has(t.key));
+}
+
+export function motionBlock(preset, options = {}) {
+  const chosen = resolveTechniques(preset, options);
+
+  if (!chosen.length) {
+    return `АНИМАЦИЯ — пресет «${preset.name}»: движения на странице нет.\n${preset.tail}\n\n${PERFORMANCE}`;
+  }
+
+  const byGroup = MOTION_GROUPS.map((g) => {
+    const items = chosen.filter((t) => t.group === g.key);
+    if (!items.length) return '';
+    const lines = items.map((t) => `- ${t.name} (${t.trigger}): ${t.rule}`).join('\n');
+    return `${g.title}:\n${lines}`;
+  })
+    .filter(Boolean)
+    .join('\n\n');
+
+  const needsRevealGuard = chosen.some((t) => ['intro', 'reveal', 'pinned', 'story', 'kinetic', 'data'].includes(t.key));
+
+  return [
+    `АНИМАЦИЯ — пресет «${preset.name}» (референс: ${preset.reference}).`,
+    'Делай перечисленные приёмы и не добавляй других: набор задан заранее.',
+    byGroup,
+    preset.tail,
+    NO_LIBS,
+    CONTENT_FIRST,
+    needsRevealGuard ? REVEAL_GUARD : '',
+    PERFORMANCE,
+  ]
+    .filter(Boolean)
+    .join('\n\n');
+}
