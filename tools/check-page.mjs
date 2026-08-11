@@ -80,7 +80,14 @@ for (const file of files) {
   if (text.length < 1500) found.push(`текста без скриптов ${text.length} знаков — краулеру нейросети нечего цитировать`);
   if (count(/<h1[\s>]/gi) !== 1) found.push(`h1 ровно один нужен, найдено ${count(/<h1[\s>]/gi)}`);
   if (!ldTypes(html).length) found.push('нет JSON-LD');
-  if (count(/src="https?:/gi)) found.push(`внешних src: ${count(/src="https?:/gi)} — графика должна быть своей`);
+  const PHOTO_HOSTS = /^https?:\/\/(cdn\.stocksnap\.io|images\.rawpixel\.com)\//;
+  const externals = [...html.matchAll(/<(script|img|iframe)[^>]+src="(https?:[^"]+)"/gi)];
+  const foreign = externals.filter(([, tag, src]) => !(tag.toLowerCase() === 'img' && PHOTO_HOSTS.test(src)));
+  if (foreign.length) found.push(`внешних src не из фотобанка: ${foreign.length} (${foreign[0][1]})`);
+
+  const images = [...html.matchAll(/<img\b[^>]*>/gi)].map((m) => m[0]);
+  const sloppy = images.filter((tag) => !/alt="[^"]{6,}"/i.test(tag) || !/width=/i.test(tag) || !/loading="lazy"/i.test(tag));
+  if (sloppy.length) found.push(`снимков без alt, width или loading="lazy": ${sloppy.length} из ${images.length}`);
   const warnings = gridRisk(css)
     .filter((selector) => !new RegExp(`class="[^"]*\\b${selector.replace(/^\./, '')}\\b[^"]*"[^>]*>\\s*<div`).test(html))
     .map((selector) => `сетка «${selector}» с ::before в первой ячейке — во второй колонке должен быть один элемент`);
