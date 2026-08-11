@@ -3,7 +3,7 @@ import { spawnSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { pickDirection } from './design-directions.mjs';
+import { DIRECTIONS, pickDirection } from './design-directions.mjs';
 import { motionBlock, pickPreset, resolveTechniques } from './motion-directions.mjs';
 
 const SLUG = process.env.PROBE_SLUG ?? 'site-gen';
@@ -33,7 +33,10 @@ function caseId(description) {
 }
 
 const id = caseId(input);
-const fallbackDirection = pickDirection(input, id);
+const forced = process.env.DIRECTION
+  ? DIRECTIONS.find((d) => d.key === process.env.DIRECTION.trim().toLowerCase())
+  : null;
+const fallbackDirection = forced ?? pickDirection(input, id);
 const useReferences = process.env.SKIP_REFERENCES !== '1';
 
 let dir = fallbackDirection;
@@ -74,7 +77,17 @@ ${formatPhotos(photos)}
 
 Как с ними обращаться:
 - Ставь <img> ТОЛЬКО с этими адресами, дословно. Другие ссылки, заглушки и генераторы
-  картинок запрещены; иконочные библиотеки тоже — мелкая графика по-прежнему инлайновый SVG.
+  картинок запрещены.
+- РИСОВАННЫХ ОБЪЕКТОВ НА СТРАНИЦЕ НЕТ. Раз есть настоящие снимки, ни один предмет не
+  изображается путями SVG: ни банка, ни чашка, ни животное, ни струя, ни капля, ни пчела,
+  ни абстрактное пятно вместо предмета. Нарисованное рядом с фотографией читается как
+  сломанная вёрстка — это уже проверено на живой странице и признано браком.
+  SVG остаётся только для интерфейса: стрелка, галочка, крестик, иконка внутри кнопки,
+  волнистый разделитель секций. Всё, что изображает предмет или существо, — фотография.
+- Движение делается САМИМ снимкам: медленное приближение 8–12с до масштаба 1.06, параллакс
+  относительно фона, раскрытие маской clip-path по скроллу, перетекание двух разных кадров
+  одного продукта, углубление тени при приближении. Искусственных струй и брызг поверх
+  снимка не рисуй: чего нет в кадре, того нет на странице.
 - Снимок, который не подходит бизнесу по смыслу, просто не бери: лучше меньше кадров.
 - У каждого <img> обязательны loading="lazy", decoding="async", width и height числами
   (пропорции 3:2 или 4:3, реальный размер не важен) и осмысленный alt: что в кадре и как
