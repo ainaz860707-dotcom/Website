@@ -280,6 +280,33 @@ export const TECHNIQUES = [
   выше 2; на ширине до 640px вместо холста статичный градиент того же настроения.`,
   },
   {
+    key: 'signature',
+    group: 'decor',
+    name: 'Фирменная сцена ниши',
+    trigger: 'прогресс скролла · hover',
+    tech: 'инлайновый SVG + transform на animation-timeline: scroll()',
+    duration: 'управляемая прогрессом',
+    cost: '0 КБ',
+    crawlerRisk: 'нет — сцена декоративная, текст рядом',
+    rule: `Один запоминающийся объект самой ниши, нарисованный инлайновым SVG и оживающий по
+  скроллу. Объект выводится из описания бизнеса, а не берётся из общего набора: мебельщику —
+  шкаф, у которого разъезжаются двери и выдвигаются ящики, обнажая полки; автосервису —
+  машина, у которой отделяется колесо и видно подвеску; пекарю — печь с открывающейся
+  дверцей и поднимающимся хлебом; юристу — стопка документов, разлетающаяся в веер.
+  Механика: секция закрепляется на position: sticky, объект внутри собирается или
+  раскрывается по прогрессу скролла через animation-timeline: scroll(); двери едут на
+  transform-origin у петли, ящики — на translateX, внутренности проявляются с задержкой.
+  Диапазон обязателен во всю закреплённую секцию: animation-range: entry 25% exit 25%
+  либо scroll() по sticky-контейнеру. Диапазон вида «cover 60%» — брак: раскрытие
+  закончится раньше, чем объект дойдёт до середины экрана, и человек увидит уже открытый
+  шкаф вместо того, как он открывается. Смысл приёма именно в том, что раскрытие идёт,
+  пока объект перед глазами.
+  Обязательно: сцена отыгрывает назад при обратной прокрутке, работает на любой скорости,
+  помечена aria-hidden="true", а рядом лежит текст, который несёт тот же смысл словами.
+  При prefers-reduced-motion объект показан в раскрытом состоянии сразу.
+  Ровно одна такая сцена на страницу — вторая обесценивает первую.`,
+  },
+  {
     key: 'webgl',
     group: 'decor',
     name: 'WebGL и 3D',
@@ -339,7 +366,7 @@ export const PRESETS = [
     name: 'История — скролл ведёт повествование',
     reference: 'darkroom.engineering',
     when: 'портфолио, студия, длинная страница услуги, где важен порядок раскрытия',
-    techniques: ['micro', 'state', 'nav', 'intro', 'gallery', 'reveal', 'parallax', 'pinned', 'progress', 'story', 'kinetic', 'imagehover', 'cursor', 'physics'],
+    techniques: ['micro', 'state', 'nav', 'intro', 'gallery', 'reveal', 'parallax', 'pinned', 'progress', 'story', 'kinetic', 'imagehover', 'cursor', 'physics', 'signature'],
     tail: 'Закреплённая сцена на странице одна: две подряд превращают чтение в борьбу со скроллом.',
   },
   {
@@ -347,7 +374,7 @@ export const PRESETS = [
     name: 'Витрина — живой холст поверх обычной страницы',
     reference: 'mont-fort.com, lusion.co',
     when: 'бизнес продаёт впечатление и материал: премиальный товар, архитектура, трейдинг, студия',
-    techniques: ['micro', 'state', 'nav', 'intro', 'gallery', 'reveal', 'parallax', 'pinned', 'kinetic', 'imagehover', 'cursor', 'ambient', 'physics', 'generative', 'webgl'],
+    techniques: ['micro', 'state', 'nav', 'intro', 'gallery', 'reveal', 'parallax', 'pinned', 'kinetic', 'imagehover', 'cursor', 'ambient', 'physics', 'generative', 'signature', 'webgl'],
     tail: `Так устроен mont-fort.com: WebGL сверху, а в HTML лежат 7559 знаков текста, которые
 читают и поиск, и нейросети. Убери <canvas> — страница обязана остаться законченной.`,
   },
