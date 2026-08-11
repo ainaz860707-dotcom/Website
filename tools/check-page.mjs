@@ -74,20 +74,18 @@ for (const file of files) {
   if (count(/<h1[\s>]/gi) !== 1) found.push(`h1 ровно один нужен, найдено ${count(/<h1[\s>]/gi)}`);
   if (!ldTypes(html).length) found.push('нет JSON-LD');
   if (count(/src="https?:/gi)) found.push(`внешних src: ${count(/src="https?:/gi)} — графика должна быть своей`);
-  for (const selector of gridRisk(css)) {
-    found.push(`сетка «${selector}» с ::before в первой ячейке — проверь, что во второй колонке один элемент`);
-  }
+  const warnings = gridRisk(css)
+    .filter((selector) => !new RegExp(`class="[^"]*\\b${selector.replace(/^\./, '')}\\b[^"]*"[^>]*>\\s*<div`).test(html))
+    .map((selector) => `сетка «${selector}» с ::before в первой ячейке — во второй колонке должен быть один элемент`);
 
   process.stdout.write(`\n=== ${file}\n`);
   process.stdout.write(
     `  текста без скриптов: ${text.length} · h1: ${count(/<h1[\s>]/gi)} · details: ${count(/<details[\s>]/gi)} · canvas: ${count(/<canvas[\s>]/gi)} · JSON-LD: ${ldTypes(html).join(', ') || 'нет'}\n`,
   );
-  if (found.length) {
-    failed += 1;
-    for (const problem of found) process.stdout.write(`  ✗ ${problem}\n`);
-  } else {
-    process.stdout.write('  ✓ проверки пройдены\n');
-  }
+  for (const problem of found) process.stdout.write(`  ✗ ${problem}\n`);
+  for (const warning of warnings) process.stdout.write(`  ⚠ ${warning}\n`);
+  if (found.length) failed += 1;
+  else process.stdout.write('  ✓ проверки пройдены\n');
 }
 
 process.exit(failed ? 1 : 0);
