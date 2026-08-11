@@ -34,15 +34,56 @@ function textOf(html) {
     .trim();
 }
 
+function topTypes(node) {
+  if (Array.isArray(node)) return node.flatMap(topTypes);
+  if (!node || typeof node !== 'object') return [];
+  if (node['@graph']) return topTypes(node['@graph']);
+  return [node['@type']].flat().filter(Boolean);
+}
+
 function ldTypes(html) {
   return [...html.matchAll(/<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)].flatMap((m) => {
     try {
-      const parsed = JSON.parse(m[1]);
-      return (Array.isArray(parsed) ? parsed : [parsed]).map((x) => x['@type']);
+      return topTypes(JSON.parse(m[1]));
     } catch {
       return ['НЕ РАЗОБРАН'];
     }
   });
+}
+
+const DEPRECATED_LD = {
+  HowTo: 'расширенные результаты сняты в сентябре 2023',
+  SpecialAnnouncement: 'снят 31 июля 2025',
+  CourseInfo: 'снят в июне 2025',
+  EstimatedSalary: 'снят в июне 2025',
+  LearningVideo: 'снят в июне 2025',
+  ClaimReview: 'снят в июне 2025',
+  VehicleListing: 'снят в июне 2025',
+};
+
+const QUESTION = /\?|^(как|что|почему|зачем|сколько|где|когда|какой|какая|какое|какие|кто|чем|нужно ли|можно ли|стоит ли|есть ли)\b/i;
+
+function headings(html) {
+  return [...html.matchAll(/<(h2|h3|summary)\b[^>]*>([\s\S]*?)<\/\1>/gi)].map((m) =>
+    textOf(m[2]),
+  );
+}
+
+function words(value) {
+  return value.split(/\s+/).filter(Boolean).length;
+}
+
+function sections(html) {
+  return html
+    .split(/<h2\b/i)
+    .slice(1)
+    .map((chunk) => words(textOf(chunk)));
+}
+
+function longParagraphs(html) {
+  return [...html.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
+    .map((m) => textOf(m[1]))
+    .filter((t) => (t.match(/[.!?…](\s|$)/g) || []).length > 4).length;
 }
 
 function gridRisk(css) {
@@ -79,7 +120,19 @@ for (const file of files) {
   }
   if (text.length < 1500) found.push(`текста без скриптов ${text.length} знаков — краулеру нейросети нечего цитировать`);
   if (count(/<h1[\s>]/gi) !== 1) found.push(`h1 ровно один нужен, найдено ${count(/<h1[\s>]/gi)}`);
-  if (!ldTypes(html).length) found.push('нет JSON-LD');
+  const types = ldTypes(html);
+  if (!types.length) found.push('нет JSON-LD');
+  for (const type of types) {
+    if (DEPRECATED_LD[type]) found.push(`тип разметки ${type} устарел: ${DEPRECATED_LD[type]}`);
+  }
+
+  const asked = headings(html).filter((h) => QUESTION.test(h.trim())).length;
+  if (asked < 4) found.push(`вопросных заголовков и вопросов ${asked} — нужно от четырёх, вопрос клиента совпадает с его запросом`);
+
+  const body = html.slice(html.search(/<body\b/i) + 1);
+  const citable = sections(html).filter((n) => n >= 134 && n <= 167).length;
+  const firstScreen = words(textOf(body.split(/<h2\b/i)[0]));
+  const wordy = longParagraphs(html);
   const PHOTO_HOSTS = /^https?:\/\/(cdn\.stocksnap\.io|images\.rawpixel\.com)\//;
   const externals = [...html.matchAll(/<(script|img|iframe)[^>]+src="(https?:[^"]+)"/gi)];
   const foreign = externals.filter(([, tag, src]) => !(tag.toLowerCase() === 'img' && PHOTO_HOSTS.test(src)));
@@ -92,9 +145,19 @@ for (const file of files) {
     .filter((selector) => !new RegExp(`class="[^"]*\\b${selector.replace(/^\./, '')}\\b[^"]*"[^>]*>\\s*<div`).test(html))
     .map((selector) => `сетка «${selector}» с ::before в первой ячейке — во второй колонке должен быть один элемент`);
 
+  if (!citable) warnings.push('ни одной секции в окне 134–167 слов — цельного куска для цитаты нейросети на странице нет');
+  if (firstScreen < 40) warnings.push(`первый экран ${firstScreen} слов до первого h2 — 44% цитат берут из первой трети страницы, а там пока слоган`);
+  if (wordy) warnings.push(`абзацев длиннее четырёх предложений: ${wordy}`);
+  if (types.includes('FAQPage')) {
+    warnings.push('FAQPage: расширенный сниппет Google снят 7 мая 2026 — разметку оставляем ради разбора страницы, выигрыша в выдаче она больше не даёт');
+  }
+
   process.stdout.write(`\n=== ${file}\n`);
   process.stdout.write(
-    `  текста без скриптов: ${text.length} · h1: ${count(/<h1[\s>]/gi)} · details: ${count(/<details[\s>]/gi)} · canvas: ${count(/<canvas[\s>]/gi)} · JSON-LD: ${ldTypes(html).join(', ') || 'нет'}\n`,
+    `  текста без скриптов: ${text.length} · h1: ${count(/<h1[\s>]/gi)} · details: ${count(/<details[\s>]/gi)} · canvas: ${count(/<canvas[\s>]/gi)} · JSON-LD: ${types.join(', ') || 'нет'}\n`,
+  );
+  process.stdout.write(
+    `  вопросов: ${asked} · блоков 134–167 слов: ${citable} · первый экран: ${firstScreen} слов · длинных абзацев: ${wordy}\n`,
   );
   for (const problem of found) process.stdout.write(`  ✗ ${problem}\n`);
   for (const warning of warnings) process.stdout.write(`  ⚠ ${warning}\n`);
