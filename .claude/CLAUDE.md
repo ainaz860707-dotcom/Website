@@ -11,3 +11,19 @@ API меняется быстрее обучения модели — не по�
 
 ## Фронт
 browser-MCP (`browser_navigate` / `browser_snapshot` / `browser_click`) — проверяй UI глазами, а не по догадке. Прогон приложения — `npm run dev`.
+
+## Анимация — MCP `gsap`
+GSAP-код не пиши по памяти: `understand_and_create_animation` (запрос словами → готовая анимация), `get_gsap_api_expert` (точное API метода или плагина), `generate_complete_setup` (подключение плагинов под фреймворк), `debug_animation_issue`, `optimize_for_performance`. Выбор приёма движения остаётся за скиллом `motion-direction`, MCP даёт реализацию.
+
+## Данные поиска и SEO — MCP `dataforseo`
+Частотность, выдача, конкуренты, бэклинки, аудит страницы — из API, а не из головы. Инструменты: `docs_list_sections` / `docs_index` (какие эндпоинты есть) → `docs_search` (параметры конкретного эндпоинта) → `api_request` (сам запрос). Порядок обязателен: список параметров сочинять нельзя. Ключи ниши и разбор топа для `niche-benchmark` берутся отсюда.
+**Граница с §12:** DataForSEO даёт факты о рынке и конкурентах, а не о бизнесе клиента. Цены, стаж, отзывы, адрес клиента с чужих страниц НЕ переносятся — во входе не сказано, значит плейсхолдер.
+Транспорт — remote HTTP с OAuth (`https://mcp.dataforseo.com/mcp`), логин и пароль на диске не лежат; авторизация — команда `/mcp` в Claude Code.
+
+## Безопасность кода и зависимостей — MCP `snyk`
+Уязвимости ищутся сканером, а не глазами. Обязательно: перед мержем в `strict-production-review-gate`, при добавлении новой зависимости (§10а — вместе с `context7`), перед деплоем. Основное: `snyk_code_scan` (SAST по своему коду), `snyk_sca_scan` (зависимости; путь ТОЛЬКО абсолютный), `snyk_package_health_check` (здоровье пакета до установки), `snyk_breakability_check` (ломающие изменения при апгрейде версии), `snyk_container_scan`, `snyk_iac_scan`, `snyk_sbom_scan`.
+Первый скан по новой папке требует `snyk_trust` с абсолютным путём. Авторизация — `snyk_auth` (браузер) или `SNYK_TOKEN` в ENV; без неё сканы вернут «not authenticated».
+Найденное сканером — факт, а не мнение: «уязвимостей нет» без прогона — брак по §1.
+
+## Готовые UI-компоненты — MCP `magicui`
+Реестр Magic UI (React + Tailwind + Framer Motion) до того, как писать анимированный блок руками — §10а «не изобретай велосипед». Инструменты: `searchRegistryItems` (по задаче), `listRegistryItems` (обзор по `kind`), `getRegistryItem` (`includeSource: true` — исходник компонента). Взятый компонент подчиняется арт-дирекшену ниши и пресету `motion-direction`, а не наоборот.
