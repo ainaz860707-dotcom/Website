@@ -20,6 +20,15 @@ const CHARACTER = {
 const hexes = (s) => (s.match(/#[0-9A-Fa-f]{6}/g) ?? []).map((h) => h.toUpperCase());
 const families = (s) => [...new Set((s.match(/'([^']+)'/g) ?? []).map((f) => f.slice(1, -1)))];
 
+const saturation = (hex) => {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  if (max === min) return 0;
+  const l = (max + min) / 2;
+  return (max - min) / (l > 0.5 ? 2 - max - min : max + min);
+};
+
 const luminance = (hex) => {
   const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
   const lin = (c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
@@ -29,16 +38,17 @@ const luminance = (hex) => {
 function tokens(dir) {
   const list = hexes(dir.palette);
   const sorted = [...list].sort((a, b) => luminance(b) - luminance(a));
-  const bg = sorted[0] ?? '#FFFFFF';
-  const ink = sorted[sorted.length - 1] ?? '#111111';
-  const accent = list.find((h) => h !== bg && h !== ink && luminance(h) > 0.08 && luminance(h) < 0.75) ?? ink;
   const contrast = (a, b) => {
     const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
     return (hi + 0.05) / (lo + 0.05);
   };
-  const rest = sorted.filter((h) => h !== bg && h !== ink && h !== accent && contrast(h, bg) >= 3.5);
-  const muted = rest[rest.length - 1] ?? `color-mix(in srgb, ${ink} 68%, ${bg})`;
+  const bg = list[0] && saturation(list[0]) < 0.5 ? list[0] : (sorted[0] ?? '#FFFFFF');
   const dark = luminance(bg) < 0.4;
+  const ink = [...list].sort((a, b) => contrast(b, bg) - contrast(a, bg))[0] ?? (dark ? '#FFFFFF' : '#111111');
+  const accent =
+    list.filter((h) => h !== bg && h !== ink && contrast(h, bg) >= 1.6).sort((a, b) => saturation(b) - saturation(a))[0] ?? ink;
+  const rest = sorted.filter((h) => h !== bg && h !== ink && h !== accent && contrast(h, bg) >= 3.5);
+  const muted = rest[dark ? 0 : rest.length - 1] ?? `color-mix(in srgb, ${ink} 68%, ${bg})`;
   const fonts = families(dir.fonts);
   return { bg, ink, accent, muted, dark, display: fonts[0] ?? 'Georgia', text: fonts[fonts.length - 1] ?? 'system-ui', list };
 }
@@ -81,10 +91,9 @@ ${c.dropcap ? `${scope} p::first-letter{font-family:'${t.display}',serif;font-si
   const html = `<article class="card">
   <header class="meta">
     <div>
-      <span class="idx">${String(index + 1).padStart(2, '0')}</span>
+      <span class="idx">Вариант ${index + 1}</span>
       <h2>${dir.name}</h2>
     </div>
-    <code>DIRECTION=${dir.key}</code>
   </header>
   <div class="preview p-${dir.key}">
     <div class="nav"><b>Название дела</b><span>услуги · о нас · контакты</span></div>
@@ -103,13 +112,47 @@ ${c.dropcap ? `${scope} p::first-letter{font-family:'${t.display}',serif;font-si
     <p><b>Шрифты.</b> ${dir.fonts}</p>
     <p><b>Характер.</b> ${dir.layout}</p>
     <p><b>Кому идёт.</b> ${dir.niches.join(' · ')}</p>
+    <p class="key">${dir.key}</p>
   </footer>
 </article>`;
 
   return { style, html, fonts: [t.display, t.text, ...families(dir.fonts)] };
 }
 
-const cards = DIRECTIONS.map(card);
+const FAMILY = {
+  gallery: 'тихое',
+  editorial: 'тихое',
+  luxe: 'тихое',
+  pastel: 'тихое',
+  clinical: 'тихое',
+  swiss: 'строгое',
+  industrial: 'строгое',
+  brutal: 'строгое',
+  organic: 'тёплое',
+  illustrated: 'тёплое',
+  productstage: 'тёплое',
+};
+
+const ANCHOR = { тихое: 'editorial', строгое: 'swiss', тёплое: 'organic' };
+
+export function pickThree(input) {
+  const text = input.toLowerCase();
+  const hits = DIRECTIONS.filter((d) => d.niches.some((n) => text.includes(n.slice(0, 5))));
+  const chosen = hits.slice(0, 2);
+  const byKey = (k) => DIRECTIONS.find((d) => d.key === k);
+  const missing = Object.entries(ANCHOR)
+    .filter(([family]) => !chosen.some((d) => FAMILY[d.key] === family))
+    .map(([, key]) => byKey(key));
+  for (const d of [...missing, ...hits.slice(2), ...DIRECTIONS]) {
+    if (chosen.length === 3) break;
+    if (d && !chosen.includes(d)) chosen.push(d);
+  }
+  return chosen;
+}
+
+const brief = process.argv.slice(2).join(' ').trim();
+const selection = brief ? pickThree(brief) : DIRECTIONS;
+const cards = selection.map(card);
 const fontQuery = [...new Set(cards.flatMap((c) => c.fonts))]
   .map((f) => `family=${f.replace(/ /g, '+')}:wght@300;400;600;700;800`)
   .join('&');
@@ -134,7 +177,15 @@ body{margin:0;background:#0E0E10;color:#EDEDED;font:15px/1.6 ui-sans-serif,syste
 .meta{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:18px 20px 14px}
 .meta h2{font-size:15px;margin:4px 0 0;font-weight:600;line-height:1.35}
 .idx{font-size:11px;color:#6E6E78;letter-spacing:.14em}
-.meta code{font-size:11px;color:#8FD4A8;background:#0E0E10;border:1px solid #2A2A30;border-radius:5px;padding:4px 8px;white-space:nowrap}
+.idx{display:block;margin-bottom:2px}
+.head .brief{color:#D6D6DC;margin:0 0 14px;font-size:15px}
+.head .what{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin:22px 0 18px}
+.head .what div{background:#17171A;border:1px solid #2A2A30;border-radius:10px;padding:14px 16px}
+.head .what b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#8FD4A8;margin-bottom:7px}
+.head .what div:last-child b{color:#E0A88F}
+.head .what span{font-size:13px;line-height:1.6;color:#9A9AA2}
+.head .ask{color:#EDEDED;font-weight:600}
+.notes .key{font-size:10px;color:#4E4E58;letter-spacing:.1em;margin-top:3px}
 .preview{border-block:1px solid #2A2A30}
 .notes{padding:16px 20px 20px;display:grid;gap:7px}
 .notes p{margin:0;font-size:12px;line-height:1.55;color:#9A9AA2}
@@ -145,8 +196,14 @@ ${cards.map((c) => c.style).join('\n')}
 </head>
 <body>
 <div class="head">
-  <h1>Доска дизайн-направлений</h1>
-  <p>Каждая карточка — живой первый экран: настоящие шрифты, палитра и характер блоков этого направления. Тексты — плейсхолдеры, фактов о бизнесе на доске нет. Выбранный ключ уходит в генератор как <code>DIRECTION=</code>.</p>
+  <h1>${brief ? 'Три варианта дизайна' : 'Все дизайн-направления'}</h1>
+  ${brief ? `<p class="brief">Под задачу: «${brief}»</p>` : ''}
+  <p>Каждая карточка — живой первый экран будущей страницы: настоящие шрифты, настоящая палитра, настоящий характер блоков. Тексты на карточках — заглушки, фактов о бизнесе здесь нет.</p>
+  <div class="what">
+    <div><b>Выбор меняет</b><span>шрифты и их размер · палитру · воздух и ритм · форму кнопок и карточек · характер движения</span></div>
+    <div><b>Выбор не меняет</b><span>факты о бизнесе — только сказанное вами · состав секций страницы · тексты · SEO-разметку и находимость</span></div>
+  </div>
+  <p class="ask">Назовите номер варианта — этого достаточно.</p>
 </div>
 <div class="grid">
 ${cards.map((c) => c.html).join('\n')}
@@ -158,4 +215,6 @@ const outDir = path.join('artifacts', 'design-board');
 mkdirSync(outDir, { recursive: true });
 const file = path.join(outDir, 'index.html');
 writeFileSync(file, `${page}\n`, 'utf8');
-process.stdout.write(`${file}\nнаправлений: ${DIRECTIONS.length}\n`);
+process.stdout.write(
+  `${file}\n${brief ? `три варианта под задачу: ${selection.map((d, i) => `${i + 1}) ${d.name}`).join(' · ')}` : `весь каталог: ${selection.length}`}\n`
+);
