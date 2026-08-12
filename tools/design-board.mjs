@@ -124,6 +124,7 @@ ${scope} .frame i + i{background:repeating-linear-gradient(135deg,${t.accent}2e 
 ${scope} .frame:hover i + i{opacity:1${selfMoving ? ';animation:none' : ''}}
 ${scope} .frame::after{content:'${selfMoving ? 'два кадра сменяются сами' : 'кадры меняются по наведению'}';position:absolute;left:0;right:0;bottom:0;padding:6px 8px;font-size:9px;letter-spacing:.1em;background:${t.dark ? '#00000066' : '#ffffffb3'};transform:translateY(100%);transition:transform ${p.fast}ms ${p.ease}}
 ${scope} .frame:hover::after{transform:translateY(0)}
+@media (hover: none){${selfMoving ? '' : `${scope} .frame i + i{animation:boardswap ${p.cycle + 3}s ${p.ease} infinite alternate}${scope} .frame::after{content:'на телефоне кадры сменяются сами'}`}${scope} .frame::after{transform:none}}
 ${scope} .btn{transition:transform ${p.fast}ms ${p.ease},opacity ${p.fast}ms ${p.ease}}
 ${scope} .btn:hover{transform:${p.lift}}
 ${selfMoving
