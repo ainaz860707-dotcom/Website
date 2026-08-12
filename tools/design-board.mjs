@@ -61,10 +61,34 @@ function tokens(dir) {
   return { bg, ink, accent, muted, dark, display: fonts[0] ?? 'Georgia', text: fonts[fonts.length - 1] ?? 'system-ui', list };
 }
 
+const GRAIN = {
+  gallery: [0, 0.85],
+  swiss: [0, 0.85],
+  clinical: [0.02, 0.9],
+  quietstructure: [0.022, 0.9],
+  pastel: [0.03, 0.85],
+  warmluxe: [0.035, 0.95],
+  productstage: [0.045, 0.8],
+  editorial: [0.05, 0.8],
+  luxe: [0.05, 0.75],
+  illustrated: [0.055, 0.7],
+  organic: [0.085, 0.6],
+  industrial: [0.095, 0.5],
+  brutal: [0.14, 0.45],
+};
+
+function grainLayer(key) {
+  const [opacity, frequency] = GRAIN[key] ?? [0.04, 0.8];
+  if (!opacity) return null;
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='${frequency}' numOctaves='3'/></filter><rect width='100%' height='100%' filter='url(#g)'/></svg>`;
+  return { opacity, url: `url("data:image/svg+xml,${encodeURIComponent(svg)}")` };
+}
+
 function card(dir, index) {
   const t = tokens(dir);
   const c = CHARACTER[dir.key] ?? CHARACTER.swiss;
   const motion = motionOf(dir.key);
+  const grain = grainLayer(dir.key);
   const p = PACE[motion.pace] ?? PACE.тёплое;
   const selfMoving = motion.preset !== 'interface';
   const onAccent = luminance(t.accent) > 0.55 ? t.ink : '#FFFFFF';
@@ -85,7 +109,8 @@ function card(dir, index) {
   }[c.frame];
 
   const style = `
-${scope}{background:${t.bg};color:${t.ink};font-family:'${t.text}',system-ui,sans-serif;padding:26px 28px 30px;container-type:inline-size}
+${scope}{background:${t.bg};color:${t.ink};font-family:'${t.text}',system-ui,sans-serif;padding:26px 28px 30px;container-type:inline-size;position:relative;isolation:isolate}
+${grain ? `${scope}::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;opacity:${grain.opacity};background-image:${grain.url}}` : ''}
 ${scope} .nav{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:${c.capsTrack};text-transform:uppercase;color:${t.muted};padding-bottom:18px;border-bottom:1px solid ${t.ink}1f;margin-bottom:24px}
 ${scope} .nav b{font-family:'${t.display}',serif;font-size:14px;letter-spacing:0;color:${t.ink};font-weight:${c.frame === 'product' || c.upper ? 800 : 600}}
 ${scope} .hero{display:grid;grid-template-columns:${c.center ? '1fr' : '1.15fr .85fr'};gap:26px;align-items:center;${c.center ? 'text-align:center;justify-items:center' : ''}}
@@ -136,6 +161,7 @@ ${c.dropcap ? `${scope} p::first-letter{font-family:'${t.display}',serif;font-si
   <footer class="notes">
     <p><b>Шрифты.</b> ${dir.fonts}</p>
     <p><b>Характер.</b> ${dir.layout}</p>
+    <p><b>Поверхность.</b> ${dir.surface}</p>
     <p><b>Движение.</b> ${motion.note} — пресет «${motion.preset}», ритм ${motion.pace}</p>
     <p><b>Кому идёт.</b> ${dir.niches.join(' · ')}</p>
     <p class="key">${dir.key}</p>
