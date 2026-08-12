@@ -7,7 +7,7 @@ import { pathToFileURL } from 'node:url';
 const MODEL = process.env.CRITIC_MODEL ?? 'claude-sonnet-5';
 const THRESHOLD = Number(process.env.CRITIC_THRESHOLD ?? 4.0);
 const TRIES = Number(process.env.CRITIC_TRIES ?? 3);
-const MAX_SLICES = Number(process.env.CRITIC_MAX_SLICES ?? 9);
+const MAX_SLICES = Number(process.env.CRITIC_MAX_SLICES ?? 16);
 const WIDTHS = [390, 1440];
 
 const RUBRIC = `Оценивай по семи осям, каждая от 0 до 5, затем выведи общий балл — среднее
@@ -98,6 +98,10 @@ export async function critique(htmlPath, options = {}) {
 ширинах, снятые экран за экраном сверху донизу. Прочитай инструментом Read ВСЕ файлы до
 единого и оцени страницу целиком: оси «город» и «своё, а не трафарет» требуют нижних секций,
 по одному первому экрану их ставить нельзя.
+
+Про отсутствие: если раздела не видно на снимках, это значит «не видно», а не «его нет».
+Съёмка могла оборваться раньше конца страницы. Никогда не пиши, что секция или ссылка
+не существует; пиши «на снимках не видно» и не снижай за это оценку.
 
 СНИМКИ:
 ${list}
