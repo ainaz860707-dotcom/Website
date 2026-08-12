@@ -125,9 +125,19 @@ for (const file of files) {
     return classes.every((name) => !new RegExp(`class="[^"]*\\b${name}\\b`).test(outsideSvg));
   };
 
+  const STATE_CLASS = /\.is-[a-zA-Z0-9-]+\b/;
+  const decorative = (selector) => {
+    const classes = [...selector.matchAll(/\.([a-zA-Z0-9_-]+)/g)].map((m) => m[1]);
+    if (!classes.length) return false;
+    return classes.some((name) =>
+      new RegExp(`<[a-z]+\\b[^>]*class="[^"]*\\b${name}\\b[^"]*"[^>]*aria-hidden="true"`, 'i').test(html),
+    );
+  };
+
   for (const rule of rules(css)) {
     if (!HIDING.test(rule.body) || BY_DESIGN.test(rule.selector)) continue;
-    if (onlyInsideSvg(rule.selector)) continue;
+    if (STATE_CLASS.test(rule.selector)) continue;
+    if (onlyInsideSvg(rule.selector) || decorative(rule.selector)) continue;
     found.push(`скрытие вне .js: «${rule.selector}» прячет содержимое без скриптов`);
   }
 
@@ -155,14 +165,61 @@ for (const file of files) {
   const citable = sections(html).filter((n) => n >= 134 && n <= 167).length;
   const firstScreen = words(textOf(body.split(/<h2\b/i)[0]));
   const wordy = longParagraphs(html);
-  const PHOTO_HOSTS = /^https?:\/\/(cdn\.stocksnap\.io|images\.rawpixel\.com)\//;
-  const externals = [...html.matchAll(/<(script|img|iframe)[^>]+src="(https?:[^"]+)"/gi)];
-  const foreign = externals.filter(([, tag, src]) => !(tag.toLowerCase() === 'img' && PHOTO_HOSTS.test(src)));
-  if (foreign.length) found.push(`внешних src не из фотобанка: ${foreign.length} (${foreign[0][1]})`);
+  const MEDIA_HOSTS = /^https?:\/\/(cdn\.stocksnap\.io|images\.rawpixel\.com|images\.pexels\.com|videos\.pexels\.com)\//;
+  const externals = [...html.matchAll(/<(script|img|iframe|video)\b([^>]*)>/gi)].flatMap(([, tag, attrs]) => {
+    const link = attrs.match(/\b(?:data-)?src="(https?:[^"]+)"/i);
+    return link ? [{ tag: tag.toLowerCase(), src: link[1] }] : [];
+  });
+  const foreign = externals.filter((e) => !(/^(img|video)$/.test(e.tag) && MEDIA_HOSTS.test(e.src)));
+  if (foreign.length) found.push(`внешних src не из фотобанка: ${foreign.length} (${foreign[0].src})`);
 
   const images = [...html.matchAll(/<img\b[^>]*>/gi)].map((m) => m[0]);
-  const sloppy = images.filter((tag) => !/alt="[^"]{6,}"/i.test(tag) || !/width=/i.test(tag) || !/loading="lazy"/i.test(tag));
+  const HERO_IMG = /class="[^"]*\b(hero__poster|poster)\b/i;
+  const posters = images.filter((tag) => HERO_IMG.test(tag));
+  const sloppy = images
+    .filter((tag) => !HERO_IMG.test(tag))
+    .filter((tag) => !/alt="[^"]{6,}"/i.test(tag) || !/width=/i.test(tag) || !/loading="lazy"/i.test(tag));
   if (sloppy.length) found.push(`снимков без alt, width или loading="lazy": ${sloppy.length} из ${images.length}`);
+  const lazyPoster = posters.filter((tag) => /loading="lazy"/i.test(tag));
+  if (lazyPoster.length) found.push('постер первого экрана с loading="lazy" — он и есть LCP-кадр, отложенная загрузка его роняет');
+  const blindPoster = posters.filter((tag) => !/alt="[^"]{6,}"/i.test(tag) || !/width=/i.test(tag));
+  if (blindPoster.length) found.push('у постера первого экрана нет осмысленного alt или width — краулер кадр не увидит');
+
+  const videos = [...html.matchAll(/<video\b[^>]*>/gi)].map((m) => m[0]);
+  if (videos.length > 1) found.push(`видео на странице ${videos.length} — разрешено ровно одно, остальное мегабайты`);
+  for (const tag of videos) {
+    if (!/\bmuted\b/i.test(tag) || !/\bplaysinline\b/i.test(tag)) {
+      found.push('у <video> нет muted или playsinline — на телефоне вместо кадра чёрный прямоугольник');
+    }
+    const scrubbed = /\bdata-src="/i.test(tag);
+    if (scrubbed && /\bautoplay\b/i.test(tag)) {
+      found.push('<video> одновременно на скролл-скраббинге (data-src) и на autoplay — приёмы исключают друг друга');
+    }
+    if (!scrubbed && !/\bsrc="/i.test(tag)) found.push('у <video> нет ни src, ни data-src');
+    if (!posters.length && !/\bposter="/i.test(tag)) {
+      found.push('видео без постера — пока файл качается, на первом экране пустота');
+    }
+  }
+  if (videos.length && !/requestAnimationFrame/i.test(html) && !/\bautoplay\b/i.test(videos[0])) {
+    found.push('видео есть, а скролл-скраббинга нет: без requestAnimationFrame перемотка идёт рывками');
+  }
+  if (videos.some((tag) => /\bdata-src="/i.test(tag))) {
+    const heroTag = html.match(/<[a-z]+\b[^>]*\bdata-hero\b[^>]*>/i);
+    const heroClasses = (heroTag?.[0].match(/class="([^"]*)"/i)?.[1] ?? '').split(/\s+/).filter(Boolean);
+    const tallEnough = rules(css).some((rule) => {
+      const mine = heroClasses.some((name) => new RegExp(`\\.${name}\\s*(?:,|\\{)`).test(`${rule.selector}{`));
+      if (!mine) return false;
+      const vh = rule.body.match(/(?:min-)?height\s*:\s*(\d+(?:\.\d+)?)vh/i);
+      return vh ? Number(vh[1]) >= 200 : false;
+    });
+    if (!heroTag) {
+      found.push('видео на скролл-скраббинге, а секции с data-hero нет — скрипту не за что зацепиться');
+    } else if (!tallEnough) {
+      found.push(
+        `секция с data-hero (${heroClasses.map((c) => `.${c}`).join('') || 'без класса'}) не выше 200vh — скрипт делит прокрутку на «высота минус экран», и весь ролик проматывается за пару сотен пикселей`,
+      );
+    }
+  }
   const warnings = gridRisk(css)
     .filter((selector) => !new RegExp(`class="[^"]*\\b${selector.replace(/^\./, '')}\\b[^"]*"[^>]*>\\s*<div`).test(html))
     .map((selector) => `сетка «${selector}» с ::before в первой ячейке — во второй колонке должен быть один элемент`);
