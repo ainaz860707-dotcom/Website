@@ -120,6 +120,70 @@ export async function pinterestSites(page, { query, pages = 2 } = {}) {
   return [...seen.values()];
 }
 
+const AWWWARDS_SKIP =
+  /awwwards\.com|instagram\.com|facebook\.com|twitter\.com|x\.com|linkedin\.com|youtube\.com|tiktok\.com|pinterest\.|vimeo\.com|behance\.net|dribbble\.com|google\.|gstatic\.com|w3\.org|schema\.org|apple\.com|adobe\.com/i;
+
+const UA =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
+
+export async function awwwardsSites({ category = null, pages = 1 } = {}) {
+  const seen = new Map();
+
+  for (let i = 1; i <= pages; i += 1) {
+    const url = `https://www.awwwards.com/websites/${category ? `${category}/` : ''}${i > 1 ? `?page=${i}` : ''}`;
+    const res = await fetch(url, { headers: { 'User-Agent': UA } });
+    if (!res.ok) throw new Error(`Awwwards: HTTP ${res.status} на ${url}`);
+    const html = await res.text();
+
+    for (const [, href] of html.matchAll(/href="(https?:\/\/[^"]+)"/g)) {
+      if (AWWWARDS_SKIP.test(href)) continue;
+      try {
+        const origin = new URL(href).origin;
+        if (!seen.has(origin)) seen.set(origin, { url: origin, source: 'awwwards', category });
+      } catch {
+        continue;
+      }
+    }
+  }
+
+  return [...seen.values()];
+}
+
+export async function dribbbleShots({ query, limit = 12 } = {}) {
+  const { chromium } = await import('playwright');
+  const browser = await chromium.launch({ channel: 'chrome', headless: true });
+  try {
+    const page = await browser.newPage({ userAgent: UA });
+    const url = query
+      ? `https://dribbble.com/search/shots/popular/${encodeURIComponent(query)}`
+      : 'https://dribbble.com/shots/popular/web-design';
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+    await page.waitForTimeout(3500);
+
+    const shots = await page.evaluate(
+      (max) =>
+        [...document.querySelectorAll('img')]
+          .filter((img) => /cdn\.dribbble\.com\/userupload\//.test(img.currentSrc || img.src || ''))
+          .slice(0, max)
+          .map((img) => ({
+            image: (img.currentSrc || img.src).replace(/\?.*$/, ''),
+            title: img.alt?.trim() || null,
+            shot:
+              img.closest('a')?.href ??
+              img.closest('li, article, div[class*="shot"]')?.querySelector('a[href*="/shots/"]')?.href ??
+              null,
+          })),
+      limit
+    );
+
+    return shots
+      .filter((s) => s.image)
+      .map((s) => ({ ...s, thumb: `${s.image}?resize=800x600&vertical=center`, source: 'dribbble' }));
+  } finally {
+    await browser.close();
+  }
+}
+
 export async function cosmosCaptions(page, { slug, scrolls = 4 } = {}) {
   await page.addInitScript(() => {
     window.__cosmosItems = [];
@@ -158,11 +222,23 @@ export async function cosmosCaptions(page, { slug, scrolls = 4 } = {}) {
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const [what, ...rest] = process.argv.slice(2);
   const arg = rest.join(' ');
+
+  if (what === 'awwwards' || what === 'dribbble') {
+    const out =
+      what === 'awwwards'
+        ? await awwwardsSites({ category: arg || null })
+        : await dribbbleShots({ query: arg || null });
+    process.stdout.write(`${JSON.stringify(out, null, 2)}\n`);
+    process.exit(0);
+  }
+
   const result = await withOwnerBrowser(async (page) => {
     if (what === 'mobbin') return mobbinSites(page, { styles: [arg || 'Photography'] });
     if (what === 'pinterest') return pinterestSites(page, { query: arg || 'wedding photographer website' });
     if (what === 'cosmos') return cosmosCaptions(page, { slug: arg || 'weddings' });
-    throw new Error('использование: node reference-sources.mjs <mobbin|pinterest|cosmos> <аргумент>');
+    throw new Error(
+      'использование: node reference-sources.mjs <awwwards|dribbble|mobbin|pinterest|cosmos> <аргумент>'
+    );
   });
   process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
 }

@@ -223,6 +223,128 @@ const fontQuery = [...new Set(cards.flatMap((c) => c.fonts))]
   .join('&');
 
 const embed = args.includes('--embed');
+const wantRefs = args.includes('--refs') || flag('refs').length > 0;
+
+const AWWWARDS_CATEGORY = [
+  [/фотограф|съёмк|съемк|видеограф|фотостуди/i, 'photography'],
+  [/интерьер|архитект|ремонт квартир|дизайн помещ|стройк|кровл|окн/i, 'architecture'],
+  [/магазин|лавка|товар|продаж|шоурум|мебел|одежд|украшен/i, 'e-commerce'],
+  [/кофейн|пекарн|ресторан|кафе|бар\b|кондитер|пивовар|сыровар|ферм|мёд|шоколад/i, 'food-drink'],
+  [/тренер|фитнес|зал|йог|бег|спорт|секц|танц/i, 'sport'],
+  [/юрист|адвокат|бухгалт|консалт|агентств|студи[яю]|маркетинг/i, 'agency'],
+  [/стилист|бров|ресниц|маникюр|барбершоп|парикмахер|визаж|космет|салон/i, 'fashion'],
+];
+
+function awwwardsCategoryOf(text) {
+  return AWWWARDS_CATEGORY.find(([marks]) => marks.test(text))?.[1] ?? null;
+}
+
+const DRIBBBLE_TERM = [
+  [/свадебн/i, 'wedding'],
+  [/фотограф|фотостуди|съёмк|съемк/i, 'photographer portfolio'],
+  [/видеограф|видеосъ/i, 'videographer'],
+  [/тату/i, 'tattoo studio'],
+  [/флорист|букет|цвет/i, 'florist'],
+  [/барбершоп|парикмахер/i, 'barbershop'],
+  [/маникюр|ногт|бров|ресниц|салон красот/i, 'beauty salon'],
+  [/кофейн|кофе/i, 'coffee shop'],
+  [/пекарн|булочн|хлеб/i, 'bakery'],
+  [/ресторан|кафе/i, 'restaurant'],
+  [/кондитер|торт/i, 'pastry'],
+  [/стоматолог|зуб/i, 'dental clinic'],
+  [/клиник|медиц|врач/i, 'medical clinic'],
+  [/ветеринар/i, 'veterinary'],
+  [/психолог|психотерап/i, 'psychologist'],
+  [/юрист|адвокат/i, 'law firm'],
+  [/бухгалт|налог/i, 'accounting'],
+  [/репетитор|школ|курс|обучен/i, 'education'],
+  [/тренер|фитнес|спорт|йог/i, 'fitness'],
+  [/интерьер|дизайн помещ/i, 'interior design'],
+  [/архитект|стройк|ремонт квартир/i, 'architecture'],
+  [/мебел|столярн/i, 'furniture'],
+  [/автосервис|шиномонтаж|ремонт авто/i, 'auto service'],
+  [/клининг|уборк/i, 'cleaning service'],
+  [/грузоперевоз|доставк|логист/i, 'logistics'],
+  [/теплиц|ферм|сад/i, 'farm'],
+  [/керамик|мастерск|ремесл/i, 'craft studio'],
+  [/магазин|лавка|шоурум/i, 'online store'],
+];
+
+function dribbbleQueryOf(text) {
+  const terms = DRIBBBLE_TERM.filter(([marks]) => marks.test(text)).map(([, term]) => term);
+  if (!terms.length) return 'small business landing page';
+  return `${[...new Set(terms)].slice(0, 2).join(' ')} website`;
+}
+
+async function inlineImage(url) {
+  const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 Chrome/131.0 Safari/537.36' } });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const type = res.headers.get('content-type') ?? 'image/jpeg';
+  return `data:${type};base64,${Buffer.from(await res.arrayBuffer()).toString('base64')}`;
+}
+
+async function collectRefs(text) {
+  const { awwwardsSites, dribbbleShots } = await import('./reference-sources.mjs');
+  const category = flag('refs')[0] ?? awwwardsCategoryOf(text);
+  const out = { category, sites: [], shots: [], notes: [] };
+
+  try {
+    out.sites = (await awwwardsSites({ category })).slice(0, 8);
+    out.notes.push(`Awwwards${category ? ` /${category}/` : ''}: живых сайтов ${out.sites.length}`);
+  } catch (e) {
+    out.notes.push(`Awwwards не ответил: ${e.message}`);
+  }
+
+  try {
+    const query = dribbbleQueryOf(text);
+    out.query = query;
+    const shots = (await dribbbleShots({ query, limit: 6 })).slice(0, 6);
+    out.shots = embed
+      ? (
+          await Promise.all(
+            shots.map(async (s) => {
+              try {
+                return { ...s, thumb: await inlineImage(s.thumb) };
+              } catch {
+                return null;
+              }
+            })
+          )
+        ).filter(Boolean)
+      : shots;
+    out.notes.push(`Dribbble «${query}»: кадров ${out.shots.length}${embed ? ', вшиты в файл' : ''}`);
+  } catch (e) {
+    out.notes.push(`Dribbble не ответил: ${e.message}`);
+  }
+
+  return out;
+}
+
+const refs = wantRefs ? await collectRefs(brief) : null;
+if (refs) for (const note of refs.notes) process.stdout.write(`${note}\n`);
+
+const refsBlock = refs
+  ? `<div class="refs">
+  <h2>Откуда смотрели</h2>
+  <p>Живые сайты и кадры, снятые машиной под эту задачу. Направления выше собраны своими руками — здесь видно, на что мы ориентировались по типографике, цвету и плотности. Ни одного текста и ни одного факта отсюда на вашу страницу не попадёт.</p>
+  ${
+    refs.sites.length
+      ? `<p class="sub">Awwwards${refs.category ? ` — раздел «${refs.category}»` : ''}: живые сайты, с них снимаются настоящие шрифты и цвета</p>
+  <ul class="sites">${refs.sites
+    .map((s) => `<li><a href="${s.url}" target="_blank" rel="noopener">${s.url.replace(/^https?:\/\//, '')}</a></li>`)
+    .join('')}</ul>`
+      : ''
+  }
+  ${
+    refs.shots.length
+      ? `<p class="sub">Dribbble по запросу «${refs.query}»: макеты — берём настроение и композицию, живого кода в них нет</p>
+  <div class="shots">${refs.shots
+    .map((s) => `<figure><img src="${s.thumb}" alt="${(s.title ?? 'макет с Dribbble').slice(0, 120).replace(/"/g, '')}" loading="lazy" decoding="async" width="800" height="600"></figure>`)
+    .join('')}</div>`
+      : ''
+  }
+</div>`
+  : '';
 
 async function inlineFonts(query) {
   const UA =
@@ -279,6 +401,16 @@ body{margin:0;background:#0E0E10;color:#EDEDED;font:15px/1.6 ui-sans-serif,syste
 .notes{padding:16px 20px 20px;display:grid;gap:7px}
 .notes p{margin:0;font-size:12px;line-height:1.55;color:#9A9AA2}
 .notes b{color:#D6D6DC;font-weight:600}
+.refs{max-width:1180px;margin:52px auto 0;border-top:1px solid #2A2A30;padding-top:30px}
+.refs h2{font-size:17px;margin:0 0 8px;letter-spacing:-0.01em}
+.refs p{color:#9A9AA2;margin:0 0 6px;max-width:78ch;font-size:14px}
+.refs .sub{color:#8FD4A8;font-size:12px;letter-spacing:.04em;margin:22px 0 10px}
+.refs ul.sites{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px}
+.refs ul.sites a{display:inline-block;padding:6px 11px;border:1px solid #2A2A30;border-radius:999px;color:#D6D6DC;text-decoration:none;font-size:12px}
+.refs ul.sites a:hover{border-color:#4E4E58;color:#FFF}
+.refs .shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:0}
+.refs .shots figure{margin:0;border:1px solid #2A2A30;border-radius:10px;overflow:hidden;background:#17171A}
+.refs .shots img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
 @media (max-width:900px){.grid{grid-template-columns:1fr}}
 @keyframes boardswap{0%,42%{opacity:0}58%,100%{opacity:1}}
 @keyframes boardin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -298,7 +430,8 @@ const bodyBlock = `<div class="head">
 </div>
 <div class="grid">
 ${cards.map((c) => c.html).join('\n')}
-</div>`;
+</div>
+${refsBlock}`;
 
 const title = brief ? `Три варианта дизайна — ${brief}` : 'Все дизайн-направления';
 
