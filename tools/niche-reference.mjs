@@ -184,7 +184,7 @@ const NOT_A_BRAND_COLOR = new Set([
   '#25D366', '#0088CC', '#229ED9', '#1877F2', '#E4405F', '#FF0000', '#0077FF', '#00B900', '#1DA1F2',
 ]);
 
-function pickPalette(colors) {
+export function pickPalette(colors) {
   const scored = colors
     .map((c) => ({ value: toHex(c.value), count: c.count, lum: luminance(c.value), sat: saturation(c.value) }))
     .filter((c) => c.value && c.lum !== null);
@@ -209,7 +209,7 @@ const SERIF_MARK = /serif|caslon|garamond|prata|times|georgia|playfair|didot|can
 
 const GENERIC_FONT = /^(mono|sans|serif|body|text|heading|icons?)$|videojs|swiper|slick|glide|icomoon|fontawesome|material icons/i;
 
-function pickFonts(tokens) {
+export function pickFonts(tokens) {
   const weighted = new Map();
   for (const t of tokens)
     for (const f of t.fonts ?? []) {
@@ -222,7 +222,7 @@ function pickFonts(tokens) {
   return { display: display?.name ?? null, text: text?.name ?? null, ranked: ranked.slice(0, 8) };
 }
 
-function pickRhythm(tokens) {
+export function pickRhythm(tokens) {
   const mins = tokens.map((t) => t.scale?.min).filter(Boolean);
   const maxs = tokens.map((t) => t.scale?.max).filter(Boolean);
   const radii = new Map();

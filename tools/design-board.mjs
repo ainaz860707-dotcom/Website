@@ -186,6 +186,10 @@ const FAMILY = {
   productstage: 'тёплое',
   quietstructure: 'тихое',
   warmluxe: 'тихое',
+  ultramarine: 'строгое',
+  concrete: 'строгое',
+  workwear: 'строгое',
+  archive: 'тихое',
 };
 
 const ANCHOR = { тихое: 'editorial', строгое: 'swiss', тёплое: 'organic' };

@@ -1,0 +1,1261 @@
+{
+  "date": "2026-08-12",
+  "categories": [
+    "photography",
+    "architecture",
+    "e-commerce",
+    "food-drink",
+    "fashion",
+    "agency",
+    "sport",
+    "portfolio"
+  ],
+  "per": 6,
+  "candidates": [
+    {
+      "url": "https://revelatio.studio",
+      "domain": "revelatio.studio",
+      "category": "photography",
+      "display": "Neue Haas Grotesk Text Pro 55 Roman",
+      "text": "webflow-icons",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#3898EC",
+      "muted": "#758696",
+      "scaleMin": 10,
+      "scaleMax": 96,
+      "radius": ".25em",
+      "sharp": false,
+      "shadows": 9,
+      "transitions": 32,
+      "easings": [
+        "cubic-bezier(0.625,0.05,0,1)",
+        "cubic-bezier(0.625,0,0.875,0)"
+      ],
+      "animations": [
+        "spin",
+        "swiper-preloader-spin"
+      ]
+    },
+    {
+      "url": "https://www.schemeengine.com",
+      "domain": "schemeengine.com",
+      "category": "photography",
+      "display": "Neuepower Ultra",
+      "text": "neue-haas-grotesk-display",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": null,
+      "muted": "#758696",
+      "scaleMin": 10,
+      "scaleMax": 72,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 6,
+      "transitions": 14,
+      "easings": [
+        "cubic-bezier(0.25,0.46,0.45,0.94)"
+      ],
+      "animations": [
+        "pulse",
+        "scrollDown",
+        "spin"
+      ]
+    },
+    {
+      "url": "https://namaha.healthcare",
+      "domain": "namaha.healthcare",
+      "category": "photography",
+      "display": "Victorserif 50",
+      "text": "Geist",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#503333",
+      "accent": "#A05941",
+      "muted": "#C09C81",
+      "scaleMin": 9,
+      "scaleMax": 72,
+      "radius": "8px",
+      "sharp": false,
+      "shadows": 9,
+      "transitions": 38,
+      "easings": [
+        "cubic-bezier(0.445,0.05,0.55,0.95)",
+        "cubic-bezier(.645,.045,.355,1)"
+      ],
+      "animations": [
+        "bounce",
+        "bounceDown",
+        "rock",
+        "spin"
+      ]
+    },
+    {
+      "url": "https://www.rosshalfin.com",
+      "domain": "rosshalfin.com",
+      "category": "photography",
+      "display": "IBM Plex Sans",
+      "text": "Barlow Semi Condensed",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#111111",
+      "accent": "#DC9814",
+      "muted": "#8A8A8A",
+      "scaleMin": 9,
+      "scaleMax": 30,
+      "radius": "4px",
+      "sharp": false,
+      "shadows": 17,
+      "transitions": 13,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)"
+      ],
+      "animations": [
+        "cgkit-loading",
+        "rotation",
+        "wc-skeleton-shimmer"
+      ]
+    },
+    {
+      "url": "https://www.hollywoodexhibit2026.com",
+      "domain": "hollywoodexhibit2026.com",
+      "category": "photography",
+      "display": "Instrument Sans",
+      "text": "ivypresto-display",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#3A3A3A",
+      "accent": null,
+      "muted": "#7D7676",
+      "scaleMin": 12,
+      "scaleMax": 20,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 1,
+      "transitions": 23,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(.39,.57,.56,1)",
+        "cubic-bezier(.77,0,.18,1)"
+      ],
+      "animations": [
+        "grain",
+        "char-reveal",
+        "spin"
+      ]
+    },
+    {
+      "url": "https://belgradearbor.rs",
+      "domain": "belgradearbor.rs",
+      "category": "architecture",
+      "display": "editorialOld",
+      "text": "Work Sans",
+      "googleFonts": [],
+      "paper": "#FFF4D6",
+      "ink": "#2E3A26",
+      "accent": "#A68150",
+      "muted": "#CCBF99",
+      "scaleMin": 10,
+      "scaleMax": 200,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 7,
+      "transitions": 47,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)"
+      ],
+      "animations": [
+        "spin",
+        "enter",
+        "exit"
+      ]
+    },
+    {
+      "url": "https://www.schyns.de",
+      "domain": "schyns.de",
+      "category": "architecture",
+      "display": "HelveticaNeue",
+      "text": "AspektaVariable",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#0064C7",
+      "muted": "#615B50",
+      "scaleMin": 16,
+      "scaleMax": 18,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 7,
+      "transitions": 54,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(.22,1,.36,1)",
+        "cubic-bezier(0,0,.2,1)"
+      ],
+      "animations": [
+        "slide-in-from-bottom",
+        "slide-in-from-top",
+        "app-loader-autohide-e9d9bb33",
+        "lighting-spin-65f6b293"
+      ]
+    },
+    {
+      "url": "https://www.250broadway.com",
+      "domain": "250broadway.com",
+      "category": "architecture",
+      "display": "EB Garamond",
+      "text": "Inter",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#CC7760",
+      "muted": "#999999",
+      "scaleMin": 12,
+      "scaleMax": 120,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 4,
+      "transitions": 7,
+      "easings": [
+        "cubic-bezier(.44,0,.56,1)"
+      ],
+      "animations": []
+    },
+    {
+      "url": "https://as-associates.jp",
+      "domain": "as-associates.jp",
+      "category": "architecture",
+      "display": "Unica 77 LL",
+      "text": null,
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#1F2C9A",
+      "muted": "#8A8A8A",
+      "scaleMin": 10,
+      "scaleMax": 60,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 8,
+      "transitions": 50,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(0,0,.2,1)"
+      ],
+      "animations": [
+        "gallery-placeholder-pulse",
+        "fade-in",
+        "title-card-fade"
+      ]
+    },
+    {
+      "url": "https://www.tillbergdesign.com",
+      "domain": "tillbergdesign.com",
+      "category": "architecture",
+      "display": "Playfair",
+      "text": "Encode",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#569FF7",
+      "muted": "#959EA9",
+      "scaleMin": 12,
+      "scaleMax": 22,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 24,
+      "transitions": 130,
+      "easings": [
+        "cubic-bezier(.16,1,.3,1)",
+        "cubic-bezier(.645,.045,.355,1)",
+        "cubic-bezier(.445,.05,.55,.95)"
+      ],
+      "animations": [
+        "flip-square",
+        "splide-loading",
+        "f-spinner-rotate",
+        "f-spinner-dash",
+        "f-throwOutUp",
+        "f-throwOutDown"
+      ]
+    },
+    {
+      "url": "http://en.wikibooks.org",
+      "domain": "en.wikibooks.org",
+      "category": "e-commerce",
+      "display": null,
+      "text": null,
+      "googleFonts": [],
+      "paper": "#FAFAFA",
+      "ink": "#27292D",
+      "accent": null,
+      "muted": "#8A8A8A",
+      "scaleMin": null,
+      "scaleMax": null,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 0,
+      "transitions": 0,
+      "easings": [],
+      "animations": []
+    },
+    {
+      "url": "https://fermliving.com",
+      "domain": "fermliving.com",
+      "category": "e-commerce",
+      "display": "canela",
+      "text": "teka",
+      "googleFonts": [],
+      "paper": "#FFFEFA",
+      "ink": "#383838",
+      "accent": null,
+      "muted": "#8A8A8A",
+      "scaleMin": 9,
+      "scaleMax": 95,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 21,
+      "transitions": 122,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(.4,0,.6,1)",
+        "cubic-bezier(.4,0,1,1)"
+      ],
+      "animations": [
+        "shopify-rotator",
+        "shopify-dash",
+        "acceleratedCheckoutLoadingSkeleton",
+        "fade-down",
+        "fade-out",
+        "fade-up"
+      ]
+    },
+    {
+      "url": "https://evebcn.com",
+      "domain": "evebcn.com",
+      "category": "e-commerce",
+      "display": "Playfair Display",
+      "text": "Jost",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": null,
+      "muted": "#8A8A8A",
+      "scaleMin": 9.6,
+      "scaleMax": 72,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 21,
+      "transitions": 45,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(.4,0,.6,1)"
+      ],
+      "animations": [
+        "pulse",
+        "enter",
+        "exit",
+        "accordion-down",
+        "accordion-up",
+        "caret-blink"
+      ]
+    },
+    {
+      "url": "https://www.drinkstill.nz",
+      "domain": "drinkstill.nz",
+      "category": "e-commerce",
+      "display": "Test Tiempos Headline",
+      "text": "Test Söhne",
+      "googleFonts": [],
+      "paper": "#EFEDE6",
+      "ink": "#1A1B1D",
+      "accent": null,
+      "muted": "#6A6965",
+      "scaleMin": 9,
+      "scaleMax": 96,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 3,
+      "transitions": 34,
+      "easings": [
+        "cubic-bezier(0,0,.2,1)",
+        "cubic-bezier(.4,0,.2,1)"
+      ],
+      "animations": [
+        "drag-hint-nudge"
+      ]
+    },
+    {
+      "url": "https://verostudio.com",
+      "domain": "verostudio.com",
+      "category": "e-commerce",
+      "display": "Louize Display",
+      "text": "Beausite Classic",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#E97E00",
+      "muted": "#979696",
+      "scaleMin": 12,
+      "scaleMax": 168,
+      "radius": "2px",
+      "sharp": false,
+      "shadows": 6,
+      "transitions": 114,
+      "easings": [
+        "cubic-bezier(.165,.84,.44,1)",
+        "cubic-bezier(.55,0,.1,1)",
+        "cubic-bezier(.25,.1,.25,1)"
+      ],
+      "animations": [
+        "Button-module-scss-module__VLzsWq__loading",
+        "RootLayoutHeader-module-scss-module__96vZrq__slide-down",
+        "RootLayoutHeader-module-scss-module__96vZrq__translate-up",
+        "RootLayoutHeader-module-scss-module__96vZrq__slide-up",
+        "RootLayoutHeader-module-scss-module__96vZrq__reveal",
+        "RootLayoutHeader-module-scss-module__96vZrq__pulsate"
+      ]
+    },
+    {
+      "url": "https://www.robertocollina.it",
+      "domain": "robertocollina.it",
+      "category": "e-commerce",
+      "display": "Folio Std Light",
+      "text": null,
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": null,
+      "muted": "#8A8A8A",
+      "scaleMin": 10,
+      "scaleMax": 25.6,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 63,
+      "transitions": 283,
+      "easings": [
+        "cubic-bezier(0.4,0,0.2,1)",
+        "cubic-bezier(0.33,1,0.68,1)",
+        "cubic-bezier(0.32,0.72,0,1)"
+      ],
+      "animations": [
+        "nm-wishlist-page-boot-spin",
+        "fadeInUp",
+        "grow",
+        "slideInLeft",
+        "slideInLeftViewTransition",
+        "slideOutRight"
+      ]
+    },
+    {
+      "url": "https://supreme-luxury.com",
+      "domain": "supreme-luxury.com",
+      "category": "food-drink",
+      "display": "Inter",
+      "text": "Baskervville",
+      "googleFonts": [
+        "Baskervville",
+        "Inter",
+        "Syne"
+      ],
+      "paper": "#FFFFFF",
+      "ink": "#0C0C0C",
+      "accent": null,
+      "muted": "#CDB597",
+      "scaleMin": 12,
+      "scaleMax": 80,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 0,
+      "transitions": 45,
+      "easings": [
+        "cubic-bezier(.25,.46,.45,.94)"
+      ],
+      "animations": [
+        "_hero-fade-up_h3iia_1",
+        "_hero-bg-in_h3iia_1",
+        "_hero-scroll-in_h3iia_1"
+      ]
+    },
+    {
+      "url": "https://www.drinkstill.nz",
+      "domain": "drinkstill.nz",
+      "category": "food-drink",
+      "display": "Test Tiempos Headline",
+      "text": "Test Söhne",
+      "googleFonts": [],
+      "paper": "#EFEDE6",
+      "ink": "#1A1B1D",
+      "accent": null,
+      "muted": "#6A6965",
+      "scaleMin": 9,
+      "scaleMax": 96,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 3,
+      "transitions": 34,
+      "easings": [
+        "cubic-bezier(0,0,.2,1)",
+        "cubic-bezier(.4,0,.2,1)"
+      ],
+      "animations": [
+        "drag-hint-nudge"
+      ]
+    },
+    {
+      "url": "https://www.giacosafirenze.com",
+      "domain": "giacosafirenze.com",
+      "category": "food-drink",
+      "display": "ui-sans-serif",
+      "text": "Spartan",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#569FF7",
+      "muted": "#959EA9",
+      "scaleMin": 12,
+      "scaleMax": 22.4,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 24,
+      "transitions": 133,
+      "easings": [
+        "cubic-bezier(.16,1,.3,1)",
+        "cubic-bezier(.645,.045,.355,1)",
+        "cubic-bezier(.445,.05,.55,.95)"
+      ],
+      "animations": [
+        "spin",
+        "splide-loading",
+        "f-spinner-rotate",
+        "f-spinner-dash",
+        "f-throwOutUp",
+        "f-throwOutDown"
+      ]
+    },
+    {
+      "url": "https://www.caffegilli.com",
+      "domain": "caffegilli.com",
+      "category": "food-drink",
+      "display": "sans-serif!important",
+      "text": "greycliff-cf",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#393939",
+      "accent": "#F27474",
+      "muted": "#8A8A8A",
+      "scaleMin": 10,
+      "scaleMax": 17,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 67,
+      "transitions": 226,
+      "easings": [
+        "cubic-bezier(.16,1,.3,1)",
+        "cubic-bezier(.445,.05,.55,.95)",
+        "cubic-bezier(.645,.045,.355,1)"
+      ],
+      "animations": [
+        "l4",
+        "splide-loading",
+        "activeDot",
+        "f-spinner-rotate",
+        "f-spinner-dash",
+        "f-throwOutUp"
+      ]
+    },
+    {
+      "url": "https://www.moncalisse.com",
+      "domain": "moncalisse.com",
+      "category": "food-drink",
+      "display": "sans-serif!important",
+      "text": "canto",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#333333",
+      "accent": "#569FF7",
+      "muted": "#8A8A8A",
+      "scaleMin": 12,
+      "scaleMax": 22,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 60,
+      "transitions": 202,
+      "easings": [
+        "cubic-bezier(.16,1,.3,1)",
+        "cubic-bezier(.645,.045,.355,1)",
+        "cubic-bezier(.445,.05,.55,.95)"
+      ],
+      "animations": [
+        "spin",
+        "splide-loading",
+        "f-spinner",
+        "f-fadeIn",
+        "f-fadeOut",
+        "f-crossfadeIn"
+      ]
+    },
+    {
+      "url": "https://www.caffepaszkowski.com",
+      "domain": "caffepaszkowski.com",
+      "category": "food-drink",
+      "display": "sans-serif!important",
+      "text": "Noto Sans",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#0C0C0C",
+      "accent": "#569FF7",
+      "muted": "#959EA9",
+      "scaleMin": 12.8,
+      "scaleMax": 17,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 36,
+      "transitions": 208,
+      "easings": [
+        "cubic-bezier(.16,1,.3,1)",
+        "cubic-bezier(.445,.05,.55,.95)",
+        "cubic-bezier(.645,.045,.355,1)"
+      ],
+      "animations": [
+        "l14",
+        "splide-loading",
+        "activeDot",
+        "f-spinner-rotate",
+        "f-spinner-dash",
+        "f-throwOutUp"
+      ]
+    },
+    {
+      "url": "https://www.crispmtl.com",
+      "domain": "crispmtl.com",
+      "category": "fashion",
+      "display": "Helveticaneueltstd Bdex",
+      "text": "Helvetica Neue",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#3898EC",
+      "muted": "#999999",
+      "scaleMin": 10,
+      "scaleMax": 92,
+      "radius": "3px",
+      "sharp": false,
+      "shadows": 8,
+      "transitions": 20,
+      "easings": [],
+      "animations": [
+        "revealUp",
+        "heroFadeIn",
+        "heroBtnReveal",
+        "scroll",
+        "spin"
+      ]
+    },
+    {
+      "url": "https://serotoninn.com",
+      "domain": "serotoninn.com",
+      "category": "fashion",
+      "display": "Inter",
+      "text": "PP Fraktion Mono",
+      "googleFonts": [
+        "Inter"
+      ],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#ED3833",
+      "muted": "#8A8A8A",
+      "scaleMin": 12.8,
+      "scaleMax": 188.8,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 6,
+      "transitions": 139,
+      "easings": [
+        "cubic-bezier(.75,0,.25,1)",
+        "cubic-bezier(.16,1,.3,1)",
+        "cubic-bezier(.23,1,.32,1)"
+      ],
+      "animations": [
+        "swiper-preloader-spin",
+        "f-spinner-rotate",
+        "f-spinner-dash",
+        "f-throwOutUp",
+        "f-throwOutDown",
+        "f-zoomInUp"
+      ]
+    },
+    {
+      "url": "https://krakenindustries.co",
+      "domain": "krakenindustries.co",
+      "category": "fashion",
+      "display": "ellograph-cf",
+      "text": "config-mono-vf",
+      "googleFonts": [],
+      "paper": "#ECEEE6",
+      "ink": "#212422",
+      "accent": null,
+      "muted": "#9AA096",
+      "scaleMin": 9,
+      "scaleMax": 40,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 0,
+      "transitions": 30,
+      "easings": [
+        "cubic-bezier(0.23,1,0.32,1)",
+        "cubic-bezier(0.19,1,0.22,1)"
+      ],
+      "animations": [
+        "fadeUp",
+        "stitchRun",
+        "xfadeIn"
+      ]
+    },
+    {
+      "url": "https://members-play.lacoste.com",
+      "domain": "members-play.lacoste.com",
+      "category": "fashion",
+      "display": "Lacoste",
+      "text": null,
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#0B4221",
+      "accent": "#19527F",
+      "muted": "#496646",
+      "scaleMin": 9,
+      "scaleMax": 72,
+      "radius": "10px",
+      "sharp": false,
+      "shadows": 1,
+      "transitions": 68,
+      "easings": [
+        "cubic-bezier(.175,.885,.32,1.275)",
+        "cubic-bezier(.215,.61,.355,1)",
+        "cubic-bezier(.86,0,.07,1)"
+      ],
+      "animations": [
+        "rotateDevice-21295174",
+        "appear-21295174",
+        "appearReversed-21295174",
+        "tilt-n-move-shaking-home-d60c26c0",
+        "tilt-n-move-shaking-knitting-d60c26c0",
+        "tilt-n-move-shaking-dyeing-d60c26c0"
+      ]
+    },
+    {
+      "url": "https://thetiebreak.merci-michel.com",
+      "domain": "thetiebreak.merci-michel.com",
+      "category": "fashion",
+      "display": "WorkSans",
+      "text": "Instrument",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#142A48",
+      "muted": "#8A8A8A",
+      "scaleMin": 10,
+      "scaleMax": 10,
+      "radius": ".234em",
+      "sharp": false,
+      "shadows": 0,
+      "transitions": 14,
+      "easings": [
+        "cubic-bezier(.25,.46,.45,.94)",
+        "cubic-bezier(.55,.085,.68,.53)",
+        "cubic-bezier(.55,0,.1,1)"
+      ],
+      "animations": [
+        "shake1",
+        "jitter-subtle",
+        "jitter-subtle-rtl",
+        "ken-burns",
+        "joystick-y-3b1265d4",
+        "quick-flick-3b1265d4"
+      ]
+    },
+    {
+      "url": "https://www.brikken.co",
+      "domain": "brikken.co",
+      "category": "agency",
+      "display": "sometypeMono",
+      "text": "ppNeueMontreal",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#111111",
+      "accent": null,
+      "muted": "#9CA3AF",
+      "scaleMin": 11,
+      "scaleMax": 200,
+      "radius": "1rem",
+      "sharp": false,
+      "shadows": 3,
+      "transitions": 14,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(.8,0,1,1)",
+        "cubic-bezier(0,0,.2,1)"
+      ],
+      "animations": [
+        "bounce"
+      ]
+    },
+    {
+      "url": "https://ultragrid.studio",
+      "domain": "ultragrid.studio",
+      "category": "agency",
+      "display": "Fhlecturis",
+      "text": "Oswald",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#131313",
+      "accent": "#3898EC",
+      "muted": "#758696",
+      "scaleMin": 10,
+      "scaleMax": 48,
+      "radius": ".25em",
+      "sharp": false,
+      "shadows": 10,
+      "transitions": 17,
+      "easings": [
+        "cubic-bezier(.65,.05,0,1)",
+        "cubic-bezier(.625,.05,0,1)",
+        "cubic-bezier(0.65,0.01,0.05,0.99)"
+      ],
+      "animations": [
+        "grain",
+        "loader-fill",
+        "spin"
+      ]
+    },
+    {
+      "url": "https://orma.games",
+      "domain": "orma.games",
+      "category": "agency",
+      "display": "ui-sans-serif",
+      "text": "Space Mono",
+      "googleFonts": [
+        "Doto",
+        "Space Grotesk",
+        "Space Mono"
+      ],
+      "paper": "#FFFFFF",
+      "ink": "#0F380F",
+      "accent": "#8BAC0F",
+      "muted": "#9CA3AF",
+      "scaleMin": 12,
+      "scaleMax": 16,
+      "radius": "2px",
+      "sharp": false,
+      "shadows": 5,
+      "transitions": 5,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(0,0,.2,1)"
+      ],
+      "animations": [
+        "floaty",
+        "blink",
+        "pulseled",
+        "bob",
+        "dropin",
+        "bootwipe"
+      ]
+    },
+    {
+      "url": "https://www.projectone.website",
+      "domain": "projectone.website",
+      "category": "agency",
+      "display": "Satoshi",
+      "text": "Inter",
+      "googleFonts": [],
+      "paper": "#DFDFDF",
+      "ink": "#131311",
+      "accent": null,
+      "muted": "#999999",
+      "scaleMin": 9,
+      "scaleMax": 76,
+      "radius": "10px",
+      "sharp": false,
+      "shadows": 22,
+      "transitions": 6,
+      "easings": [
+        "cubic-bezier(.44,0,.56,1)"
+      ],
+      "animations": []
+    },
+    {
+      "url": "https://drowningdot.com",
+      "domain": "drowningdot.com",
+      "category": "agency",
+      "display": "Instrument Serif",
+      "text": "Instrument Sans",
+      "googleFonts": [],
+      "paper": "#EAE8E1",
+      "ink": "#000000",
+      "accent": "#C33F27",
+      "muted": "#8A877E",
+      "scaleMin": 12,
+      "scaleMax": 15,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 1,
+      "transitions": 44,
+      "easings": [
+        "cubic-bezier(.2,.7,.2,1)"
+      ],
+      "animations": [
+        "dot-drift-5",
+        "grain-shift",
+        "sharing",
+        "dot-drift-4",
+        "moire-drift"
+      ]
+    },
+    {
+      "url": "https://lutstudios.com",
+      "domain": "lutstudios.com",
+      "category": "agency",
+      "display": "Geist Mono",
+      "text": "Outfit",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#70343B",
+      "muted": "#B9B09B",
+      "scaleMin": 11,
+      "scaleMax": 24,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 12,
+      "transitions": 28,
+      "easings": [
+        "cubic-bezier(0,0,.2,1)",
+        "cubic-bezier(.4,0,.2,1)"
+      ],
+      "animations": []
+    },
+    {
+      "url": "https://actl.me",
+      "domain": "actl.me",
+      "category": "sport",
+      "display": "Geist Mono",
+      "text": "Geist",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#105482",
+      "muted": "#8A8A8A",
+      "scaleMin": 18,
+      "scaleMax": 64,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 4,
+      "transitions": 27,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)"
+      ],
+      "animations": [
+        "swiper-preloader-spin"
+      ]
+    },
+    {
+      "url": "https://www.oregonoutdooralliance.org",
+      "domain": "oregonoutdooralliance.org",
+      "category": "sport",
+      "display": "Ibmplexmono",
+      "text": "Worksans Variablefont Wght",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#3898EC",
+      "muted": "#758696",
+      "scaleMin": 10,
+      "scaleMax": 40,
+      "radius": ".25rem",
+      "sharp": false,
+      "shadows": 11,
+      "transitions": 54,
+      "easings": [
+        "cubic-bezier(.625,.05,0,1)"
+      ],
+      "animations": [
+        "menuOpen",
+        "menuClose",
+        "pulse",
+        "spin"
+      ]
+    },
+    {
+      "url": "https://theimmortals.world",
+      "domain": "theimmortals.world",
+      "category": "sport",
+      "display": "Bricolage Grotesque",
+      "text": null,
+      "googleFonts": [],
+      "paper": "#EFEFEF",
+      "ink": "#121212",
+      "accent": null,
+      "muted": "#8A8A8A",
+      "scaleMin": 28.8,
+      "scaleMax": 192,
+      "radius": "5px",
+      "sharp": false,
+      "shadows": 0,
+      "transitions": 1,
+      "easings": [],
+      "animations": []
+    },
+    {
+      "url": "https://members-play.lacoste.com",
+      "domain": "members-play.lacoste.com",
+      "category": "sport",
+      "display": "Lacoste",
+      "text": null,
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#0B4221",
+      "accent": "#19527F",
+      "muted": "#496646",
+      "scaleMin": 9,
+      "scaleMax": 72,
+      "radius": "10px",
+      "sharp": false,
+      "shadows": 1,
+      "transitions": 68,
+      "easings": [
+        "cubic-bezier(.175,.885,.32,1.275)",
+        "cubic-bezier(.215,.61,.355,1)",
+        "cubic-bezier(.86,0,.07,1)"
+      ],
+      "animations": [
+        "rotateDevice-21295174",
+        "appear-21295174",
+        "appearReversed-21295174",
+        "tilt-n-move-shaking-home-d60c26c0",
+        "tilt-n-move-shaking-knitting-d60c26c0",
+        "tilt-n-move-shaking-dyeing-d60c26c0"
+      ]
+    },
+    {
+      "url": "https://theperformancelab.ca",
+      "domain": "theperformancelab.ca",
+      "category": "sport",
+      "display": "display",
+      "text": "diatype",
+      "googleFonts": [],
+      "paper": "#E0E0E0",
+      "ink": "#171717",
+      "accent": null,
+      "muted": "#BBBBBB",
+      "scaleMin": 12,
+      "scaleMax": 180,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 2,
+      "transitions": 39,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(.22,1,.36,1)",
+        "cubic-bezier(.16,1,.3,1)"
+      ],
+      "animations": [
+        "fillRing",
+        "fillLogo",
+        "compassTurn",
+        "compassIdleSpin",
+        "teamCopyFadeIn",
+        "teamLineIn"
+      ]
+    },
+    {
+      "url": "https://www.cadillacf1team.com",
+      "domain": "cadillacf1team.com",
+      "category": "sport",
+      "display": "Montserrat-SemiBold",
+      "text": "CadillacGothic-Bold",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#E61C1F",
+      "muted": "#767676",
+      "scaleMin": 10,
+      "scaleMax": 132,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 3,
+      "transitions": 43,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(0,0,.2,1)"
+      ],
+      "animations": [
+        "swiper-preloader-spin",
+        "underline",
+        "underline-out"
+      ]
+    },
+    {
+      "url": "https://www.brikken.co",
+      "domain": "brikken.co",
+      "category": "portfolio",
+      "display": "sometypeMono",
+      "text": "ppNeueMontreal",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#111111",
+      "accent": null,
+      "muted": "#9CA3AF",
+      "scaleMin": 11,
+      "scaleMax": 200,
+      "radius": "1rem",
+      "sharp": false,
+      "shadows": 3,
+      "transitions": 14,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(.8,0,1,1)",
+        "cubic-bezier(0,0,.2,1)"
+      ],
+      "animations": [
+        "bounce"
+      ]
+    },
+    {
+      "url": "https://josh-goldsmith.com",
+      "domain": "josh-goldsmith.com",
+      "category": "portfolio",
+      "display": "Helvetica Neue",
+      "text": null,
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#6B4E00",
+      "muted": "#8A8A8A",
+      "scaleMin": 9,
+      "scaleMax": 32,
+      "radius": "2px",
+      "sharp": false,
+      "shadows": 2,
+      "transitions": 23,
+      "easings": [
+        "cubic-bezier(.65,0,.35,1)",
+        "cubic-bezier(.34,1.56,.64,1)",
+        "cubic-bezier(.3,0,.85,1)"
+      ],
+      "animations": [
+        "pixel-shift",
+        "pixel-shift-sm",
+        "elastic-squash",
+        "GrainOverlay-module__-JbSzq__grain",
+        "PixelTransition-module__4BaDuW__vanish",
+        "IntroSplash-module__AqmMWG__intro-cell-vanish"
+      ]
+    },
+    {
+      "url": "https://ultragrid.studio",
+      "domain": "ultragrid.studio",
+      "category": "portfolio",
+      "display": "Fhlecturis",
+      "text": "Oswald",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#131313",
+      "accent": "#3898EC",
+      "muted": "#758696",
+      "scaleMin": 10,
+      "scaleMax": 48,
+      "radius": ".25em",
+      "sharp": false,
+      "shadows": 10,
+      "transitions": 17,
+      "easings": [
+        "cubic-bezier(.65,.05,0,1)",
+        "cubic-bezier(.625,.05,0,1)",
+        "cubic-bezier(0.65,0.01,0.05,0.99)"
+      ],
+      "animations": [
+        "grain",
+        "loader-fill",
+        "spin"
+      ]
+    },
+    {
+      "url": "https://www.crispmtl.com",
+      "domain": "crispmtl.com",
+      "category": "portfolio",
+      "display": "Helveticaneueltstd Bdex",
+      "text": "Helvetica Neue",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#3898EC",
+      "muted": "#999999",
+      "scaleMin": 10,
+      "scaleMax": 92,
+      "radius": "3px",
+      "sharp": false,
+      "shadows": 8,
+      "transitions": 20,
+      "easings": [],
+      "animations": [
+        "revealUp",
+        "heroFadeIn",
+        "heroBtnReveal",
+        "scroll",
+        "spin"
+      ]
+    },
+    {
+      "url": "https://www.zalak-patel.com",
+      "domain": "zalak-patel.com",
+      "category": "portfolio",
+      "display": "Playfair Display",
+      "text": "Bradley Hand",
+      "googleFonts": [],
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#003366",
+      "muted": "#8A8A8A",
+      "scaleMin": 9,
+      "scaleMax": 180,
+      "radius": "0",
+      "sharp": true,
+      "shadows": 47,
+      "transitions": 31,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(0,0,.2,1)",
+        "cubic-bezier(.4,0,.6,1)"
+      ],
+      "animations": [
+        "spin",
+        "pulse"
+      ]
+    }
+  ],
+  "misses": [
+    {
+      "category": "photography",
+      "url": "https://go.streamlinehq.com",
+      "reason": "HTTP 429"
+    },
+    {
+      "category": "architecture",
+      "url": "https://go.streamlinehq.com",
+      "reason": "HTTP 429"
+    },
+    {
+      "category": "fashion",
+      "url": "https://go.streamlinehq.com",
+      "reason": "HTTP 429"
+    },
+    {
+      "category": "portfolio",
+      "url": "https://go.streamlinehq.com",
+      "reason": "HTTP 429"
+    }
+  ]
+}
