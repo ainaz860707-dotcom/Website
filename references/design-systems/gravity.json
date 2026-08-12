@@ -1,0 +1,85 @@
+{
+  "key": "gravity",
+  "name": "Gravity UI — Яндекс",
+  "origin": "российская",
+  "license": "MIT",
+  "docs": "https://gravity-ui.com/",
+  "sources": [
+    "https://cdn.jsdelivr.net/npm/@gravity-ui/uikit/styles/styles.css"
+  ],
+  "takenAt": "2026-08-12",
+  "vars": 526,
+  "type": {
+    "scale": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      20,
+      24,
+      28,
+      32,
+      40,
+      48
+    ],
+    "ui": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      20,
+      24,
+      28,
+      32,
+      40
+    ],
+    "step": 1
+  },
+  "space": {
+    "scale": [
+      4
+    ],
+    "step": null
+  },
+  "radii": [
+    2,
+    3,
+    5,
+    6,
+    8,
+    10
+  ],
+  "shadows": [],
+  "motion": {
+    "durations": [],
+    "easings": []
+  },
+  "color": {
+    "roles": {
+      "текст": {
+        "name": "--g-color-text-primary",
+        "hex": "#000000"
+      },
+      "фон": {
+        "name": "--g-color-base-background",
+        "hex": "#FFFFFF"
+      },
+      "акцент": {
+        "name": "--g-color-base-brand",
+        "hex": "#FFBE5C"
+      }
+    },
+    "pair": {
+      "text": "#000000",
+      "bg": "#FFFFFF",
+      "ratio": 21
+    },
+    "accentOnBg": 1.64
+  }
+}

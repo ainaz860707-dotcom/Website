@@ -1,0 +1,72 @@
+{
+  "key": "carbon",
+  "name": "Carbon — IBM",
+  "origin": "мировая",
+  "license": "Apache-2.0",
+  "docs": "https://carbondesignsystem.com/",
+  "sources": [
+    "https://cdn.jsdelivr.net/npm/@carbon/styles/css/styles.css"
+  ],
+  "takenAt": "2026-08-12",
+  "vars": 370,
+  "type": {
+    "scale": [
+      12,
+      14,
+      16,
+      20
+    ],
+    "ui": [
+      12,
+      14,
+      16,
+      20
+    ],
+    "step": 2
+  },
+  "space": {
+    "scale": [
+      2,
+      8,
+      16
+    ],
+    "step": 6
+  },
+  "radii": [],
+  "shadows": [],
+  "motion": {
+    "durations": [],
+    "easings": [
+      "cubic-bezier(0.2,0,0.38,0.9)",
+      "cubic-bezier(0,0,0.38,0.9)",
+      "cubic-bezier(0.5,0,0.1,1)",
+      "cubic-bezier(0.23,1,0.32,1)"
+    ]
+  },
+  "color": {
+    "roles": {
+      "текст": {
+        "name": "--cds-text-primary",
+        "hex": "#161616"
+      },
+      "фон": {
+        "name": "--cds-layer-01",
+        "hex": "#F4F4F4"
+      },
+      "граница": {
+        "name": "--cds-border-tile-01",
+        "hex": "#C6C6C6"
+      },
+      "акцент": {
+        "name": "--cds-link-primary",
+        "hex": "#0F62FE"
+      }
+    },
+    "pair": {
+      "text": "#161616",
+      "bg": "#F4F4F4",
+      "ratio": 16.45
+    },
+    "accentOnBg": 4.55
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "key": "vkui",
+  "name": "VKUI — VK",
+  "origin": "российская",
+  "license": "MIT",
+  "docs": "https://vkcom.github.io/VKUI/",
+  "sources": [
+    "https://cdn.jsdelivr.net/npm/@vkontakte/vkui-tokens/themes/vkBase/cssVars/declarations/onlyVariables.css"
+  ],
+  "takenAt": "2026-08-12",
+  "vars": 572,
+  "type": {
+    "scale": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24
+    ],
+    "ui": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24
+    ],
+    "step": 1
+  },
+  "space": {
+    "scale": [
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      16,
+      20,
+      24,
+      32,
+      40
+    ],
+    "step": 2
+  },
+  "radii": [
+    4,
+    8,
+    12,
+    20,
+    48
+  ],
+  "shadows": [
+    {
+      "name": "--vkui--elevation1",
+      "value": "0px 0px 2px rgba(0, 0, 0, 0.03), 0px 2px 2px rgba(0, 0, 0, 0.06)"
+    },
+    {
+      "name": "--vkui--elevation1_invert_y",
+      "value": "0px 0px 2px rgba(0, 0, 0, 0.03), 0px -2px 2px rgba(0, 0, 0, 0.06)"
+    },
+    {
+      "name": "--vkui--elevation2",
+      "value": "0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 4px rgba(0, 0, 0, 0.06)"
+    },
+    {
+      "name": "--vkui--elevation3",
+      "value": "0px 0px 2px rgba(0, 0, 0, 0.08), 0px 4px 16px rgba(0, 0, 0, 0.08)"
+    }
+  ],
+  "motion": {
+    "durations": [
+      100,
+      200,
+      400
+    ],
+    "easings": [
+      "cubic-bezier(0.3,0.3,0.5,1)",
+      "cubic-bezier(0.4,0,0.2,1)"
+    ]
+  },
+  "color": {
+    "roles": {
+      "текст": {
+        "name": "--vkui--color_text_primary",
+        "hex": "#000000"
+      },
+      "фон": {
+        "name": "--vkui--color_background",
+        "hex": "#EBEDF0"
+      },
+      "граница": {
+        "name": "--vkui--color_stroke_primary",
+        "hex": "#2C2D2E"
+      },
+      "акцент": {
+        "name": "--vkui--color_accent_gray",
+        "hex": "#A3ADB8"
+      }
+    },
+    "pair": {
+      "text": "#000000",
+      "bg": "#EBEDF0",
+      "ratio": 17.9
+    },
+    "accentOnBg": 1.94
+  }
+}

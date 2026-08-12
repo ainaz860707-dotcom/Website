@@ -1,0 +1,76 @@
+{
+  "key": "govuk",
+  "name": "GOV.UK Design System",
+  "origin": "мировая",
+  "license": "MIT",
+  "docs": "https://design-system.service.gov.uk/",
+  "sources": [
+    "https://cdn.jsdelivr.net/npm/govuk-frontend/dist/govuk/govuk-frontend.min.css"
+  ],
+  "takenAt": "2026-08-12",
+  "vars": 27,
+  "type": {
+    "scale": [
+      16,
+      19,
+      21,
+      24,
+      27,
+      30,
+      31,
+      32,
+      36,
+      48,
+      53,
+      80
+    ],
+    "ui": [
+      16,
+      19,
+      21,
+      24,
+      27,
+      30,
+      31,
+      32,
+      36
+    ],
+    "step": 3
+  },
+  "space": {
+    "scale": [],
+    "step": null
+  },
+  "radii": [],
+  "shadows": [],
+  "motion": {
+    "durations": [],
+    "easings": []
+  },
+  "color": {
+    "roles": {
+      "текст": {
+        "name": "--govuk-text-colour",
+        "hex": "#0B0C0C"
+      },
+      "фон": {
+        "name": "--govuk-body-background-colour",
+        "hex": "#FFFFFF"
+      },
+      "граница": {
+        "name": "--govuk-border-colour",
+        "hex": "#CECECE"
+      },
+      "акцент": {
+        "name": "--govuk-brand-colour",
+        "hex": "#1D70B8"
+      }
+    },
+    "pair": {
+      "text": "#0B0C0C",
+      "bg": "#FFFFFF",
+      "ratio": 19.59
+    },
+    "accentOnBg": 5.17
+  }
+}

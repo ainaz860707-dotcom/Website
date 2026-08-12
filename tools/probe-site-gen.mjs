@@ -111,6 +111,20 @@ ${formatPhotos(photos)}
   }
 }
 
+let systemBlock = '';
+
+if (process.env.SKIP_DESIGN_SYSTEM !== '1') {
+  const key = process.env.DESIGN_SYSTEM?.trim() || 'polaris';
+  try {
+    const { resolveKit, kitBlock } = await import('./design-systems.mjs');
+    const kit = await resolveKit(key, { log: (m) => process.stderr.write(`[дизайн-система] ${m}\n`) });
+    systemBlock = `\n${kitBlock(kit)}\n`;
+    process.stderr.write(`[дизайн-система] лестницы из «${kit.name}», срез ${kit.takenAt}\n`);
+  } catch (e) {
+    process.stderr.write(`[дизайн-система] ${key} не снялась (${e.message}); страница пойдёт без лестниц\n`);
+  }
+}
+
 const list = (value) => String(value ?? '').split(/[,\s]+/).filter(Boolean);
 const preset = pickPreset(process.env.MOTION);
 const motionOptions = { add: list(process.env.MOTION_ADD), drop: list(process.env.MOTION_DROP) };
@@ -158,7 +172,7 @@ ${input}
 референсов на странице быть не должно — берётся только тип кадра.`
     : ''
 }
-
+${systemBlock}
 ЖЁСТКИЕ ЗАПРЕТЫ (нарушение любого = брак):
 - Не выдумывай факты, которых нет в описании: цены, сроки работы на рынке, количество
   клиентов, награды, имена сотрудников, отзывы, номера домов, телефоны, часы работы.

@@ -1,0 +1,66 @@
+{
+  "key": "atlassian",
+  "name": "Atlassian Design System",
+  "origin": "мировая",
+  "license": "Apache-2.0",
+  "docs": "https://atlassian.design/",
+  "sources": [
+    "https://cdn.jsdelivr.net/npm/@atlaskit/tokens/css/atlassian-light.css"
+  ],
+  "takenAt": "2026-08-12",
+  "vars": 387,
+  "type": {
+    "scale": [],
+    "ui": [],
+    "step": null
+  },
+  "space": {
+    "scale": [],
+    "step": null
+  },
+  "radii": [],
+  "shadows": [
+    {
+      "name": "--ds-shadow-overflow",
+      "value": "0px 0px 8px #091E4229, 0px 0px 1px #091E421F"
+    },
+    {
+      "name": "--ds-shadow-overlay",
+      "value": "0px 8px 12px #091E4226, 0px 0px 1px #091E424F"
+    },
+    {
+      "name": "--ds-shadow-raised",
+      "value": "0px 1px 1px #091E4240, 0px 0px 1px #091E424F"
+    }
+  ],
+  "motion": {
+    "durations": [],
+    "easings": []
+  },
+  "color": {
+    "roles": {
+      "текст": {
+        "name": "--ds-text",
+        "hex": "#172B4D"
+      },
+      "фон": {
+        "name": "--ds-background-default",
+        "hex": "#FFFFFF"
+      },
+      "граница": {
+        "name": "--ds-border",
+        "hex": "#091E42"
+      },
+      "акцент": {
+        "name": "--ds-link",
+        "hex": "#0C66E4"
+      }
+    },
+    "pair": {
+      "text": "#172B4D",
+      "bg": "#FFFFFF",
+      "ratio": 14.1
+    },
+    "accentOnBg": 5.2
+  }
+}

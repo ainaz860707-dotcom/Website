@@ -1,0 +1,145 @@
+{
+  "key": "spectrum",
+  "name": "Spectrum — Adobe",
+  "origin": "мировая",
+  "license": "Apache-2.0",
+  "docs": "https://spectrum.adobe.com/",
+  "sources": [
+    "https://cdn.jsdelivr.net/npm/@spectrum-css/tokens/dist/index.css"
+  ],
+  "takenAt": "2026-08-12",
+  "vars": 1771,
+  "type": {
+    "scale": [
+      13,
+      15,
+      17,
+      19,
+      22,
+      24,
+      27,
+      31,
+      34,
+      39,
+      44,
+      49,
+      55,
+      62,
+      70
+    ],
+    "ui": [
+      13,
+      15,
+      17,
+      19,
+      22,
+      24,
+      27,
+      31,
+      34,
+      39
+    ],
+    "step": 2
+  },
+  "space": {
+    "scale": [
+      2,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15,
+      16,
+      18,
+      20,
+      24,
+      32,
+      40,
+      48,
+      64,
+      80,
+      96
+    ],
+    "step": 1
+  },
+  "radii": [
+    2,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    20
+  ],
+  "shadows": [
+    {
+      "name": "--spectrum-floating-action-button-drop-shadow-blur",
+      "value": "12px"
+    },
+    {
+      "name": "--spectrum-floating-action-button-drop-shadow-y",
+      "value": "4px"
+    },
+    {
+      "name": "--spectrum-drop-shadow-x",
+      "value": "0px"
+    },
+    {
+      "name": "--spectrum-drop-shadow-y",
+      "value": "2px"
+    }
+  ],
+  "motion": {
+    "durations": [
+      130,
+      160,
+      190,
+      220,
+      250,
+      300,
+      350,
+      400,
+      450,
+      500,
+      1000
+    ],
+    "easings": [
+      "cubic-bezier(0,0,1,1)",
+      "cubic-bezier(0.45,0,0.4,1)",
+      "cubic-bezier(0.5,0,1,1)",
+      "cubic-bezier(0,0,0.4,1)"
+    ]
+  },
+  "color": {
+    "roles": {
+      "текст": {
+        "name": "--spectrum-neutral-content-color-default",
+        "hex": "#EBEBEB"
+      },
+      "фон": {
+        "name": "--spectrum-gray-background-color-default",
+        "hex": "#D1D1D1"
+      },
+      "граница": {
+        "name": "--spectrum-well-border-color",
+        "hex": "#FFFFFF"
+      },
+      "акцент": {
+        "name": "--spectrum-accent-content-color-default",
+        "hex": "#72B7F9"
+      }
+    },
+    "pair": {
+      "text": "#EBEBEB",
+      "bg": "#D1D1D1",
+      "ratio": 1.28
+    },
+    "accentOnBg": 1.4
+  }
+}

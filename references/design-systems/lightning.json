@@ -1,0 +1,113 @@
+{
+  "key": "lightning",
+  "name": "Lightning — Salesforce",
+  "origin": "мировая",
+  "license": "BSD-3-Clause",
+  "docs": "https://www.lightningdesignsystem.com/",
+  "sources": [
+    "https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.min.css"
+  ],
+  "takenAt": "2026-08-12",
+  "vars": 778,
+  "type": {
+    "scale": [
+      10,
+      12,
+      13,
+      14,
+      16,
+      18,
+      20,
+      24,
+      28,
+      32,
+      42
+    ],
+    "ui": [
+      10,
+      12,
+      13,
+      14,
+      16,
+      18,
+      20,
+      24,
+      28,
+      32
+    ],
+    "step": 2
+  },
+  "space": {
+    "scale": [
+      4,
+      8,
+      12,
+      16,
+      24,
+      32,
+      40,
+      48,
+      56,
+      64,
+      72,
+      80
+    ],
+    "step": 8
+  },
+  "radii": [
+    2,
+    4,
+    8,
+    16
+  ],
+  "shadows": [
+    {
+      "name": "--slds-g-shadow-1",
+      "value": "0px 2px 2px 0px #0000001A"
+    },
+    {
+      "name": "--slds-g-shadow-2",
+      "value": "0px 2px 3px 0px #00000027"
+    },
+    {
+      "name": "--slds-g-shadow-3",
+      "value": "0px 2px 4px 0px #00000027"
+    },
+    {
+      "name": "--slds-g-shadow-4",
+      "value": "0px 2px 5px 0px #00000027"
+    }
+  ],
+  "motion": {
+    "durations": [
+      50,
+      100,
+      200,
+      400
+    ],
+    "easings": [
+      "cubic-bezier(1,1.9,.94,.98)",
+      "cubic-bezier(.75,0,.08,1)",
+      "cubic-bezier(.46,.32,0,.98)",
+      "cubic-bezier(.39,.575,.565,1)"
+    ]
+  },
+  "color": {
+    "roles": {
+      "фон": {
+        "name": "--slds-g-color-surface-1",
+        "hex": "#FFFFFF"
+      },
+      "граница": {
+        "name": "--slds-g-color-border-1",
+        "hex": "#C9C9C9"
+      },
+      "акцент": {
+        "name": "--slds-g-color-accent-1",
+        "hex": "#1B96FF"
+      }
+    },
+    "pair": null,
+    "accentOnBg": 3.06
+  }
+}

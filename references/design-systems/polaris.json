@@ -1,0 +1,125 @@
+{
+  "key": "polaris",
+  "name": "Polaris — Shopify",
+  "origin": "мировая",
+  "license": "MIT",
+  "docs": "https://polaris.shopify.com/",
+  "sources": [
+    "https://cdn.jsdelivr.net/npm/@shopify/polaris/build/esm/styles.css"
+  ],
+  "takenAt": "2026-08-12",
+  "vars": 850,
+  "type": {
+    "scale": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      20,
+      22,
+      24,
+      30,
+      32,
+      36,
+      40
+    ],
+    "ui": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      20,
+      22,
+      24,
+      30,
+      32,
+      36,
+      40
+    ],
+    "step": 1
+  },
+  "space": {
+    "scale": [
+      2,
+      4,
+      6,
+      8,
+      12,
+      16,
+      20,
+      24,
+      32,
+      40,
+      48,
+      60,
+      64,
+      80,
+      96
+    ],
+    "step": 4
+  },
+  "radii": [
+    0,
+    2,
+    4,
+    6,
+    8,
+    12,
+    16,
+    20,
+    30
+  ],
+  "shadows": [],
+  "motion": {
+    "durations": [
+      50,
+      100,
+      150,
+      200,
+      250,
+      300,
+      350,
+      400,
+      450,
+      500
+    ],
+    "easings": [
+      "cubic-bezier(0.25,0.1,0.25,1)",
+      "cubic-bezier(0.42,0,1,1)",
+      "cubic-bezier(0.19,0.91,0.38,1)",
+      "cubic-bezier(0.42,0,0.58,1)"
+    ]
+  },
+  "color": {
+    "roles": {
+      "текст": {
+        "name": "--p-color-text",
+        "hex": "#303030"
+      },
+      "фон": {
+        "name": "--p-color-bg",
+        "hex": "#F1F1F1"
+      },
+      "граница": {
+        "name": "--p-color-border",
+        "hex": "#E3E3E3"
+      },
+      "акцент": {
+        "name": "--p-color-border-brand",
+        "hex": "#E3E3E3"
+      }
+    },
+    "pair": {
+      "text": "#303030",
+      "bg": "#F1F1F1",
+      "ratio": 11.69
+    },
+    "accentOnBg": 1.14
+  }
+}

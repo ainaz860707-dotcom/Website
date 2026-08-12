@@ -1,0 +1,105 @@
+{
+  "key": "primer",
+  "name": "Primer — GitHub",
+  "origin": "мировая",
+  "license": "MIT",
+  "docs": "https://primer.style/",
+  "sources": [
+    "https://cdn.jsdelivr.net/npm/@primer/primitives/dist/css/functional/themes/light.css",
+    "https://cdn.jsdelivr.net/npm/@primer/primitives/dist/css/base/size/size.css",
+    "https://cdn.jsdelivr.net/npm/@primer/primitives/dist/css/base/typography/typography.css",
+    "https://cdn.jsdelivr.net/npm/@primer/primitives/dist/css/functional/size/border.css"
+  ],
+  "takenAt": "2026-08-12",
+  "vars": 1018,
+  "type": {
+    "scale": [
+      12,
+      14,
+      16,
+      20,
+      32,
+      40
+    ],
+    "ui": [
+      12,
+      14,
+      16,
+      20,
+      32,
+      40
+    ],
+    "step": 2
+  },
+  "space": {
+    "scale": [
+      2,
+      4,
+      6,
+      8,
+      12,
+      16,
+      20,
+      24,
+      28,
+      32,
+      36,
+      40,
+      44,
+      48,
+      64,
+      80,
+      96
+    ],
+    "step": 4
+  },
+  "radii": [],
+  "shadows": [
+    {
+      "name": "--button-danger-shadow-selected",
+      "value": "inset 0 1px 0 0 #4c001433"
+    },
+    {
+      "name": "--button-outline-shadow-selected",
+      "value": "inset 0 1px 0 0 #00215533"
+    },
+    {
+      "name": "--button-primary-shadow-selected",
+      "value": "inset 0 1px 0 0 #002d114d"
+    },
+    {
+      "name": "--shadow-resting-medium",
+      "value": "0 1px 1px 0 #25292e1a, 0 3px 6px 0 #25292e1f"
+    }
+  ],
+  "motion": {
+    "durations": [],
+    "easings": []
+  },
+  "color": {
+    "roles": {
+      "текст": {
+        "name": "--fgColor-default",
+        "hex": "#1F2328"
+      },
+      "фон": {
+        "name": "--bgColor-default",
+        "hex": "#FFFFFF"
+      },
+      "граница": {
+        "name": "--borderColor-default",
+        "hex": "#D1D9E0"
+      },
+      "акцент": {
+        "name": "--fgColor-accent",
+        "hex": "#0969DA"
+      }
+    },
+    "pair": {
+      "text": "#1F2328",
+      "bg": "#FFFFFF",
+      "ratio": 15.8
+    },
+    "accentOnBg": 5.19
+  }
+}
