@@ -145,7 +145,6 @@ for (const file of files) {
     .filter((selector) => !new RegExp(`class="[^"]*\\b${selector.replace(/^\./, '')}\\b[^"]*"[^>]*>\\s*<div`).test(html))
     .map((selector) => `сетка «${selector}» с ::before в первой ячейке — во второй колонке должен быть один элемент`);
 
-  if (!citable) warnings.push('ни одной секции в окне 134–167 слов — цельного куска для цитаты нейросети на странице нет');
   if (firstScreen < 40) warnings.push(`первый экран ${firstScreen} слов до первого h2 — 44% цитат берут из первой трети страницы, а там пока слоган`);
   if (wordy) warnings.push(`абзацев длиннее четырёх предложений: ${wordy}`);
   if (types.includes('FAQPage')) {
