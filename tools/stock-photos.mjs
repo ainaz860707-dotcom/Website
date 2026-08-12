@@ -47,9 +47,24 @@ async function search(query, perQuery) {
   }));
 }
 
+async function loads(url) {
+  try {
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: { Referer: 'https://example.com/', 'User-Agent': 'Mozilla/5.0' },
+      signal: AbortSignal.timeout(12000),
+    });
+    if (!res.ok) return false;
+    const type = res.headers.get('content-type') ?? '';
+    return type.startsWith('image/');
+  } catch {
+    return false;
+  }
+}
+
 export async function collectPhotos(description, { perQuery = 4, log = () => {} } = {}) {
   const queries = photoQueries(description);
-  const photos = [];
+  const found = [];
   const seen = new Set();
 
   for (const query of queries) {
@@ -57,15 +72,19 @@ export async function collectPhotos(description, { perQuery = 4, log = () => {} 
       for (const photo of await search(query, perQuery)) {
         if (!photo.url || seen.has(photo.url)) continue;
         seen.add(photo.url);
-        photos.push(photo);
+        found.push(photo);
       }
-      log(`«${query}» — набрано ${photos.length}`);
     } catch (e) {
       log(`«${query}» — не ответил: ${e.message}`);
     }
   }
 
-  return photos;
+  const checks = await Promise.all(found.map((p) => loads(p.url)));
+  const alive = found.filter((_, i) => checks[i]);
+  const dead = found.length - alive.length;
+  log(`найдено ${found.length}, отдаются ${alive.length}${dead ? `, отброшено битых ${dead}` : ''}`);
+
+  return alive;
 }
 
 export function formatPhotos(photos) {
