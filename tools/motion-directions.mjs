@@ -231,12 +231,16 @@ export const TECHNIQUES = [
   Формы две, на страницу берётся одна и ровно в одном месте:
 
   ПЕРЕТЕКАНИЕ. Оба <img> лежат в рамке position:relative друг на друге, второй сверху с
-  opacity 0. Цикл объявляется своим именем --loop-swap от 6s, анимируется ТОЛЬКО opacity:
+  opacity 0. Цикл объявляется своим именем --loop-swap от 6s, анимируется ТОЛЬКО opacity.
+  Скрытие второго кадра — под классом .js, иначе без скриптов он пропадает совсем:
     @keyframes swap { 0%,42% {opacity:0} 58%,100% {opacity:1} }
-    .swap img + img { opacity: 0; transition: opacity var(--dur-modal) var(--ease-scene);
-                      animation: swap var(--loop-swap) var(--ease-scene) infinite alternate; }
+    .swap img + img { opacity: 1; }
+    .js .swap img + img { opacity: 0; transition: opacity var(--dur-modal) var(--ease-scene);
+                          animation: swap var(--loop-swap) var(--ease-scene) infinite alternate; }
+  Без скриптов сверху остаётся второй кадр — один снимок вместо двух, и это правильный
+  результат: пустой рамки не возникает.
   На hover показывается второй кадр, и снимается ИМЕННО анимация:
-    .swap:hover img + img { animation: none; opacity: 1; }
+    .js .swap:hover img + img { animation: none; opacity: 1; }
   animation-play-state: paused здесь не работает: работающая анимация перебивает обычное
   объявление opacity, и наведение замораживает случайную фазу вместо второго кадра.
   Так показывают «то же место с другой стороны» или «то же изделие в двух видах».
@@ -246,6 +250,13 @@ export const TECHNIQUES = [
   Ручка — обычный <input type="range" min="0" max="100" value="50"> поверх рамки, с
   aria-label; вся логика одной строкой: oninput меняет --pos на процент. Подписи «до» и
   «после» лежат текстом в разметке, а не только в картинке.
+
+  ТЕЛЕФОН. На тач-экране hover не существует, и приём, живущий только наведением, там мёртв:
+  человек никогда не увидит второй кадр. Поэтому перетекание ОБЯЗАНО работать само по циклу,
+  а наведение — лишь ускорять показ там, где мышь есть:
+    @media (hover: hover) and (pointer: fine) { .swap:hover img + img { animation: none; opacity: 1; } }
+  Правило hover запрещено писать вне этого медиа-блока. «До/после» на телефоне работает без
+  оговорок: ручка <input type="range"> тянется пальцем — это и есть её родная среда.
 
   ЖЁСТКОЕ. Оба <img> всегда в HTML, с настоящими alt по содержимому кадра: приём не имеет
   права прятать второй кадр от поиска и от нейросетей. Кадры одного размера, одной точки
