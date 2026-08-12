@@ -36,8 +36,11 @@
 
 | Ключ | Что включает | Где берётся | Цена |
 |---|---|---|---|
-| `PEXELS_API_KEY` | стоковые фото (`stock-photos.mjs`) и видео первого экрана (`stock-video.mjs`) | pexels.com/api | бесплатно |
+| `PEXELS_API_KEY` | видео первого экрана (`stock-video.mjs`) | pexels.com/api | бесплатно |
 | `LUMA_AGENTS_API_KEY` | морф из двух фото клиента (`photo-morph.mjs`) | lumalabs.ai → API keys | платно за клип |
+
+Снимки ключа не требуют вовсе: `stock-photos.mjs` ходит в открытый Openverse
+(`api.openverse.org`, банки StockSnap и Rawpixel, лицензия CC0).
 
 Прогон с ключами — флагом рантайма, без экспорта в профиль оболочки:
 
