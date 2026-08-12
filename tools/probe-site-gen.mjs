@@ -3,7 +3,7 @@ import { spawnSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { DIRECTIONS, pickDirection } from './design-directions.mjs';
+import { DIRECTIONS, motionOf, pickDirection } from './design-directions.mjs';
 import { motionBlock, pickPreset, resolveTechniques } from './motion-directions.mjs';
 
 const SLUG = process.env.PROBE_SLUG ?? 'site-gen';
@@ -130,13 +130,13 @@ if (process.env.SKIP_DESIGN_SYSTEM !== '1') {
 }
 
 const list = (value) => String(value ?? '').split(/[,\s]+/).filter(Boolean);
-const preset = pickPreset(process.env.MOTION);
+const preset = pickPreset(process.env.MOTION?.trim() || motionOf(fallbackDirection.key).preset);
 const motionOptions = { add: list(process.env.MOTION_ADD), drop: list(process.env.MOTION_DROP) };
 const motion = motionBlock(preset, motionOptions);
 const chosenNames = resolveTechniques(preset, motionOptions).map((t) => t.name);
 
 process.stderr.write(
-  `[движение] пресет ${preset.key} — ${preset.name}; приёмов ${chosenNames.length}: ${chosenNames.join(', ') || 'нет'}\n`,
+  `[движение] пресет ${preset.key} — ${preset.name}; источник ${process.env.MOTION?.trim() ? 'MOTION' : `направление ${fallbackDirection.key}`}; приёмов ${chosenNames.length}: ${chosenNames.join(', ') || 'нет'}\n`,
 );
 
 const DEFAULT_STRUCTURE = `1. Липкая шапка: название дела, якорные ссылки, кнопка действия справа.

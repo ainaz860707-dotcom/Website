@@ -217,6 +217,39 @@ export const TECHNIQUES = [
   зум внутри рамки, подпись, выезжающая снизу. Кадр не дёргается и не скачет по сетке.`,
   },
   {
+    key: 'swap',
+    group: 'decor',
+    name: 'Смена двух кадров',
+    trigger: 'вьюпорт · hover · перетаскивание ручки',
+    tech: 'CSS keyframes на opacity, clip-path, <input type="range">',
+    duration: 'непрерывная или реактивная',
+    cost: '0 КБ',
+    crawlerRisk: 'нет, пока оба кадра лежат в разметке',
+    rule: `Два РАЗНЫХ снимка одного места, предмета или работы сменяют друг друга в одной рамке.
+  Формы две, на страницу берётся одна и ровно в одном месте:
+
+  ПЕРЕТЕКАНИЕ. Оба <img> лежат в рамке position:relative друг на друге, второй сверху с
+  opacity 0. Цикл 6–10s, сам переход 800–1200ms, анимируется ТОЛЬКО opacity:
+    @keyframes swap { 0%,42% {opacity:0} 58%,100% {opacity:1} }
+    .swap img + img { opacity: 0; animation: swap 8s ease-in-out infinite alternate; }
+  На hover цикл замирает на втором кадре: animation-play-state: paused и opacity 1.
+  Так показывают «то же место с другой стороны» или «то же изделие в двух видах».
+
+  ДО / ПОСЛЕ. Верхний кадр обрезан по горизонтали, положение реза — в CSS-переменной:
+    .ba img + img { clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0); }
+  Ручка — обычный <input type="range" min="0" max="100" value="50"> поверх рамки, с
+  aria-label; вся логика одной строкой: oninput меняет --pos на процент. Подписи «до» и
+  «после» лежат текстом в разметке, а не только в картинке.
+
+  ЖЁСТКОЕ. Оба <img> всегда в HTML, с настоящими alt по содержимому кадра: приём не имеет
+  права прятать второй кадр от поиска и от нейросетей. Кадры одного размера, одной точки
+  съёмки и одного света — иначе смена читается как подмена, а не как одно и то же.
+  «До/после» ставится ТОЛЬКО на снимки, которые дал сам клиент: чужая работа под подписью
+  «до/после» — выдуманный факт о бизнесе и брак. Нет пары снимков — приём не ставится вовсе.
+  При prefers-reduced-motion перетекание выключено и виден первый кадр, ручка «до/после»
+  остаётся рабочей: она движется рукой человека, а не сама.`,
+  },
+  {
     key: 'cursor',
     group: 'decor',
     name: 'Курсорные эффекты',
@@ -439,7 +472,7 @@ export const PRESETS = [
     name: 'Лендинг — страница разворачивается по мере чтения',
     reference: 'hellomonday.com',
     when: 'значение по умолчанию: посадочная страница бизнеса',
-    techniques: ['micro', 'state', 'feedback', 'nav', 'intro', 'gallery', 'reveal', 'kinetic', 'imagehover', 'easter'],
+    techniques: ['micro', 'state', 'feedback', 'nav', 'intro', 'gallery', 'reveal', 'kinetic', 'imagehover', 'swap', 'easter'],
     tail: `Ритм важнее количества: движение живёт на первом экране, на смене секций и на одном
 запоминающемся приёме. Анимированное всё подряд читается как дешёвый шаблон.`,
   },
@@ -448,7 +481,7 @@ export const PRESETS = [
     name: 'История — скролл ведёт повествование',
     reference: 'darkroom.engineering',
     when: 'портфолио, студия, длинная страница услуги, где важен порядок раскрытия',
-    techniques: ['micro', 'state', 'nav', 'intro', 'gallery', 'reveal', 'parallax', 'pinned', 'progress', 'story', 'kinetic', 'imagehover', 'cursor', 'physics', 'signature', 'product'],
+    techniques: ['micro', 'state', 'nav', 'intro', 'gallery', 'reveal', 'parallax', 'pinned', 'progress', 'story', 'kinetic', 'imagehover', 'swap', 'cursor', 'physics', 'signature', 'product'],
     tail: 'Закреплённая сцена на странице одна: две подряд превращают чтение в борьбу со скроллом.',
   },
   {
@@ -456,7 +489,7 @@ export const PRESETS = [
     name: 'Витрина — живой холст поверх обычной страницы',
     reference: 'mont-fort.com, lusion.co',
     when: 'бизнес продаёт впечатление и материал: премиальный товар, архитектура, трейдинг, студия',
-    techniques: ['micro', 'state', 'nav', 'intro', 'gallery', 'reveal', 'parallax', 'pinned', 'kinetic', 'imagehover', 'cursor', 'ambient', 'physics', 'generative', 'signature', 'product', 'webgl'],
+    techniques: ['micro', 'state', 'nav', 'intro', 'gallery', 'reveal', 'parallax', 'pinned', 'kinetic', 'imagehover', 'swap', 'cursor', 'ambient', 'physics', 'generative', 'signature', 'product', 'webgl'],
     tail: `Так устроен mont-fort.com: WebGL сверху, а в HTML лежат 7559 знаков текста, которые
 читают и поиск, и нейросети. Убери <canvas> — страница обязана остаться законченной.`,
   },
