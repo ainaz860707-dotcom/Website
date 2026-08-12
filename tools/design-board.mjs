@@ -97,7 +97,7 @@ function card(dir, index) {
     ghost: `background:none;border-bottom:1px solid ${t.ink};color:${t.ink};padding:6px 0;border-radius:0`,
     solid: `background:${t.accent};color:${onAccent};padding:11px 22px;border:none;border-radius:${c.radius > 100 ? 999 : Math.min(c.radius, 8)}px`,
     round: `background:${t.accent};color:${onAccent};padding:12px 26px;border:none;border-radius:999px`,
-    brutal: `background:${t.accent};color:${t.ink};padding:11px 22px;border:3px solid ${t.ink};box-shadow:4px 4px 0 ${t.ink};border-radius:0`,
+    brutal: `background:${t.accent};color:${onAccent};padding:11px 22px;border:3px solid ${t.ink};box-shadow:4px 4px 0 ${t.ink};border-radius:0`,
   }[c.btn];
 
   const frame = {
@@ -120,8 +120,8 @@ ${scope} p{font-size:13px;line-height:1.6;color:${t.muted};margin:0 0 18px;max-w
 ${scope} .btn{display:inline-block;font-size:12px;letter-spacing:0.04em;font-weight:600;cursor:default;position:relative;z-index:3;${btn}}
 ${scope} .frame{${frame};width:100%;${c.center ? 'max-width:200px;margin-top:6px;' : ''}position:relative;overflow:hidden;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:${t.dark ? '#ffffff88' : `${t.ink}66`}}
 ${scope} .frame i{position:absolute;inset:0;display:grid;place-items:center;font-style:normal}
-${scope} .frame i + i{background:repeating-linear-gradient(135deg,${t.accent}2e 0 10px,transparent 10px 20px),${t.accent}1f;opacity:0;${selfMoving ? `animation:boardswap ${p.cycle}s ${p.ease} infinite alternate` : `transition:opacity ${p.fast}ms ${p.ease}`}}
-${scope} .frame:hover i + i{opacity:1;${selfMoving ? 'animation-play-state:paused' : ''}}
+${scope} .frame i + i{background:repeating-linear-gradient(135deg,${t.accent}2e 0 10px,transparent 10px 20px),${t.accent}1f;opacity:0;transition:opacity ${p.fast}ms ${p.ease}${selfMoving ? `;animation:boardswap ${p.cycle}s ${p.ease} infinite alternate` : ''}}
+${scope} .frame:hover i + i{opacity:1${selfMoving ? ';animation:none' : ''}}
 ${scope} .frame::after{content:'${selfMoving ? 'два кадра сменяются сами' : 'кадры меняются по наведению'}';position:absolute;left:0;right:0;bottom:0;padding:6px 8px;font-size:9px;letter-spacing:.1em;background:${t.dark ? '#00000066' : '#ffffffb3'};transform:translateY(100%);transition:transform ${p.fast}ms ${p.ease}}
 ${scope} .frame:hover::after{transform:translateY(0)}
 ${scope} .btn{transition:transform ${p.fast}ms ${p.ease},opacity ${p.fast}ms ${p.ease}}
