@@ -1,6 +1,6 @@
 ---
 name: brand
-description: Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.
+description: "Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides. Русские триггеры: голос бренда, тон общения с клиентами, как мы разговариваем с аудиторией, ключевые сообщения, гайд по стилю, проверь текст на соответствие бренду, единый стиль во всех материалах. Не для фактов о бизнесе клиента — их берём только из его входа (§12 CLAUDE.md)."
 argument-hint: "[update|review|create] [args]"
 metadata:
   author: claudekit

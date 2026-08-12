@@ -1,6 +1,6 @@
 ---
 name: slides
-description: Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies.
+description: "Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies. Русские триггеры: сделай презентацию, собери слайды, презентация для клиента, HTML-презентация, слайды с графиками, питч-дек, покажи цифры на слайдах. Не для объяснения владельцу схемой — visualize; не для графиков по данным — dataviz."
 argument-hint: "[topic] [slide-count]"
 metadata:
   author: claudekit
