@@ -288,12 +288,28 @@ if (start < 0 || end < 0) {
   process.exit(1);
 }
 
-const html = raw.slice(start, end + '</html>'.length).trim();
+const generated = raw.slice(start, end + '</html>'.length).trim();
+
+const PANEL = /[ \t]*<section id="seo-geo"[\s\S]*?<\/section>\s*/i;
+const panel = generated.match(PANEL);
+const html = panel ? generated.replace(PANEL, '\n') : generated;
 
 const outDir = path.join('artifacts', 'core-probe', SLUG);
 mkdirSync(outDir, { recursive: true });
 const file = path.join(outDir, `${id}.html`);
 writeFileSync(file, `${html}\n`, 'utf8');
+
+if (panel) {
+  const reportFile = path.join(outDir, `${id}-otchet.html`);
+  writeFileSync(
+    reportFile,
+    `<!DOCTYPE html>\n<html lang="ru">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<meta name="robots" content="noindex">\n<title>Что сделано на странице и что дописать</title>\n<style>body{font:16px/1.6 system-ui,sans-serif;max-width:52rem;margin:3rem auto;padding:0 1.25rem;color:#1B1917;}h2,h3{line-height:1.25;}ul{padding-left:1.2em;}li{margin-bottom:.5em;}</style>\n</head>\n<body>\n${panel[0].trim()}\n</body>\n</html>\n`,
+    'utf8',
+  );
+  process.stderr.write(`[отчёт] панель SEO и GEO вынесена из страницы: ${reportFile}\n`);
+} else {
+  process.stderr.write('[отчёт] панели SEO и GEO в выдаче нет\n');
+}
 
 const check = spawnSync(process.execPath, [path.join('tools', 'check-page.mjs'), file], { encoding: 'utf8' });
 process.stderr.write(`[проверка]${check.status === 0 ? ' пройдена' : ''}\n${check.stdout ?? ''}`);
