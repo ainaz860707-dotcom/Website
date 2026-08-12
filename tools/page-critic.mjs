@@ -7,7 +7,7 @@ import { pathToFileURL } from 'node:url';
 const MODEL = process.env.CRITIC_MODEL ?? 'claude-sonnet-5';
 const THRESHOLD = Number(process.env.CRITIC_THRESHOLD ?? 4.0);
 const TRIES = Number(process.env.CRITIC_TRIES ?? 3);
-const MAX_HEIGHT = Number(process.env.CRITIC_MAX_HEIGHT ?? 6000);
+const MAX_SLICES = Number(process.env.CRITIC_MAX_SLICES ?? 9);
 const WIDTHS = [390, 1440];
 
 const RUBRIC = `Оценивай по семи осям, каждая от 0 до 5, затем выведи общий балл — среднее
@@ -54,19 +54,23 @@ export async function shoot(htmlPath, { widths = WIDTHS, outDir } = {}) {
 
   try {
     for (const width of widths) {
-      const context = await browser.newContext({ viewport: { width, height: 900 }, deviceScaleFactor: 1 });
+      const viewport = { width, height: width < 700 ? 844 : 1000 };
+      const context = await browser.newContext({ viewport, deviceScaleFactor: 1 });
       const page = await context.newPage();
       await page.goto(pathToFileURL(path.resolve(htmlPath)).href, { waitUntil: 'load' });
-      await page.waitForTimeout(600);
+      await page.waitForTimeout(700);
 
       const height = await page.evaluate(() => document.documentElement.scrollHeight);
-      const file = path.join(dir, `${width}.png`);
-      await page.screenshot({
-        path: file,
-        clip: { x: 0, y: 0, width, height: Math.min(height, MAX_HEIGHT) },
-      });
+      const slices = Math.min(Math.ceil(height / viewport.height), MAX_SLICES);
 
-      shots.push({ width, file, height, clipped: height > MAX_HEIGHT });
+      for (let i = 0; i < slices; i += 1) {
+        await page.evaluate((top) => window.scrollTo(0, top), i * viewport.height);
+        await page.waitForTimeout(350);
+        const file = path.join(dir, `${width}-${String(i + 1).padStart(2, '0')}.png`);
+        await page.screenshot({ path: file });
+        shots.push({ width, file, slice: i + 1, of: slices });
+      }
+
       await context.close();
     }
   } finally {
@@ -79,16 +83,21 @@ export async function shoot(htmlPath, { widths = WIDTHS, outDir } = {}) {
 export async function critique(htmlPath, options = {}) {
   const log = options.log ?? (() => {});
   const shots = await shoot(htmlPath, options);
-  for (const s of shots) {
-    log(`снимок ${s.width}px → ${s.file}${s.clipped ? ` (обрезан с ${s.height}px)` : ''}`);
+  for (const width of new Set(shots.map((s) => s.width))) {
+    const own = shots.filter((s) => s.width === width);
+    log(`${width}px: кадров ${own.length}, вся страница сверху донизу`);
   }
 
   const cli = process.env.CLAUDE_CODE_EXECPATH;
   if (!cli) throw new Error('нет CLAUDE_CODE_EXECPATH — канал к модели недоступен');
 
-  const list = shots.map((s) => `- ${path.resolve(s.file)} — ширина ${s.width}px`).join('\n');
+  const list = shots
+    .map((s) => `- ${path.resolve(s.file)} — ширина ${s.width}px, экран ${s.slice} из ${s.of}`)
+    .join('\n');
   const prompt = `Ты — критик посадочных страниц. Тебе дали скриншоты одной страницы на двух
-ширинах. Прочитай оба файла инструментом Read и оцени страницу.
+ширинах, снятые экран за экраном сверху донизу. Прочитай инструментом Read ВСЕ файлы до
+единого и оцени страницу целиком: оси «город» и «своё, а не трафарет» требуют нижних секций,
+по одному первому экрану их ставить нельзя.
 
 СНИМКИ:
 ${list}
