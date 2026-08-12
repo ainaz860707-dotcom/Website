@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import { DIRECTIONS } from './design-directions.mjs';
+import { DIRECTIONS, motionOf } from './design-directions.mjs';
+
+const PACE = {
+  тихое: { ease: 'cubic-bezier(.22,.61,.36,1)', fast: 420, cycle: 9, lift: 'translateY(-2px)' },
+  строгое: { ease: 'cubic-bezier(.2,0,0,1)', fast: 160, cycle: 7, lift: 'translateY(-1px)' },
+  тёплое: { ease: 'cubic-bezier(.34,1.56,.64,1)', fast: 320, cycle: 6, lift: 'translateY(-3px) scale(1.02)' },
+};
 
 const CHARACTER = {
   gallery: { radius: 0, border: 'none', shadow: 'none', capsTrack: '0.2em', btn: 'ghost', frame: 'portrait' },
@@ -15,6 +21,8 @@ const CHARACTER = {
   productstage: { radius: 4, border: 'none', shadow: '0 30px 60px -30px rgba(0,0,0,.8)', capsTrack: '0.08em', btn: 'solid', frame: 'product', upper: true },
   illustrated: { radius: 24, border: '3px solid', shadow: '0 10px 0 -2px', capsTrack: '0.04em', btn: 'round', frame: 'soft' },
   pastel: { radius: 999, border: 'none', shadow: '0 20px 46px -28px rgba(74,37,69,.45)', capsTrack: '0.12em', btn: 'round', frame: 'oval', center: true },
+  quietstructure: { radius: 28, border: 'none', shadow: '0 34px 64px -38px rgba(20,23,26,.45)', capsTrack: '0.16em', btn: 'round', frame: 'soft' },
+  warmluxe: { radius: 2, border: 'none', shadow: 'none', capsTrack: '0.22em', btn: 'ghost', frame: 'wide', numbers: true },
 };
 
 const hexes = (s) => (s.match(/#[0-9A-Fa-f]{6}/g) ?? []).map((h) => h.toUpperCase());
@@ -56,6 +64,9 @@ function tokens(dir) {
 function card(dir, index) {
   const t = tokens(dir);
   const c = CHARACTER[dir.key] ?? CHARACTER.swiss;
+  const motion = motionOf(dir.key);
+  const p = PACE[motion.pace] ?? PACE.тёплое;
+  const selfMoving = motion.preset !== 'interface';
   const onAccent = luminance(t.accent) > 0.55 ? t.ink : '#FFFFFF';
   const scope = `.p-${dir.key}`;
   const btn = {
@@ -82,7 +93,21 @@ ${scope} .eyebrow{font-size:10px;letter-spacing:${c.capsTrack};text-transform:up
 ${scope} h3{font-family:'${t.display}',serif;font-size:${c.upper ? '40px' : '36px'};line-height:${c.upper ? 0.94 : 1.04};margin:0 0 12px;font-weight:${c.frame === 'product' ? 400 : 600};${c.upper ? 'text-transform:uppercase;letter-spacing:-0.01em' : ''};color:${t.ink}}
 ${scope} p{font-size:13px;line-height:1.6;color:${t.muted};margin:0 0 18px;max-width:34ch}
 ${scope} .btn{display:inline-block;font-size:12px;letter-spacing:0.04em;font-weight:600;cursor:default;${btn}}
-${scope} .frame{${frame};width:100%;${c.center ? 'max-width:200px;margin-top:6px;' : ''}display:grid;place-items:center;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:${t.dark ? '#ffffff88' : `${t.ink}66`}}
+${scope} .frame{${frame};width:100%;${c.center ? 'max-width:200px;margin-top:6px;' : ''}position:relative;overflow:hidden;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:${t.dark ? '#ffffff88' : `${t.ink}66`}}
+${scope} .frame i{position:absolute;inset:0;display:grid;place-items:center;font-style:normal}
+${scope} .frame i + i{background:repeating-linear-gradient(135deg,${t.accent}2e 0 10px,transparent 10px 20px),${t.accent}1f;opacity:0;${selfMoving ? `animation:boardswap ${p.cycle}s ${p.ease} infinite alternate` : `transition:opacity ${p.fast}ms ${p.ease}`}}
+${scope} .frame:hover i + i{opacity:1;${selfMoving ? 'animation-play-state:paused' : ''}}
+${scope} .frame::after{content:'${selfMoving ? 'два кадра сменяются сами' : 'кадры меняются по наведению'}';position:absolute;left:0;right:0;bottom:0;padding:6px 8px;font-size:9px;letter-spacing:.1em;background:${t.dark ? '#00000066' : '#ffffffb3'};transform:translateY(100%);transition:transform ${p.fast}ms ${p.ease}}
+${scope} .frame:hover::after{transform:translateY(0)}
+${scope} .btn{transition:transform ${p.fast}ms ${p.ease},opacity ${p.fast}ms ${p.ease}}
+${scope} .btn:hover{transform:${p.lift}}
+${selfMoving
+      ? `${scope} .nav b,${scope} h3,${scope} p,${scope} .btn,${scope} .frame{animation:boardin ${Math.round(p.fast * 1.6)}ms ${p.ease} both}
+${scope} h3{animation-delay:80ms}
+${scope} p{animation-delay:${Math.round(p.fast * 0.5)}ms}
+${scope} .btn{animation-delay:${Math.round(p.fast * 0.8)}ms}
+${scope} .frame{animation-delay:${Math.round(p.fast * 0.3)}ms}`
+      : ''}
 ${scope} .swatches{display:flex;gap:6px;margin-top:26px;padding-top:18px;border-top:1px solid ${t.ink}1f}
 ${scope} .swatches i{width:26px;height:26px;border-radius:${c.radius > 100 ? 999 : 3}px;border:1px solid ${t.ink}1a}
 ${c.numbers ? `${scope} .eyebrow::before{content:'0${index + 1} / ';}` : ''}
@@ -104,13 +129,14 @@ ${c.dropcap ? `${scope} p::first-letter{font-family:'${t.display}',serif;font-si
         <p>Одна фраза подводки — ровно та длина, которая встанет на живой странице этого направления.</p>
         <span class="btn">Оставить заявку</span>
       </div>
-      <div class="frame">кадр</div>
+      <div class="frame"><i>кадр 1</i><i>кадр 2</i></div>
     </div>
     <div class="swatches">${t.list.map((h) => `<i style="background:${h}"></i>`).join('')}</div>
   </div>
   <footer class="notes">
     <p><b>Шрифты.</b> ${dir.fonts}</p>
     <p><b>Характер.</b> ${dir.layout}</p>
+    <p><b>Движение.</b> ${motion.note} — пресет «${motion.preset}», ритм ${motion.pace}</p>
     <p><b>Кому идёт.</b> ${dir.niches.join(' · ')}</p>
     <p class="key">${dir.key}</p>
   </footer>
@@ -131,27 +157,39 @@ const FAMILY = {
   organic: 'тёплое',
   illustrated: 'тёплое',
   productstage: 'тёплое',
+  quietstructure: 'тихое',
+  warmluxe: 'тихое',
 };
 
 const ANCHOR = { тихое: 'editorial', строгое: 'swiss', тёплое: 'organic' };
 
-export function pickThree(input) {
+export function pickThree(input, skip = []) {
   const text = input.toLowerCase();
-  const hits = DIRECTIONS.filter((d) => d.niches.some((n) => text.includes(n.slice(0, 5))));
+  const pool = DIRECTIONS.filter((d) => !skip.includes(d.key));
+  const hits = pool.filter((d) => d.niches.some((n) => text.includes(n.slice(0, 5))));
   const chosen = hits.slice(0, 2);
-  const byKey = (k) => DIRECTIONS.find((d) => d.key === k);
-  const missing = Object.entries(ANCHOR)
-    .filter(([family]) => !chosen.some((d) => FAMILY[d.key] === family))
-    .map(([, key]) => byKey(key));
-  for (const d of [...missing, ...hits.slice(2), ...DIRECTIONS]) {
+  const anchorOf = (family) =>
+    pool.find((d) => d.key === ANCHOR[family]) ?? pool.find((d) => FAMILY[d.key] === family);
+  const missing = Object.keys(ANCHOR)
+    .filter((family) => !chosen.some((d) => FAMILY[d.key] === family))
+    .map(anchorOf);
+  for (const d of [...missing, ...hits.slice(2), ...pool]) {
     if (chosen.length === 3) break;
     if (d && !chosen.includes(d)) chosen.push(d);
   }
   return chosen;
 }
 
-const brief = process.argv.slice(2).join(' ').trim();
-const selection = brief ? pickThree(brief) : DIRECTIONS;
+const args = process.argv.slice(2);
+const flag = (name) => {
+  const hit = args.find((a) => a.startsWith(`--${name}=`));
+  return hit ? hit.slice(name.length + 3).split(',').map((v) => v.trim()).filter(Boolean) : [];
+};
+const skip = flag('skip');
+const keys = flag('keys');
+const brief = args.filter((a) => !a.startsWith('--')).join(' ').trim();
+const byKeys = keys.map((k) => DIRECTIONS.find((d) => d.key === k)).filter(Boolean);
+const selection = byKeys.length ? byKeys : brief ? pickThree(brief, skip) : DIRECTIONS;
 const cards = selection.map(card);
 const fontQuery = [...new Set(cards.flatMap((c) => c.fonts))]
   .map((f) => `family=${f.replace(/ /g, '+')}:wght@300;400;600;700;800`)
@@ -191,7 +229,10 @@ body{margin:0;background:#0E0E10;color:#EDEDED;font:15px/1.6 ui-sans-serif,syste
 .notes p{margin:0;font-size:12px;line-height:1.55;color:#9A9AA2}
 .notes b{color:#D6D6DC;font-weight:600}
 @media (max-width:900px){.grid{grid-template-columns:1fr}}
+@keyframes boardswap{0%,42%{opacity:0}58%,100%{opacity:1}}
+@keyframes boardin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 ${cards.map((c) => c.style).join('\n')}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}.preview .frame i + i{opacity:0 !important}}
 </style>
 </head>
 <body>
