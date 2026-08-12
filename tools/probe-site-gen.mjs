@@ -46,9 +46,10 @@ if (useReferences) {
   try {
     const { resolveNicheDirection } = await import('./niche-reference.mjs');
     const live = await resolveNicheDirection(input, { log: (m) => process.stderr.write(`[референсы] ${m}\n`) });
-    dir = forced
-      ? { ...fallbackDirection, slots: live.slots ?? [] }
-      : {
+    const letReferencesPaint = process.env.REFERENCE_DIRECTION === '1';
+
+    dir = letReferencesPaint && !forced
+      ? {
           ...fallbackDirection,
           name: live.name,
           fonts: live.fonts,
@@ -56,10 +57,12 @@ if (useReferences) {
           layout: live.layout,
           detail: live.detail,
           slots: live.slots ?? [],
-        };
-    referenceNote = forced
-      ? `направление ${forced.key} выбрано владельцем и не перебивается; от референсов взяты только сюжеты кадров (${(live.slots ?? []).length})`
-      : `дирекшен собран по живым референсам: ${live.sources.map((s) => s.name).join(', ')}`;
+        }
+      : { ...fallbackDirection, slots: live.slots ?? [] };
+
+    referenceNote = letReferencesPaint && !forced
+      ? `ВНИМАНИЕ: шрифты и палитра взяты с референсов (REFERENCE_DIRECTION=1): ${live.sources.map((s) => s.name).join(', ')}`
+      : `направление ${fallbackDirection.key} — наше, референсы его не перебивают; от них взяты только сюжеты кадров (${(live.slots ?? []).length})`;
   } catch (e) {
     process.stderr.write(`[референсы] не получилось (${e.message}); беру встроенный дирекшен ${fallbackDirection.key}\n`);
   }
@@ -112,6 +115,34 @@ ${formatPhotos(photos)}
     }
   } catch (e) {
     process.stderr.write(`[фото] не получилось (${e.message}); страница пойдёт без снимков\n`);
+  }
+}
+
+let heroVideoBlock = '';
+
+if (process.env.SKIP_VIDEO !== '1') {
+  try {
+    const { collectVideos, videoBlock } = await import('./stock-video.mjs');
+    const ownUrl = process.env.HERO_VIDEO?.trim();
+
+    if (ownUrl) {
+      const poster = process.env.HERO_VIDEO_POSTER?.trim();
+      if (!poster) throw new Error('есть HERO_VIDEO, но нет HERO_VIDEO_POSTER — постер обязателен');
+      heroVideoBlock = `\n${videoBlock([], {
+        own: { url: ownUrl, poster, title: process.env.HERO_VIDEO_ALT?.trim() || 'первый экран' },
+      })}\n`;
+      process.stderr.write(`[видео] своё видео клиента: ${ownUrl}\n`);
+    } else {
+      const videos = await collectVideos(input, { log: (m) => process.stderr.write(`[видео] ${m}\n`) });
+      if (videos.length) {
+        heroVideoBlock = `\n${videoBlock(videos)}\n`;
+        process.stderr.write(`[видео] в промпт ушло сцен: ${videos.length}\n`);
+      } else {
+        process.stderr.write('[видео] ничего не набрано — страница пойдёт без видео\n');
+      }
+    }
+  } catch (e) {
+    process.stderr.write(`[видео] не получилось (${e.message}); страница пойдёт без видео\n`);
   }
 }
 
@@ -206,7 +237,7 @@ ${systemBlock}
 - Шрифты Inter, Roboto, Arial, Space Grotesk и системные — запрещены.
 - Фиолетовый градиент на белом и прочая безликая «нейросетевая» эстетика — запрещены.
 ${photoBlock}
-
+${heroVideoBlock}
 ЧТО ДЕЛАТЬ С НЕДОСТАЮЩИМИ ДАННЫМИ:
 Телефон, точный адрес, часы, цены — заметный плейсхолдер-чип <span class="fill">телефон</span>,
 оформленный в стиле арт-дирекшена. Плейсхолдер — только для данных, не для текста:
