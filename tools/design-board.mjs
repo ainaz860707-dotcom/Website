@@ -64,23 +64,23 @@ function tokens(dir) {
 const GRAIN = {
   gallery: [0, 0.85],
   swiss: [0, 0.85],
-  clinical: [0.02, 0.9],
-  quietstructure: [0.022, 0.9],
-  pastel: [0.03, 0.85],
-  warmluxe: [0.035, 0.95],
-  productstage: [0.045, 0.8],
-  editorial: [0.05, 0.8],
-  luxe: [0.05, 0.75],
-  illustrated: [0.055, 0.7],
-  organic: [0.085, 0.6],
-  industrial: [0.095, 0.5],
-  brutal: [0.14, 0.45],
+  clinical: [0.04, 0.9],
+  quietstructure: [0.045, 0.9],
+  pastel: [0.05, 0.85],
+  warmluxe: [0.06, 0.95],
+  productstage: [0.07, 0.8],
+  editorial: [0.08, 0.8],
+  luxe: [0.08, 0.75],
+  illustrated: [0.09, 0.7],
+  organic: [0.11, 0.6],
+  industrial: [0.13, 0.5],
+  brutal: [0.15, 0.45],
 };
 
 function grainLayer(key) {
   const [opacity, frequency] = GRAIN[key] ?? [0.04, 0.8];
   if (!opacity) return null;
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='${frequency}' numOctaves='3'/></filter><rect width='100%' height='100%' filter='url(#g)'/></svg>`;
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='${frequency}' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(#g)'/></svg>`;
   return { opacity, url: `url("data:image/svg+xml,${encodeURIComponent(svg)}")` };
 }
 
@@ -117,7 +117,7 @@ ${scope} .hero{display:grid;grid-template-columns:${c.center ? '1fr' : '1.15fr .
 ${scope} .eyebrow{font-size:10px;letter-spacing:${c.capsTrack};text-transform:uppercase;color:${t.accent};margin-bottom:12px;display:block}
 ${scope} h3{font-family:'${t.display}',serif;font-size:${c.upper ? '40px' : '36px'};line-height:${c.upper ? 0.94 : 1.04};margin:0 0 12px;font-weight:${c.frame === 'product' ? 400 : 600};${c.upper ? 'text-transform:uppercase;letter-spacing:-0.01em' : ''};color:${t.ink}}
 ${scope} p{font-size:13px;line-height:1.6;color:${t.muted};margin:0 0 18px;max-width:34ch}
-${scope} .btn{display:inline-block;font-size:12px;letter-spacing:0.04em;font-weight:600;cursor:default;${btn}}
+${scope} .btn{display:inline-block;font-size:12px;letter-spacing:0.04em;font-weight:600;cursor:default;position:relative;z-index:3;${btn}}
 ${scope} .frame{${frame};width:100%;${c.center ? 'max-width:200px;margin-top:6px;' : ''}position:relative;overflow:hidden;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:${t.dark ? '#ffffff88' : `${t.ink}66`}}
 ${scope} .frame i{position:absolute;inset:0;display:grid;place-items:center;font-style:normal}
 ${scope} .frame i + i{background:repeating-linear-gradient(135deg,${t.accent}2e 0 10px,transparent 10px 20px),${t.accent}1f;opacity:0;${selfMoving ? `animation:boardswap ${p.cycle}s ${p.ease} infinite alternate` : `transition:opacity ${p.fast}ms ${p.ease}`}}
@@ -221,16 +221,40 @@ const fontQuery = [...new Set(cards.flatMap((c) => c.fonts))]
   .map((f) => `family=${f.replace(/ /g, '+')}:wght@300;400;600;700;800`)
   .join('&');
 
-const page = `<!doctype html>
-<html lang="ru">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Доска дизайн-направлений</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?${fontQuery}&display=swap" rel="stylesheet">
-<style>
+const embed = args.includes('--embed');
+
+async function inlineFonts(query) {
+  const UA =
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36';
+  const res = await fetch(`https://fonts.googleapis.com/css2?${query}&display=swap`, { headers: { 'User-Agent': UA } });
+  if (!res.ok) throw new Error(`Google Fonts: HTTP ${res.status}`);
+  const css = await res.text();
+  const blocks = [...css.matchAll(/\/\*\s*([a-z-]+)\s*\*\/\s*(@font-face\s*\{[^}]*\})/g)];
+  if (!blocks.length) throw new Error('в CSS Google Fonts не нашлось блоков @font-face с подписью подмножества');
+  const wanted = blocks
+    .filter(([, subset]) => subset === 'latin' || subset === 'cyrillic')
+    .map(([, , block]) => block)
+    .join('\n');
+  const urls = [...new Set([...wanted.matchAll(/url\((https:\/\/[^)]+\.woff2)\)/g)].map((m) => m[1]))];
+  const data = new Map();
+  await Promise.all(
+    urls.map(async (u) => {
+      const font = await fetch(u, { headers: { 'User-Agent': UA } });
+      if (!font.ok) throw new Error(`шрифт ${u}: HTTP ${font.status}`);
+      data.set(u, Buffer.from(await font.arrayBuffer()).toString('base64'));
+    })
+  );
+  const inlined = wanted.replace(/url\((https:\/\/[^)]+\.woff2)\)/g, (m, u) =>
+    data.has(u) ? `url(data:font/woff2;base64,${data.get(u)})` : m
+  );
+  return { css: inlined, count: urls.length, bytes: inlined.length };
+}
+
+const inlined = embed ? await inlineFonts(fontQuery) : null;
+if (inlined) process.stdout.write(`шрифты вшиты: файлов ${inlined.count}, ${Math.round(inlined.bytes / 1024)} КБ base64\n`);
+
+const styleBlock = `<style>
+${inlined ? inlined.css : ''}
 *{box-sizing:border-box}
 body{margin:0;background:#0E0E10;color:#EDEDED;font:15px/1.6 ui-sans-serif,system-ui,sans-serif;padding:48px 32px 80px}
 .head{max-width:1180px;margin:0 auto 40px}
@@ -259,10 +283,9 @@ body{margin:0;background:#0E0E10;color:#EDEDED;font:15px/1.6 ui-sans-serif,syste
 @keyframes boardin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 ${cards.map((c) => c.style).join('\n')}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}.preview .frame i + i{opacity:0 !important}}
-</style>
-</head>
-<body>
-<div class="head">
+</style>`;
+
+const bodyBlock = `<div class="head">
   <h1>${brief ? 'Три варианта дизайна' : 'Все дизайн-направления'}</h1>
   ${brief ? `<p class="brief">Под задачу: «${brief}»</p>` : ''}
   <p>Каждая карточка — живой первый экран будущей страницы: настоящие шрифты, настоящая палитра, настоящий характер блоков. Тексты на карточках — заглушки, фактов о бизнесе здесь нет.</p>
@@ -274,13 +297,31 @@ ${cards.map((c) => c.style).join('\n')}
 </div>
 <div class="grid">
 ${cards.map((c) => c.html).join('\n')}
-</div>
+</div>`;
+
+const title = brief ? `Три варианта дизайна — ${brief}` : 'Все дизайн-направления';
+
+const page = embed
+  ? `<title>${title}</title>\n${styleBlock}\n${bodyBlock}\n`
+  : `<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${title}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?${fontQuery}&display=swap" rel="stylesheet">
+${styleBlock}
+</head>
+<body>
+${bodyBlock}
 </body>
 </html>`;
 
 const outDir = path.join('artifacts', 'design-board');
 mkdirSync(outDir, { recursive: true });
-const file = path.join(outDir, 'index.html');
+const file = path.join(outDir, embed ? 'artifact.html' : 'index.html');
 writeFileSync(file, `${page}\n`, 'utf8');
 process.stdout.write(
   `${file}\n${brief ? `три варианта под задачу: ${selection.map((d, i) => `${i + 1}) ${d.name}`).join(' · ')}` : `весь каталог: ${selection.length}`}\n`
