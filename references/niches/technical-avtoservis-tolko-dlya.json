@@ -1,0 +1,88 @@
+{
+  "key": "technical-avtoservis-tolko-dlya",
+  "name": "техника и работа руками, продаёт результат — собрано по 4 референсам (pinterest)",
+  "profile": "technical",
+  "fonts": "'ui-sans-serif' на заголовки + 'Open Sans' на текст — или ближайшая пара с Google Fonts, если этих нет",
+  "palette": "фон #FFFFFF · текст #000000 · единственный акцент #0057FF · приглушённый #959595",
+  "layout": "скругления около 3px, шкала кеглей 9→160px, плотная сетка, факты в строку, воздух вокруг блока действия, тонкие линейки 1px между секциями",
+  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(.4,0,.2,1)",
+  "gallery": false,
+  "slots": [],
+  "measured": {
+    "palette": {
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#0057FF",
+      "muted": "#959595"
+    },
+    "fonts": [
+      {
+        "name": "Open Sans",
+        "count": 51
+      },
+      {
+        "name": "Oswald",
+        "count": 39
+      },
+      {
+        "name": "open sans",
+        "count": 14
+      },
+      {
+        "name": "WooCommerce",
+        "count": 13
+      },
+      {
+        "name": "oswald",
+        "count": 12
+      },
+      {
+        "name": "themify",
+        "count": 8
+      },
+      {
+        "name": "arial",
+        "count": 7
+      },
+      {
+        "name": "Droid Sans",
+        "count": 5
+      }
+    ],
+    "rhythm": {
+      "scaleMin": 9,
+      "scaleMax": 160,
+      "radius": "3px",
+      "sharp": false,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(.175,.885,.32,1.275)",
+        "cubic-bezier(.4,0,.6,1)"
+      ]
+    },
+    "subjects": []
+  },
+  "sources": [
+    {
+      "name": "Autorizen - Car Repair & Auto Service Elementor Template Kit",
+      "url": "https://www.downloadnewthemes.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "Custom website for We Done Right Appliance Repair",
+      "url": "https://www.getfree-website.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "Gogrin – Car Repair Service Responsive WordPress Theme",
+      "url": "https://themebagan.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "Home Repair Service website I ui/ux design",
+      "url": "https://www.behance.net",
+      "from": "pinterest"
+    }
+  ],
+  "date": "2026-08-10"
+}
