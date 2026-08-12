@@ -46,16 +46,20 @@ if (useReferences) {
   try {
     const { resolveNicheDirection } = await import('./niche-reference.mjs');
     const live = await resolveNicheDirection(input, { log: (m) => process.stderr.write(`[референсы] ${m}\n`) });
-    dir = {
-      ...fallbackDirection,
-      name: live.name,
-      fonts: live.fonts,
-      palette: live.palette,
-      layout: live.layout,
-      detail: live.detail,
-      slots: live.slots ?? [],
-    };
-    referenceNote = `дирекшен собран по живым референсам: ${live.sources.map((s) => s.name).join(', ')}`;
+    dir = forced
+      ? { ...fallbackDirection, slots: live.slots ?? [] }
+      : {
+          ...fallbackDirection,
+          name: live.name,
+          fonts: live.fonts,
+          palette: live.palette,
+          layout: live.layout,
+          detail: live.detail,
+          slots: live.slots ?? [],
+        };
+    referenceNote = forced
+      ? `направление ${forced.key} выбрано владельцем и не перебивается; от референсов взяты только сюжеты кадров (${(live.slots ?? []).length})`
+      : `дирекшен собран по живым референсам: ${live.sources.map((s) => s.name).join(', ')}`;
   } catch (e) {
     process.stderr.write(`[референсы] не получилось (${e.message}); беру встроенный дирекшен ${fallbackDirection.key}\n`);
   }
@@ -185,6 +189,16 @@ ${systemBlock}
 - Не пиши воду: «команда профессионалов», «индивидуальный подход», «широкий спектр
   услуг», «качество на высоте» — запрещённые обороты.
 - Не теряй и не подменяй город из описания.
+- Текст первого экрана НИКОГДА не режется контейнером. Запрещено класть заголовок в
+  коробку с заданной высотой (\`height\`) и \`overflow:hidden\`, и запрещено прижимать его
+  \`position:absolute; bottom:0\` — длина заголовка зависит от описания бизнеса, и длинный
+  заголовок в такой коробке обрезается сверху. Разрешено: текст в обычном потоке,
+  у контейнера \`min-height\`, картинка первого экрана — фоном или соседней ячейкой сетки.
+  Перед выдачей посчитай: заголовок длиннее шести слов при кегле больше 80px не помещается
+  в один экран — уменьшай кегль, а не обрезай.
+- Меню и подписи к фотографиям видны без скриптов. Мобильное меню, спрятанное через
+  \`opacity:0\` или \`pointer-events:none\` и открываемое только скриптом, — брак: без JS
+  разделы недостижимы. Делай прокручиваемую строку ссылок или обычный список.
 - Весь текст лежит в HTML и виден без единого выполненного скрипта. Контент не
   подставляется и не раскрывается скриптом: поисковые роботы и краулеры нейросетей
   читают только разметку. Аккордеон FAQ — на <details>/<summary>.
