@@ -1,10 +1,15 @@
 ---
 type: architecture
-status: draft
+status: approved
 feature: site-pipeline
 date: 2026-08-11
 owner: владелец
-approved_at:
+approved_at: 2026-08-12
+approved_note: >
+  Одобрено владельцем в диалоге 2026-08-12 дословной формулировкой «делай по документу —
+  сборщик + критик». Развилка Р1 (один сборщик с петлёй проверки вместо агентов-ролей)
+  разобрана с владельцем отдельно и принята им же. Поле заполнено агентом как запись
+  решения владельца, не как собственное решение.
 relates_to:
   - plans/analysis/brief-site-builder-seo-geo.md
   - plans/analysis/2026-08-10-proba-yadra-site-gen/result.md
