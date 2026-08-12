@@ -149,7 +149,12 @@ const DEFAULT_STRUCTURE = `1. Липкая шапка: название дела
    «сделано за тебя» и «допиши сам», человеческим языком, без терминов, каждый пункт одной
    строкой с объяснением зачем. Панель визуально отделена от сайта рамкой и другим фоном.`;
 
-const structure = dir.structure ?? DEFAULT_STRUCTURE;
+const { pickRoute, structureBlock, routeBlock } = await import('./site-routes.mjs');
+const picked = pickRoute(input);
+process.stderr.write(`[маршрут] ${picked.route.name} (${picked.key}) — ${picked.why}\n`);
+
+const structure = dir.structure ?? structureBlock(picked.route) ?? DEFAULT_STRUCTURE;
+const routeNote = `\n${routeBlock(picked)}\n`;
 
 const PROMPT = `Ты — генератор сайтов внутри сервиса. На вход приходит описание бизнеса,
 которое владелец написал своими словами. Выдай готовую одностраничную посадочную
@@ -159,6 +164,7 @@ const PROMPT = `Ты — генератор сайтов внутри серви
 ОПИСАНИЕ БИЗНЕСА:
 ${input}
 
+${routeNote}
 АРТ-ДИРЕКШЕН (задан заранее, следуй ему буквально, не смешивай с другими):
 Направление: ${dir.name}
 Шрифты: ${dir.fonts} — подключить с Google Fonts, только нужные начертания
