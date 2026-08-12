@@ -86,6 +86,24 @@ function longParagraphs(html) {
     .filter((t) => (t.match(/[.!?…](\s|$)/g) || []).length > 4).length;
 }
 
+const FLAT_WHITE = /(^|[;\s])background(-color)?\s*:\s*(#fff(fff)?|white|rgb\(\s*255\s*,\s*255\s*,\s*255\s*\))\s*(;|$)/i;
+const LAYERED = /(url\(|gradient\()/i;
+
+function surface(css) {
+  const all = rules(css);
+  const base = all.filter((r) => /(^|,)\s*(html|body)\s*(,|$)/i.test(r.selector));
+  const declared = base.map((r) => r.body).join(';');
+  const overlay = all.some(
+    (r) => /\b(html|body)\b[^,]*::(before|after)/i.test(r.selector) && /position\s*:\s*fixed/i.test(r.body) && LAYERED.test(r.body),
+  );
+  return {
+    painted: Boolean(declared),
+    layered: LAYERED.test(declared) || overlay,
+    flatWhite: FLAT_WHITE.test(declared),
+    grain: /feturbulence/i.test(css),
+  };
+}
+
 function gridRisk(css) {
   const twoColumn = rules(css).filter((r) => /grid-template-columns\s*:\s*[^;]*\s+[^;]+/.test(r.body) && /display\s*:\s*grid/.test(r.body));
   return twoColumn.filter((r) => css.includes(`${r.selector}::before`)).map((r) => r.selector);
@@ -126,6 +144,10 @@ for (const file of files) {
     if (DEPRECATED_LD[type]) found.push(`тип разметки ${type} устарел: ${DEPRECATED_LD[type]}`);
   }
 
+  const skin = surface(css);
+  if (!skin.painted) found.push('фон страницы не задан вовсе — под текстом белый лист браузера');
+  else if (skin.flatWhite && !skin.layered) found.push('фон страницы — плоская белая заливка: поверхность из арт-дирекшена не сделана');
+
   const asked = headings(html).filter((h) => QUESTION.test(h.trim())).length;
   if (asked < 4) found.push(`вопросных заголовков и вопросов ${asked} — нужно от четырёх, вопрос клиента совпадает с его запросом`);
 
@@ -145,6 +167,12 @@ for (const file of files) {
     .filter((selector) => !new RegExp(`class="[^"]*\\b${selector.replace(/^\./, '')}\\b[^"]*"[^>]*>\\s*<div`).test(html))
     .map((selector) => `сетка «${selector}» с ::before в первой ячейке — во второй колонке должен быть один элемент`);
 
+  if (skin.painted && !skin.layered && !skin.flatWhite) {
+    warnings.push('фон страницы — одна ровная заливка: свет и зерно из поверхности дирекшена на странице не появились');
+  }
+  if (/feturbulence/i.test(css) && !/position\s*:\s*fixed/i.test(css)) {
+    warnings.push('зерно есть, но неподвижного слоя под него нет — шум на прокручиваемом фоне перерисовывается каждый кадр');
+  }
   if (firstScreen < 40) warnings.push(`первый экран ${firstScreen} слов до первого h2 — 44% цитат берут из первой трети страницы, а там пока слоган`);
   if (wordy) warnings.push(`абзацев длиннее четырёх предложений: ${wordy}`);
   if (types.includes('FAQPage')) {
@@ -157,6 +185,9 @@ for (const file of files) {
   );
   process.stdout.write(
     `  вопросов: ${asked} · блоков 134–167 слов: ${citable} · первый экран: ${firstScreen} слов · длинных абзацев: ${wordy}\n`,
+  );
+  process.stdout.write(
+    `  поверхность: ${skin.layered ? 'слоями' : skin.painted ? 'ровная заливка' : 'не задана'}${skin.grain ? ' + зерно' : ''}\n`,
   );
   for (const problem of found) process.stdout.write(`  ✗ ${problem}\n`);
   for (const warning of warnings) process.stdout.write(`  ⚠ ${warning}\n`);
