@@ -35,6 +35,64 @@ CSS-класс — дословно, это проверенный рецепт:
   поэтому у капсулы есть собственная полупрозрачная заливка, а не только блюр.
 - Стеклянных элементов на первом экране не больше трёх: приём держится на редкости.`,
   },
+  'bento-media': {
+    name: 'Бенто из карточек-кадров, зерно и бегущая лента',
+    source: 'https://motionsites.ai/?prompt=max-reed-portfolio (бесплатный промт, снят 2026-08-12)',
+    body: `ПРИЁМ «БЕНТО ИЗ КАДРОВ» — сетка карточек разного веса, где фон карточки это кадр.
+
+Откуда: бесплатный промт «Max Reed Portfolio» из каталога motionsites.ai. Взята ТОЛЬКО техника
+раскладки и три CSS-рецепта. Ни одного слова, имени, цифры, отзыва и пункта меню оттуда на
+страницу не переносится: там факты чужого бизнеса, а факты нашего берутся лишь из описания
+выше (§12). Шрифты и палитра — из арт-дирекшена выше, а НЕ из промта-источника.
+
+Раскладка — одна секция на странице, не больше:
+  .bento{display:grid;gap:var(--space-4);grid-template-columns:repeat(3,1fr)}
+  .bento__cell{position:relative;overflow:hidden;border-radius:var(--radius-lg);
+    min-height:clamp(220px,26vw,340px);display:flex;flex-direction:column;justify-content:space-between}
+  .bento__cell--wide{grid-column:span 2}
+  .bento__cell--tall{grid-row:span 2}
+  .bento__shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .bento__cell>*:not(.bento__shot){position:relative;z-index:2}
+  .bento__cell::before{content:'';position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.72) 100%)}
+  @media (max-width:900px){.bento{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:600px){.bento{grid-template-columns:1fr}
+    .bento__cell--wide,.bento__cell--tall{grid-column:auto;grid-row:auto}}
+
+Фон карточки — <img class="bento__shot" alt="" width height loading="lazy" decoding="async">,
+то есть ПОСТЕР, а не третье <video>. Видео на странице ровно столько, сколько разрешено блоком
+про видео выше; карточка с кадром весит десятки килобайт вместо мегабайта и не трогает LCP.
+
+Микро-метка карточки — прописные, разрядка, кегль из лестницы, не мельче 11px:
+  .bento__label{text-transform:uppercase;letter-spacing:.22em;font-size:var(--text-xs);
+    opacity:.7;margin:0}
+
+Зерно поверх плоской заливки — дословно, проверенный рецепт:
+  .noise{position:relative}
+  .noise::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.55;
+    mix-blend-mode:soft-light;background-size:240px 240px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+
+Бегущая лента — дословно, вместе с растворением краёв:
+  .marquee{overflow:hidden;
+    -webkit-mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent);
+    mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent)}
+  .marquee__row{display:flex;width:max-content;gap:var(--space-3);
+    animation:marquee-left 22s linear infinite}
+  .marquee__row--back{animation-name:marquee-right;animation-duration:26s}
+  @keyframes marquee-left{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes marquee-right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+  @media (prefers-reduced-motion:reduce){.marquee__row{animation:none}}
+Содержимое ряда дублируется в разметке дважды подряд, иначе на середине будет разрыв.
+
+Границы приёма, нарушение = брак:
+- Бенто на странице одно, лента одна. Две сетки подряд превращают страницу в склад плиток.
+- Текст на карточке лежит поверх затемнения ::before и читается с контрастом не ниже 4.5:1
+  по самому светлому месту кадра; не дотягивает — темнее подложка, а не светлее шрифт.
+- В ленте едут кадры или короткие слова из описания бизнеса. Сочинённых логотипов клиентов,
+  наград и названий брендов в ленте нет — это выдуманный факт (§12).
+- Пустая карточка ради ритма запрещена: в каждой ячейке либо кадр, либо содержательный текст.`,
+  },
 };
 
 export function craftBlock(keys) {
