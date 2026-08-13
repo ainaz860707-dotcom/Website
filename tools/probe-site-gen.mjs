@@ -137,10 +137,43 @@ if (process.env.SKIP_VIDEO !== '1') {
     if (ownUrl) {
       const poster = process.env.HERO_VIDEO_POSTER?.trim();
       if (!poster) throw new Error('есть HERO_VIDEO, но нет HERO_VIDEO_POSTER — постер обязателен');
+      const ambientWebm = process.env.AMBIENT_VIDEO_WEBM?.trim();
+      let ambient = null;
+      if (ambientWebm) {
+        const need = {
+          AMBIENT_VIDEO_MP4: process.env.AMBIENT_VIDEO_MP4?.trim(),
+          AMBIENT_VIDEO_WEBM_MOBILE: process.env.AMBIENT_VIDEO_WEBM_MOBILE?.trim(),
+          AMBIENT_VIDEO_MP4_MOBILE: process.env.AMBIENT_VIDEO_MP4_MOBILE?.trim(),
+          AMBIENT_VIDEO_POSTER: process.env.AMBIENT_VIDEO_POSTER?.trim(),
+          AMBIENT_VIDEO_POSTER_MOBILE: process.env.AMBIENT_VIDEO_POSTER_MOBILE?.trim(),
+          AMBIENT_VIDEO_ALT: process.env.AMBIENT_VIDEO_ALT?.trim(),
+          AMBIENT_VIDEO_WHERE: process.env.AMBIENT_VIDEO_WHERE?.trim(),
+        };
+        const missing = Object.entries(need).filter(([, v]) => !v).map(([k]) => k);
+        if (missing.length) throw new Error(`есть AMBIENT_VIDEO_WEBM, но нет: ${missing.join(', ')}`);
+        ambient = {
+          webmDesktop: ambientWebm,
+          mp4Desktop: need.AMBIENT_VIDEO_MP4,
+          webmMobile: need.AMBIENT_VIDEO_WEBM_MOBILE,
+          mp4Mobile: need.AMBIENT_VIDEO_MP4_MOBILE,
+          posterDesktop: need.AMBIENT_VIDEO_POSTER,
+          posterMobile: need.AMBIENT_VIDEO_POSTER_MOBILE,
+          title: need.AMBIENT_VIDEO_ALT,
+          where: need.AMBIENT_VIDEO_WHERE,
+        };
+      }
+
       heroVideoBlock = `\n${videoBlock([], {
-        own: { url: ownUrl, poster, title: process.env.HERO_VIDEO_ALT?.trim() || 'первый экран' },
+        own: {
+          url: ownUrl,
+          urlMobile: process.env.HERO_VIDEO_MOBILE?.trim() || null,
+          poster,
+          posterMobile: process.env.HERO_VIDEO_POSTER_MOBILE?.trim() || null,
+          title: process.env.HERO_VIDEO_ALT?.trim() || 'первый экран',
+        },
+        ambient,
       })}\n`;
-      process.stderr.write(`[видео] своё видео клиента: ${ownUrl}\n`);
+      process.stderr.write(`[видео] своё видео клиента: ${ownUrl}${ambient ? ` + фоновая сцена: ${ambient.webmDesktop}` : ''}\n`);
     } else {
       const videos = await collectVideos(input, { log: (m) => process.stderr.write(`[видео] ${m}\n`) });
       if (videos.length) {
@@ -177,6 +210,13 @@ const chosenNames = resolveTechniques(preset, motionOptions).map((t) => t.name);
 
 process.stderr.write(
   `[движение] пресет ${preset.key} — ${preset.name}; источник ${process.env.MOTION?.trim() ? 'MOTION' : `направление ${fallbackDirection.key}`}; приёмов ${chosenNames.length}: ${chosenNames.join(', ') || 'нет'}\n`,
+);
+
+const { craftBlock } = await import('./craft-recipes.mjs');
+const craft = craftBlock(process.env.CRAFT);
+const craftSection = craft.block ? `\n${craft.block}\n` : '';
+process.stderr.write(
+  craft.used.length ? `[приёмы] ${craft.used.join(' · ')}\n` : '[приёмы] не заданы\n',
 );
 
 const DEFAULT_STRUCTURE = `1. Липкая шапка: название дела, якорные ссылки, кнопка действия справа.
@@ -270,7 +310,7 @@ ${structure}
   владельцем: дописать нечем — блок короткий, и это правильный результат, а не недоделка.
 
 ${motion}
-
+${craftSection}
 ПОВЕРХНОСТЬ СТРАНИЦЫ (обязательна, проверяется автоматически):
 Фон страницы — материал, а не заливка. Плоский белый #FFF под всей страницей — брак:
 он читается как несвёрстанный документ. Собирай фон слоями на body, сверху вниз:

@@ -73,14 +73,19 @@ const SCRUB_RECIPE = `КАК ДЕЛАЕТСЯ СКРОЛЛ-СКРАББИНГ (�
 Разметка первого экрана строго такая:
   <section class="hero" data-hero>
     <div class="hero__sticky">
-      <video class="hero__video" data-src="ССЫЛКА" muted playsinline
-             disablepictureinpicture aria-hidden="true"></video>
-      <img class="hero__poster" src="ПОСТЕР" alt="что в кадре" width="…" height="…">
+      <video class="hero__video" data-src="ССЫЛКА_16x9" data-src-mobile="ССЫЛКА_9x16"
+             muted playsinline disablepictureinpicture aria-hidden="true"></video>
+      <picture class="hero__poster">
+        <source media="(max-width: 768px)" srcset="ПОСТЕР_9x16">
+        <img src="ПОСТЕР_16x9" alt="что в кадре" width="…" height="…">
+      </picture>
       <div class="hero__veil"></div>
       … заголовок, подводка, кнопка …
       <p class="hero__cap">подпись к кадру</p>
     </div>
   </section>
+Горизонталь и вертикаль — РАЗНЫЕ файлы: кроп горизонтального кадра на телефоне срезает
+композицию. Скрипт выбирает файл по ширине экрана, постер переключает <picture> сам.
 У <video> НЕТ атрибута src: адрес лежит в data-src, скрипт качает файл целиком в blob.
 Потоковый src при перемотке даёт range-запрос на каждый кадр и дёргается на телефоне.
 Постер — отдельный <img> с настоящим alt, а не атрибут poster: так кадр виден краулеру и
@@ -103,8 +108,10 @@ const SCRUB_RECIPE = `КАК ДЕЛАЕТСЯ СКРОЛЛ-СКРАББИНГ (�
   const tick=()=>{target=progress();s.classList.toggle('is-scrolled',target>.04);
     if(!still.matches&&!frame)frame=requestAnimationFrame(draw);};
   v.addEventListener('loadeddata',()=>{s.classList.add('is-live');tick();},{once:!0});
-  fetch(v.dataset.src).then(r=>r.ok?r.blob():Promise.reject(r.status))
-    .then(b=>{v.src=URL.createObjectURL(b);}).catch(()=>{v.src=v.dataset.src;});
+  const pick=()=>matchMedia('(max-width: 768px)').matches&&v.dataset.srcMobile?v.dataset.srcMobile:v.dataset.src;
+  const src=pick();
+  fetch(src).then(r=>r.ok?r.blob():Promise.reject(r.status))
+    .then(b=>{v.src=URL.createObjectURL(b);}).catch(()=>{v.src=src;});
   const unlock=()=>{v.play().then(()=>v.pause()).catch(()=>{});};
   addEventListener('pointerdown',unlock,{once:!0,passive:!0});
   addEventListener('touchstart',unlock,{once:!0,passive:!0});
@@ -119,6 +126,8 @@ const SCRUB_RECIPE = `КАК ДЕЛАЕТСЯ СКРОЛЛ-СКРАББИНГ (�
   пока человек ни разу не коснулся экрана, и видео стоит чёрным прямоугольником.
 - Обработчики scroll и resize только ставят цель и будят один rAF — считать в них нельзя.
 - При prefers-reduced-motion перемотки нет вовсе, человек видит постер и подписи.
+- Файл выбирается ОДИН раз при загрузке: перекачивать видео на повороте экрана нельзя,
+  это мегабайты трафика ради кадра, которого человек уже не смотрит.
 
 Подпись \`.hero__cap\` — ОДНА и всегда видимая. Переключать несколько подписей по прогрессу
 скролла запрещено: спрятанная под opacity:0 подпись без скриптов не видна человеку, и это
@@ -132,23 +141,83 @@ const SCRUB_RECIPE = `КАК ДЕЛАЕТСЯ СКРОЛЛ-СКРАББИНГ (�
 
 Текст поверх видео — с затемняющей подложкой .hero__veil, контраст не ниже 4.5:1.`;
 
-export function videoBlock(videos, { own = null } = {}) {
+const AMBIENT_RECIPE = `КАК ДЕЛАЕТСЯ ФОНОВАЯ СЦЕНА В ГЛУБИНЕ СТРАНИЦЫ (второй ролик, не первый экран).
+Приём: короткая петля, которая начинает грузиться только когда блок входит во вьюпорт.
+
+Разметка строго такая — у <video> НЕТ ни src, ни <source> в исходном HTML:
+  <section class="ambient">
+    <video class="ambient__video" poster="ПОСТЕР_16x9" autoplay muted loop playsinline
+           preload="none" aria-hidden="true" data-ambient
+           data-poster-desktop="ПОСТЕР_16x9" data-poster-mobile="ПОСТЕР_9x16"
+           data-webm-desktop="WEBM_16x9" data-mp4-desktop="MP4_16x9"
+           data-webm-mobile="WEBM_9x16" data-mp4-mobile="MP4_9x16"></video>
+    … текст секции обычной разметкой, НЕ поверх видео …
+  </section>
+
+Скрипт — инлайновый, в конце <body>, ровно по этой схеме:
+  <script>
+  (()=>{const els=[].slice.call(document.querySelectorAll('[data-ambient]'));if(!els.length)return;
+  const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+  const kind=()=>matchMedia('(max-width: 768px)').matches?'mobile':'desktop';
+  const poster=v=>{const p=v.dataset['poster'+cap(kind())];if(p)v.setAttribute('poster',p);};
+  const attach=v=>{const k=kind();if(v.dataset.loaded===k)return;
+    while(v.firstChild)v.removeChild(v.firstChild);
+    [['video/webm',v.dataset['webm'+cap(k)]],['video/mp4',v.dataset['mp4'+cap(k)]]].forEach(p=>{
+      if(!p[1])return;const s=document.createElement('source');s.type=p[0];s.src=p[1];v.appendChild(s);});
+    v.dataset.loaded=k;v.load();};
+  els.forEach(poster);
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;
+    if(e.isIntersecting){attach(v);const p=v.play();if(p&&p.catch)p.catch(()=>{});}
+    else if(v.dataset.loaded)v.pause();}),{rootMargin:'200px 0px',threshold:.01});
+  els.forEach(v=>io.observe(v));
+  const mq=matchMedia('(max-width: 768px)');const onch=()=>els.forEach(v=>{poster(v);if(v.dataset.loaded)attach(v);});
+  mq.addEventListener?mq.addEventListener('change',onch):mq.addListener(onch);})();
+  </script>
+
+Почему каждая строка на месте — убрать любую значит сломать приём:
+- Источники не стоят в разметке и навешиваются скриптом: с \`preload="none"\`, но с \`src\`
+  браузер всё равно тянет метаданные каждого ролика, и LCP проседает ещё до прокрутки.
+- \`rootMargin:'200px'\` даёт файлу фору: без неё петля стартует уже на глазах у человека.
+- Пауза при выходе из вьюпорта обязательна: невидимое видео иначе греет процессор.
+- Вертикаль и горизонталь — РАЗНЫЕ файлы, а не object-fit по одному: кроп горизонтального
+  кадра на телефоне срезает композицию.
+- При prefers-reduced-motion скрипт выходит сразу, человек видит постер.
+
+Видео здесь декоративное и aria-hidden: ни одного факта о бизнесе, который читается только
+из кадра. Текст секции — обычной разметкой рядом, а НЕ поверх видео.`;
+
+export function videoBlock(videos, { own = null, ambient = null } = {}) {
   if (own) {
+    const second = ambient
+      ? `
+
+ВТОРОЕ ВИДЕО — ФОНОВАЯ СЦЕНА В ГЛУБИНЕ СТРАНИЦЫ:
+  desktop 16:9: ${ambient.webmDesktop} · ${ambient.mp4Desktop}
+  mobile  9:16: ${ambient.webmMobile} · ${ambient.mp4Mobile}
+     постеры: ${ambient.posterDesktop} · ${ambient.posterMobile}
+     что в кадре: ${ambient.title}
+     смысловое место на странице: ${ambient.where}
+
+${AMBIENT_RECIPE}`
+      : '';
+
     return `ВИДЕО ПЕРВОГО ЭКРАНА (снято или собрано для этого бизнеса, права у клиента):
-  ${own.url}
-     постер: ${own.poster}
+  desktop 16:9: ${own.url}
+  mobile  9:16: ${own.urlMobile ?? '— нет, на телефоне идёт тот же файл'}
+     постеры: ${own.poster}${own.posterMobile ? ` · ${own.posterMobile}` : ''}
      что в кадре: ${own.title}${own.seconds ? ` · ${own.seconds}с` : ''}
 
 Как с ним обращаться:
-- Ровно ОДНО видео на странице, и оно — первый экран. Второе видео запрещено:
-  это мегабайты и расфокус.
-- Видео прокручивается скроллом, автозапуска и loop НЕТ. Схема ниже обязательна.
+- Видео на странице ${ambient ? 'РОВНО ДВА, и больше ни одного' : 'РОВНО ОДНО, и оно — первый экран'}.
+  ${ambient ? 'Первое — первый экран со скролл-скраббингом, второе — фоновая петля в глубине страницы. Третье запрещено: это мегабайты и расфокус.' : 'Второе видео запрещено: это мегабайты и расфокус.'}
+- Видео первого экрана прокручивается скроллом, автозапуска и loop НЕТ. Схема ниже обязательна.
 - Видео декоративное: ни одного факта о бизнесе, который читается только из кадра.
 - ПОДПИСИ — только то, что сказано в описании бизнеса. Кадр принадлежит клиенту, поэтому
   «наш цех» писать можно, но лишь если владелец про цех сказал. Чего в описании нет —
   того нет и в подписи: ни адреса, ни имени, ни года.
 
-${SCRUB_RECIPE}`;
+${SCRUB_RECIPE}${second}`;
   }
 
   if (!videos.length) return '';
