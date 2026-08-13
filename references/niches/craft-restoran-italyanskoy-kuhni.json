@@ -1,0 +1,88 @@
+{
+  "key": "craft-restoran-italyanskoy-kuhni",
+  "name": "еда и ремесло, продаёт вкус и место — собрано по 4 референсам (pinterest)",
+  "profile": "craft",
+  "fonts": "'Google Sans' на заголовки + 'Roboto' на текст — или ближайшая пара с Google Fonts, если этих нет",
+  "palette": "фон #FFFFFF · текст #000000 · единственный акцент #8AB4F8 · приглушённый #9AA0A6",
+  "layout": "скругления около 10px, шкала кеглей 9→90px, крупные рамки-слоты под снимки с подписями, много воздуха и широкие поля, тонкие линейки 1px между секциями",
+  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(.4,0,.2,1)",
+  "gallery": true,
+  "slots": [],
+  "measured": {
+    "palette": {
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#8AB4F8",
+      "muted": "#9AA0A6"
+    },
+    "fonts": [
+      {
+        "name": "Google Sans",
+        "count": 143
+      },
+      {
+        "name": "Roboto",
+        "count": 50
+      },
+      {
+        "name": "Raleway",
+        "count": 25
+      },
+      {
+        "name": "Lato",
+        "count": 15
+      },
+      {
+        "name": "poppins",
+        "count": 9
+      },
+      {
+        "name": "roboto",
+        "count": 5
+      },
+      {
+        "name": "Font Awesome 5 Free",
+        "count": 5
+      },
+      {
+        "name": "acumin-pro-wide",
+        "count": 5
+      }
+    ],
+    "rhythm": {
+      "scaleMin": 9,
+      "scaleMax": 90,
+      "radius": "10px",
+      "sharp": false,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(0,0,.2,1)",
+        "cubic-bezier(.4,0,.6,1)"
+      ]
+    },
+    "subjects": []
+  },
+  "sources": [
+    {
+      "name": "Coffee Shop Website Design — Artisan Café & Bakery UI Inspiration",
+      "url": "https://go.fiverr.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "🏷 Create mobile website via link ↓",
+      "url": "https://sites.google.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "Cafe Website Design | Modern Coffee Shop UI UX for Restaurants & Cafés",
+      "url": "https://selfany.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "",
+      "url": "https://www.behance.net",
+      "from": "pinterest"
+    }
+  ],
+  "date": "2026-08-13"
+}
