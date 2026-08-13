@@ -175,9 +175,14 @@ for (const file of files) {
 
   const images = [...html.matchAll(/<img\b[^>]*>/gi)].map((m) => m[0]);
   const HERO_IMG = /class="[^"]*\b(hero__poster|poster)\b/i;
-  const posters = images.filter((tag) => HERO_IMG.test(tag));
+  const inHeroPicture = new Set(
+    [...html.matchAll(/<picture\b[^>]*class="[^"]*\b(?:hero__poster|poster)\b[^"]*"[^>]*>([\s\S]*?)<\/picture>/gi)]
+      .flatMap((m) => [...m[1].matchAll(/<img\b[^>]*>/gi)].map((i) => i[0])),
+  );
+  const isPoster = (tag) => HERO_IMG.test(tag) || inHeroPicture.has(tag);
+  const posters = images.filter(isPoster);
   const sloppy = images
-    .filter((tag) => !HERO_IMG.test(tag))
+    .filter((tag) => !isPoster(tag))
     .filter((tag) => !/alt="[^"]{6,}"/i.test(tag) || !/width=/i.test(tag) || !/loading="lazy"/i.test(tag));
   if (sloppy.length) found.push(`снимков без alt, width или loading="lazy": ${sloppy.length} из ${images.length}`);
   const lazyPoster = posters.filter((tag) => /loading="lazy"/i.test(tag));
@@ -186,8 +191,15 @@ for (const file of files) {
   if (blindPoster.length) found.push('у постера первого экрана нет осмысленного alt или width — краулер кадр не увидит');
 
   const videos = [...html.matchAll(/<video\b[^>]*>/gi)].map((m) => m[0]);
-  if (videos.length > 1) found.push(`видео на странице ${videos.length} — разрешено ровно одно, остальное мегабайты`);
+  const ambient = videos.filter((tag) => /\bdata-ambient\b/i.test(tag));
+  if (videos.length - ambient.length > 1) {
+    found.push(`видео первого экрана ${videos.length - ambient.length} — оно должно быть ровно одно`);
+  }
+  if (ambient.length > 1) {
+    found.push(`фоновых видео ${ambient.length} — больше одного это мегабайты и расфокус`);
+  }
   for (const tag of videos) {
+    const isAmbient = /\bdata-ambient\b/i.test(tag);
     if (!/\bmuted\b/i.test(tag) || !/\bplaysinline\b/i.test(tag)) {
       found.push('у <video> нет muted или playsinline — на телефоне вместо кадра чёрный прямоугольник');
     }
@@ -195,10 +207,34 @@ for (const file of files) {
     if (scrubbed && /\bautoplay\b/i.test(tag)) {
       found.push('<video> одновременно на скролл-скраббинге (data-src) и на autoplay — приёмы исключают друг друга');
     }
+    if (isAmbient) {
+      if (/\bsrc="/i.test(tag) || /\bdata-src="/i.test(tag)) {
+        found.push('у фонового <video> есть src — с ним браузер тянет метаданные ещё до прокрутки, источники навешивает скрипт');
+      }
+      if (!/\bdata-webm-desktop="/i.test(tag) || !/\bdata-mp4-desktop="/i.test(tag)) {
+        found.push('у фонового <video> нет data-webm-desktop или data-mp4-desktop — скрипту нечего навесить');
+      }
+      if (!/\bdata-webm-mobile="/i.test(tag) || !/\bdata-mp4-mobile="/i.test(tag)) {
+        found.push('у фонового <video> нет вертикальных файлов — кроп горизонтали на телефоне срезает композицию');
+      }
+      if (!/\bpreload="none"/i.test(tag)) {
+        found.push('у фонового <video> нет preload="none" — ролик грузится до входа во вьюпорт и роняет LCP');
+      }
+      if (!/\bposter="/i.test(tag)) {
+        found.push('у фонового <video> нет постера — до загрузки на месте секции пустота');
+      }
+      continue;
+    }
     if (!scrubbed && !/\bsrc="/i.test(tag)) found.push('у <video> нет ни src, ни data-src');
     if (!posters.length && !/\bposter="/i.test(tag)) {
       found.push('видео без постера — пока файл качается, на первом экране пустота');
     }
+    if (scrubbed && !/\bdata-src-mobile="/i.test(tag)) {
+      found.push('у видео первого экрана нет data-src-mobile — на телефоне идёт кроп горизонтали');
+    }
+  }
+  if (ambient.length && !/IntersectionObserver/i.test(html)) {
+    found.push('фоновое видео есть, а IntersectionObserver нет — источники не навесятся, останется один постер');
   }
   if (videos.length && !/requestAnimationFrame/i.test(html) && !/\bautoplay\b/i.test(videos[0])) {
     found.push('видео есть, а скролл-скраббинга нет: без requestAnimationFrame перемотка идёт рывками');
