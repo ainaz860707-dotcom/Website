@@ -1,0 +1,88 @@
+{
+  "key": "care-psiholog-chastnaya-praktika",
+  "name": "здоровье и уход, продаёт доверие — собрано по 4 референсам (pinterest)",
+  "profile": "care",
+  "fonts": "'ui-sans-serif' на заголовки + 'Google Sans' на текст — или ближайшая пара с Google Fonts, если этих нет",
+  "palette": "фон #FFFFFF · текст #000000 · единственный акцент #8AB4F8 · приглушённый #9AA0A6",
+  "layout": "скругления около 4px, шкала кеглей 9→90px, плотная сетка, факты в строку, воздух вокруг блока действия, тонкие линейки 1px между секциями",
+  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(0.19,1,0.22,1)",
+  "gallery": false,
+  "slots": [],
+  "measured": {
+    "palette": {
+      "paper": "#FFFFFF",
+      "ink": "#000000",
+      "accent": "#8AB4F8",
+      "muted": "#9AA0A6"
+    },
+    "fonts": [
+      {
+        "name": "Google Sans",
+        "count": 143
+      },
+      {
+        "name": "Roboto",
+        "count": 50
+      },
+      {
+        "name": "Raleway",
+        "count": 25
+      },
+      {
+        "name": "Lato",
+        "count": 15
+      },
+      {
+        "name": "acumin-pro-wide",
+        "count": 5
+      },
+      {
+        "name": "adobe-clean",
+        "count": 5
+      },
+      {
+        "name": "adobe-clean-han-japanese",
+        "count": 5
+      },
+      {
+        "name": "acumin-pro",
+        "count": 4
+      }
+    ],
+    "rhythm": {
+      "scaleMin": 9,
+      "scaleMax": 90,
+      "radius": "4px",
+      "sharp": false,
+      "easings": [
+        "cubic-bezier(0.19,1,0.22,1)",
+        "cubic-bezier(0.4,0,0.2,1)",
+        "cubic-bezier(0.78,0,0.81,0)"
+      ]
+    },
+    "subjects": []
+  },
+  "sources": [
+    {
+      "name": "Modern Medical Website Design | Healthcare UI/UX Concept",
+      "url": "https://www.behance.net",
+      "from": "pinterest"
+    },
+    {
+      "name": "232+ Pharmaceutical Website Design Ideas",
+      "url": "https://go.fiverr.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "Dr. Healthcare Website",
+      "url": "https://sites.google.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "Modern Healthcare Website Design | Doctor, Clinic & Hospital UI UX Inspiration",
+      "url": "https://takneasolution.me",
+      "from": "pinterest"
+    }
+  ],
+  "date": "2026-08-13"
+}

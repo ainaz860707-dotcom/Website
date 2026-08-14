@@ -1,0 +1,88 @@
+{
+  "key": "plain-help",
+  "name": "общий случай — собрано по 4 референсам (pinterest)",
+  "profile": "plain",
+  "fonts": "'Font Awesome 5 Free' на заголовки + 'Google Sans' на текст — или ближайшая пара с Google Fonts, если этих нет",
+  "palette": "фон #E8EAED · текст #1F1F1F · единственный акцент #8AB4F8 · приглушённый #9AA0A6",
+  "layout": "скругления нулевые, шкала кеглей 10→160px, плотная сетка, факты в строку, воздух вокруг блока действия, тонкие линейки 1px между секциями",
+  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(.4,0,.6,1)",
+  "gallery": false,
+  "slots": [],
+  "measured": {
+    "palette": {
+      "paper": "#E8EAED",
+      "ink": "#1F1F1F",
+      "accent": "#8AB4F8",
+      "muted": "#9AA0A6"
+    },
+    "fonts": [
+      {
+        "name": "Font Awesome 5 Free",
+        "count": 157
+      },
+      {
+        "name": "Google Sans",
+        "count": 143
+      },
+      {
+        "name": "Inter Tight",
+        "count": 128
+      },
+      {
+        "name": "Merriweather",
+        "count": 70
+      },
+      {
+        "name": "Plus Jakarta Sans",
+        "count": 59
+      },
+      {
+        "name": "Font Awesome 5 Brands",
+        "count": 55
+      },
+      {
+        "name": "Roboto",
+        "count": 50
+      },
+      {
+        "name": "Raleway",
+        "count": 25
+      }
+    ],
+    "rhythm": {
+      "scaleMin": 10,
+      "scaleMax": 160,
+      "radius": "0",
+      "sharp": true,
+      "easings": [
+        "cubic-bezier(.4,0,.6,1)",
+        "cubic-bezier(.215,.61,.355,1)",
+        "cubic-bezier(.28,.84,.42,1)"
+      ]
+    },
+    "subjects": []
+  },
+  "sources": [
+    {
+      "name": "Stunning Landing Page & Business Website Design on Fiverr Pro | Boost Your Online Sales",
+      "url": "https://go.fiverr.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "landing page , funnel, web design, landng page design, website development, clickfunnel, figma, word",
+      "url": "http://www.lokyfunnel.site",
+      "from": "pinterest"
+    },
+    {
+      "name": "Business Coach Website Inspiration | Feminine Coaching Landing Page",
+      "url": "https://www.kellseypopowich.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "landing page , funnel, web design, landng page design, website development, clickfunnel, figma, word",
+      "url": "https://sites.google.com",
+      "from": "pinterest"
+    }
+  ],
+  "date": "2026-08-13"
+}

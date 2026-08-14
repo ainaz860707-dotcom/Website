@@ -1,0 +1,88 @@
+{
+  "key": "plain-stroitelstvo-zagorodnyh-domov",
+  "name": "общий случай — собрано по 4 референсам (pinterest)",
+  "profile": "plain",
+  "fonts": "'Google Sans' на заголовки + 'Font Awesome 5 Free' на текст — или ближайшая пара с Google Fonts, если этих нет",
+  "palette": "фон #FFFFFF · текст #1A1A1A · единственный акцент #8AB4F8 · приглушённый #9AA0A6",
+  "layout": "скругления нулевые, шкала кеглей 10→110px, плотная сетка, факты в строку, воздух вокруг блока действия, тонкие линейки 1px между секциями",
+  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(.4,0,.2,1)",
+  "gallery": false,
+  "slots": [],
+  "measured": {
+    "palette": {
+      "paper": "#FFFFFF",
+      "ink": "#1A1A1A",
+      "accent": "#8AB4F8",
+      "muted": "#9AA0A6"
+    },
+    "fonts": [
+      {
+        "name": "Google Sans",
+        "count": 143
+      },
+      {
+        "name": "Font Awesome 5 Free",
+        "count": 137
+      },
+      {
+        "name": "Manrope",
+        "count": 98
+      },
+      {
+        "name": "Font Awesome 5 Brands",
+        "count": 55
+      },
+      {
+        "name": "Roboto",
+        "count": 50
+      },
+      {
+        "name": "Raleway",
+        "count": 25
+      },
+      {
+        "name": "Lato",
+        "count": 15
+      },
+      {
+        "name": "roboto",
+        "count": 3
+      }
+    ],
+    "rhythm": {
+      "scaleMin": 10,
+      "scaleMax": 110,
+      "radius": "0px",
+      "sharp": true,
+      "easings": [
+        "cubic-bezier(.4,0,.2,1)",
+        "cubic-bezier(0,0,.2,1)",
+        "cubic-bezier(.4,0,.6,1)"
+      ]
+    },
+    "subjects": []
+  },
+  "sources": [
+    {
+      "name": "landing page , funnel, web design, landng page design, website development, clickfunnel, figma, word",
+      "url": "https://sites.google.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "Сайт для кофейни в теплой современной подаче",
+      "url": "https://go.fiverr.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "Business Coach Website Inspiration | Feminine Coaching Landing Page",
+      "url": "https://www.kellseypopowich.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "Эффективный веб-дизайн",
+      "url": "https://a-reks.ru",
+      "from": "pinterest"
+    }
+  ],
+  "date": "2026-08-12"
+}

@@ -1,0 +1,130 @@
+{
+  "key": "visual-fotograf-svadebnaya-portretnaya",
+  "name": "бизнес продаёт картинку — собрано по 4 референсам (pinned + pinterest)",
+  "profile": "visual",
+  "fonts": "'Playfair Display' на заголовки + 'Google Sans' на текст — или ближайшая пара с Google Fonts, если этих нет",
+  "palette": "фон #E8EAED · текст #1F1F1F · единственный акцент #8AB4F8 · приглушённый #9AA0A6",
+  "layout": "скругления около 4px, шкала кеглей 11→130px, крупные рамки-слоты под снимки с подписями, много воздуха и широкие поля, тонкие линейки 1px между секциями",
+  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(0.215,0.61,0.355,1)",
+  "gallery": true,
+  "slots": [
+    "кольца и детали",
+    "платье невесты",
+    "сервировка и застолье",
+    "церемония",
+    "сборы",
+    "букет и флористика",
+    "портрет пары",
+    "первый танец"
+  ],
+  "measured": {
+    "palette": {
+      "paper": "#E8EAED",
+      "ink": "#1F1F1F",
+      "accent": "#8AB4F8",
+      "muted": "#9AA0A6"
+    },
+    "fonts": [
+      {
+        "name": "Google Sans",
+        "count": 143
+      },
+      {
+        "name": "Roboto",
+        "count": 50
+      },
+      {
+        "name": "Ubuntu Light",
+        "count": 25
+      },
+      {
+        "name": "Inter",
+        "count": 22
+      },
+      {
+        "name": "Playfair Display",
+        "count": 17
+      },
+      {
+        "name": "JetBrains Mono",
+        "count": 13
+      },
+      {
+        "name": "Font Awesome 6 Pro !important",
+        "count": 11
+      },
+      {
+        "name": "Space Grotesk",
+        "count": 7
+      }
+    ],
+    "rhythm": {
+      "scaleMin": 11,
+      "scaleMax": 130,
+      "radius": "4px",
+      "sharp": false,
+      "easings": [
+        "cubic-bezier(0.215,0.61,0.355,1)",
+        "cubic-bezier(0.4,0,0.22,1)",
+        "cubic-bezier(0.55,0.055,0.675,0.19)"
+      ]
+    },
+    "subjects": [
+      {
+        "label": "кольца и детали",
+        "count": 22
+      },
+      {
+        "label": "платье невесты",
+        "count": 17
+      },
+      {
+        "label": "сервировка и застолье",
+        "count": 7
+      },
+      {
+        "label": "церемония",
+        "count": 4
+      },
+      {
+        "label": "сборы",
+        "count": 4
+      },
+      {
+        "label": "букет и флористика",
+        "count": 4
+      },
+      {
+        "label": "портрет пары",
+        "count": 3
+      },
+      {
+        "label": "первый танец",
+        "count": 3
+      }
+    ]
+  },
+  "sources": [
+    {
+      "name": "закреплён владельцем: https://shiraliev.ru/",
+      "url": "https://shiraliev.ru/",
+      "from": "pinned"
+    },
+    {
+      "name": "Freelance Photographer Portfolio Landing Page | 2026 UI",
+      "url": "https://codeanddesignhub.vercel.app",
+      "from": "pinterest"
+    },
+    {
+      "name": "Squarespace Photography Website Template for Wedding Portfolios",
+      "url": "https://sites.google.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "Squarespace Design for Photographers | Florence",
+      "url": "https://www.sophiewuthrich.com",
+      "from": "pinterest"
+    }
+  ],
+  "date": "2026-08-13"
+}
