@@ -8,7 +8,7 @@ const SUBJECTS = [
   { marks: /кондитер|торт|десерт/i, queries: ['cake dessert', 'pastry chef', 'birthday cake'] },
   { marks: /груминг|собак|зоосалон|котов|кошек/i, queries: ['dog grooming', 'happy dog', 'pet care'] },
   { marks: /ветеринар/i, queries: ['veterinarian dog', 'pet clinic', 'cat vet'] },
-  { marks: /химчист|аквачистк|прачечн|ателье|портн|кашемир|пуховик|дублёнк|глажк|подшив/i, queries: ['folded cashmere fabric', 'garment steamer atelier', 'coats on hangers rail'] },
+  { marks: /химчист|аквачистк|прачечн|ателье|портн|кашемир|пуховик|дублёнк|глажк|подшив/i, queries: ['hanging clothes', 'ironing', 'folded clothes', 'silk fabric'] },
   { marks: /свадеб|фотограф|съёмк|съемк/i, queries: ['wedding couple', 'wedding bouquet', 'photographer camera'] },
   { marks: /маникюр|педикюр|ногт/i, queries: ['manicure nails', 'nail salon', 'spa hands'] },
   { marks: /барбершоп|стрижк|парикмахер/i, queries: ['barbershop haircut', 'barber scissors', 'mens grooming'] },

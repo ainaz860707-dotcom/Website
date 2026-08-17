@@ -1,0 +1,88 @@
+{
+  "key": "garment-himchistka-atele-premialnogo",
+  "name": "уход за одеждой и тканью, продаёт бережность — собрано по 4 референсам (pinned + pinterest)",
+  "profile": "garment",
+  "fonts": "'Cormorant Garamond' на заголовки + 'system_ui' на текст — или ближайшая пара с Google Fonts, если этих нет",
+  "palette": "фон #FFFFFF · текст #1F2322 · единственный акцент #246BE8 · приглушённый #546A78",
+  "layout": "скругления нулевые, шкала кеглей 10→200px, крупные рамки-слоты под снимки с подписями, много воздуха и широкие поля, тонкие линейки 1px между секциями",
+  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(.57,.06,.05,.95)",
+  "gallery": true,
+  "slots": [],
+  "measured": {
+    "palette": {
+      "paper": "#FFFFFF",
+      "ink": "#1F2322",
+      "accent": "#246BE8",
+      "muted": "#546A78"
+    },
+    "fonts": [
+      {
+        "name": "system_ui",
+        "count": 29
+      },
+      {
+        "name": "Inter",
+        "count": 28
+      },
+      {
+        "name": "Cormorant Garamond",
+        "count": 26
+      },
+      {
+        "name": "Raleway",
+        "count": 25
+      },
+      {
+        "name": "Lato",
+        "count": 25
+      },
+      {
+        "name": "Assistant",
+        "count": 18
+      },
+      {
+        "name": "GothamRoundedBook",
+        "count": 17
+      },
+      {
+        "name": "Heebo",
+        "count": 16
+      }
+    ],
+    "rhythm": {
+      "scaleMin": 10,
+      "scaleMax": 200,
+      "radius": "0",
+      "sharp": true,
+      "easings": [
+        "cubic-bezier(.57,.06,.05,.95)",
+        "cubic-bezier(.46,.01,.32,1)",
+        "cubic-bezier(.4,0,.2,1)"
+      ]
+    },
+    "subjects": []
+  },
+  "sources": [
+    {
+      "name": "закреплён владельцем: https://blancliving.co/",
+      "url": "https://blancliving.co/",
+      "from": "pinned"
+    },
+    {
+      "name": "Minimalist Laundry Website Design Inspiration & UI Layouts",
+      "url": "https://go.fiverr.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "Get a FREE Dry Cleaning Layout Pack for Divi",
+      "url": "https://www.elegantthemes.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "Dry Cleaners Landing Page Template",
+      "url": "https://www.aweber.com",
+      "from": "pinterest"
+    }
+  ],
+  "date": "2026-08-17"
+}
