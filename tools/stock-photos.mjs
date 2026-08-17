@@ -8,6 +8,7 @@ const SUBJECTS = [
   { marks: /кондитер|торт|десерт/i, queries: ['cake dessert', 'pastry chef', 'birthday cake'] },
   { marks: /груминг|собак|зоосалон|котов|кошек/i, queries: ['dog grooming', 'happy dog', 'pet care'] },
   { marks: /ветеринар/i, queries: ['veterinarian dog', 'pet clinic', 'cat vet'] },
+  { marks: /мебел|диван|матрас|ковр|ковролин|кресл|обивк|крупногабарит|перетяжк/i, queries: ['velvet fabric', 'leather sofa', 'mattress bed', 'armchair room'] },
   { marks: /химчист|аквачистк|прачечн|ателье|портн|кашемир|пуховик|дублёнк|глажк|подшив/i, queries: ['hanging clothes', 'ironing', 'folded clothes', 'silk fabric'] },
   { marks: /свадеб|фотограф|съёмк|съемк/i, queries: ['wedding couple', 'wedding bouquet', 'photographer camera'] },
   { marks: /маникюр|педикюр|ногт/i, queries: ['manicure nails', 'nail salon', 'spa hands'] },
@@ -38,9 +39,13 @@ export function searchUrl(query, perQuery) {
   return `${ENDPOINT}?q=${encodeURIComponent(query)}&source=${SOURCES}&license=cc0&category=photograph&page_size=${perQuery}&mature=false`;
 }
 
+const MUSEUM_TITLE =
+  /\b(1[5-9]\d0s?|century|medieval|renaissance|baroque|antique|engraving|etching|lithograph|woodcut|manuscript|museum|painting|drawing|sketch|graffiti|mural|art\b)/i;
+
 export function photographsOnly(results, query) {
   return (results ?? [])
     .filter((r) => r.category === 'photograph')
+    .filter((r) => !MUSEUM_TITLE.test(String(r.title ?? '')))
     .map((r) => ({
       url: r.url,
       title: String(r.title ?? query).trim(),

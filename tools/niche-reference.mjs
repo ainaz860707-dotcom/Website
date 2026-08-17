@@ -13,6 +13,17 @@ const CACHE_DAYS = 30;
 
 const PROFILES = [
   {
+    key: 'furniture',
+    title: 'крупногабарит на дому, продаёт спасение вещи на месте',
+    marks: /мебел|диван|матрас|ковр|ковролин|кресл|обивк|крупногабарит|перетяжк/i,
+    styles: ['Photography'],
+    categories: ['Shopping'],
+    pinterest: 'upholstery cleaning service website design',
+    cosmos: null,
+    pinned: [],
+    gallery: true,
+  },
+  {
     key: 'garment',
     title: 'уход за одеждой и тканью, продаёт бережность',
     marks: /химчист|аквачистк|прачечн|ателье|портн|кашемир|пуховик|дублёнк|глажк|подшив|пятн/i,

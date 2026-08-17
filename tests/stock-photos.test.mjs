@@ -19,6 +19,29 @@ test('гравюра Милле на первом экране: оцифрова
   assert.equal(kept[0].url, 'https://x/rail.jpg');
 });
 
+test('музейный скан не проходит по названию, даже помеченный фотографией', () => {
+  const payload = [
+    { url: 'https://x/swatch.jpg', title: 'Upholstery fabric (1950s)', category: 'photograph' },
+    { url: 'https://x/graffiti.jpg', title: 'Art Sofa', category: 'photograph' },
+    { url: 'https://x/carpet.jpg', title: 'Medallion Carpet (16th century)', category: 'photograph' },
+    { url: 'https://x/sofa.jpg', title: 'Black Sofa', category: 'photograph', width: 3000, height: 2000 },
+  ];
+
+  const kept = photographsOnly(payload, 'sofa');
+
+  assert.deepEqual(
+    kept.map((p) => p.url),
+    ['https://x/sofa.jpg'],
+  );
+});
+
+test('крупногабарит не уезжает в одежду', () => {
+  const queries = photoQueries('Химчистка мебели на дому в Москве: диваны, матрасы, ковры');
+
+  assert.ok(queries.includes('velvet fabric'), queries.join(', '));
+  assert.ok(!queries.includes('hanging clothes'), queries.join(', '));
+});
+
 test('уход за одеждой не уезжает в свадебную фотографию', () => {
   const queries = photoQueries('Химчистка-ателье в Москве: кашемир, шёлк, свадебные платья');
 
