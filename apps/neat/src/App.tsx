@@ -14,11 +14,11 @@ import {
 } from 'lucide-react'
 
 const stagesData = [
-  { name: 'Осмотр и тест ткани', image: '/media/stage-01.svg' },
-  { name: 'Сухая чистка и пылеудаление', image: '/media/stage-02.svg' },
-  { name: 'Аквачистка пеной', image: '/media/stage-03.svg' },
-  { name: 'Экстракция и нейтрализация запаха', image: '/media/stage-04.svg' },
-  { name: 'Сушка и защитная пропитка', image: '/media/stage-05.svg' },
+  { name: 'Осмотр и тест ткани', image: '/media/stage-01.jpg' },
+  { name: 'Сухая чистка и пылеудаление', image: '/media/stage-02.jpg' },
+  { name: 'Аквачистка пеной', image: '/media/stage-03.jpg' },
+  { name: 'Экстракция и нейтрализация запаха', image: '/media/stage-04.jpg' },
+  { name: 'Сушка и защитная пропитка', image: '/media/stage-05.jpg' },
 ]
 
 const navLinks = ['Услуги', 'Цены', 'Процесс', 'Отзывы', 'Контакты']
@@ -517,15 +517,29 @@ export default function App() {
       </section>
 
       <section className="relative z-30 flex w-full flex-col bg-[#0a0a0a] text-white">
-        <motion.img
-          src="/media/overlap-sofa.svg"
-          alt="Диван в облаке чистящей пены"
+        <motion.div
           initial={{ y: '-65%', opacity: 0 }}
           whileInView={{ y: '-78%', opacity: 1 }}
           viewport={{ once: true, margin: '100px' }}
           transition={{ duration: 1.4, ease: 'easeOut' }}
+          style={{
+            maskImage:
+              'radial-gradient(56% 48% at 50% 46%, rgba(0,0,0,1) 26%, rgba(0,0,0,0.45) 66%, rgba(0,0,0,0) 100%)',
+            WebkitMaskImage:
+              'radial-gradient(56% 48% at 50% 46%, rgba(0,0,0,1) 26%, rgba(0,0,0,0.45) 66%, rgba(0,0,0,0) 100%)',
+            maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat',
+            maskSize: '100% 100%',
+            WebkitMaskSize: '100% 100%',
+          }}
           className="pointer-events-none absolute top-0 left-1/2 z-0 w-[160vw] -translate-x-1/2 md:w-[1100px]"
-        />
+        >
+          <img
+            src="/media/overlap-sofa.jpg"
+            alt="Угловой диван после аквачистки"
+            className="w-full grayscale"
+          />
+        </motion.div>
 
         <div className="relative z-10 mb-16 flex flex-col justify-between px-8 pt-32 md:px-16 md:pt-48 xl:flex-row">
           <h2 className="max-w-[900px] text-[1.8rem] leading-[1.15] font-medium tracking-tight text-white md:text-[3rem] lg:text-[3.8rem] xl:text-[4rem]">
@@ -574,7 +588,7 @@ export default function App() {
                   key={activeStage}
                   src={stagesData[activeStage].image}
                   alt={stagesData[activeStage].name}
-                  className="absolute inset-0 m-auto h-[80%] w-[80%] object-contain mix-blend-lighten"
+                  className="absolute inset-0 m-auto h-[86%] w-[86%] object-cover grayscale brightness-[0.92] contrast-[1.06]"
                 />
               </AnimatePresence>
             </div>
