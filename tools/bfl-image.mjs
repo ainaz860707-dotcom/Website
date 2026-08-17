@@ -75,6 +75,8 @@ for (let i = 0; i < argv.length; i += 1) {
 
 const option = (name, fallback) => options.get(name) ?? fallback;
 
+if (!process.env.BFL_API_KEY && existsSync('.env')) process.loadEnvFile('.env');
+
 const key = process.env.BFL_API_KEY?.trim();
 if (!key) {
   process.stderr.write(
