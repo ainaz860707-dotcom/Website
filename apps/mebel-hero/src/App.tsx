@@ -60,7 +60,7 @@ export default function App() {
       {VIDEOS.map((video, index) => (
         <video
           key={video.src}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+          className={`ken-burns absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
             index === activeVideo ? 'opacity-100' : 'opacity-0'
           }`}
           src={video.src}
@@ -82,13 +82,16 @@ export default function App() {
       <div className="relative z-[2] flex flex-col h-full">
         <header className="flex items-center justify-between px-5 sm:px-8 py-5 sm:py-6">
           <span
-            className="text-white italic text-xl sm:text-2xl"
-            style={{ textShadow: '0 1px 14px rgba(0, 0, 0, 0.45)' }}
+            className="rise text-white italic text-xl sm:text-2xl"
+            style={{ textShadow: '0 1px 14px rgba(0, 0, 0, 0.45)', animationDelay: '80ms' }}
           >
             [Название]
           </span>
 
-          <nav className="liquid-glass hidden md:flex items-center gap-1 rounded-full pl-5 pr-1.5 py-1.5">
+          <nav
+            className="rise liquid-glass hidden md:flex items-center gap-1 rounded-full pl-5 pr-1.5 py-1.5"
+            style={{ animationDelay: '200ms' }}
+          >
             {NAV_LINKS.map((link) => (
               <a
                 key={link}
@@ -100,7 +103,7 @@ export default function App() {
               </a>
             ))}
             <button
-              className="ml-2 bg-white text-black text-sm px-5 py-2.5 rounded-full hover:bg-white/90 transition-colors"
+              className="lift ml-2 bg-white text-black text-sm px-5 py-2.5 rounded-full hover:bg-white/90"
               style={{ fontFamily: SANS }}
             >
               Вызвать мастера
@@ -109,7 +112,8 @@ export default function App() {
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="liquid-glass md:hidden relative w-11 h-11 rounded-full flex items-center justify-center text-white"
+            className="rise lift liquid-glass md:hidden relative w-11 h-11 rounded-full flex items-center justify-center text-white"
+            style={{ animationDelay: '200ms' }}
             aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
           >
             <Menu
@@ -129,8 +133,8 @@ export default function App() {
 
         <div className="flex-1 flex flex-col items-center justify-center px-5 sm:px-8 pb-6 sm:pb-12 text-center">
           <div
-            className="liquid-glass rounded-full px-4 py-2 text-xs sm:text-sm transition-colors duration-700"
-            style={{ fontFamily: SANS, color: ink }}
+            className="rise liquid-glass rounded-full px-4 py-2 text-xs sm:text-sm transition-colors duration-700"
+            style={{ fontFamily: SANS, color: ink, animationDelay: '260ms' }}
           >
             Химчистка мягкой мебели на дому — [город]
           </div>
@@ -139,21 +143,27 @@ export default function App() {
             className="mt-6 sm:mt-7 text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.1] max-w-4xl transition-colors duration-700"
             style={{ color: ink }}
           >
-            Чистим мягкую мебель
-            <br />
-            прямо у вас дома
+            <span className="rise block" style={{ animationDelay: '360ms' }}>
+              Чистим мягкую мебель
+            </span>
+            <span className="rise block" style={{ animationDelay: '480ms' }}>
+              прямо у вас дома
+            </span>
           </h1>
 
           <p
-            className="mt-5 sm:mt-6 max-w-xl text-sm sm:text-base leading-relaxed transition-colors duration-700"
-            style={{ fontFamily: SANS, color: inkSoft }}
+            className="rise mt-5 sm:mt-6 max-w-xl text-sm sm:text-base leading-relaxed transition-colors duration-700"
+            style={{ fontFamily: SANS, color: inkSoft, animationDelay: '620ms' }}
           >
             Диван, кресло, матрас и ковёр чистим на месте — мастер приезжает со своим
             оборудованием. Средство подбираем под обивку: [список тканей]. Сушка — [N] часов,
             зона выезда — [зона], цена — от [цена] ₽ за посадочное место.
           </p>
 
-          <div className="liquid-glass mt-7 sm:mt-8 w-full max-w-[320px] sm:max-w-sm rounded-full flex items-center gap-2 p-1.5">
+          <div
+            className="rise sheen liquid-glass mt-7 sm:mt-8 w-full max-w-[320px] sm:max-w-sm rounded-full flex items-center gap-2 p-1.5"
+            style={{ animationDelay: '740ms' }}
+          >
             <input
               type="tel"
               placeholder="Ваш телефон"
@@ -163,31 +173,35 @@ export default function App() {
               style={{ fontFamily: SANS, color: ink }}
             />
             <button
-              className="shrink-0 whitespace-nowrap bg-white text-black text-sm px-4 sm:px-5 py-2.5 rounded-full hover:bg-white/90 transition-colors"
+              className="lift shrink-0 whitespace-nowrap bg-white text-black text-sm px-4 sm:px-5 py-2.5 rounded-full hover:bg-white/90"
               style={{ fontFamily: SANS }}
             >
               Вызвать мастера
             </button>
           </div>
 
-          <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+          <div
+            className="rise mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-2"
+            style={{ animationDelay: '860ms' }}
+          >
             {VIDEOS.map((video, index) => (
               <button
                 key={video.label}
                 onClick={() => switchVideo(index)}
-                className={`text-xs sm:text-sm pb-1 border-b transition-all duration-700 ${
-                  index === activeVideo
-                    ? 'opacity-100'
-                    : 'opacity-50 hover:opacity-80 border-transparent'
+                className={`relative pb-1.5 text-xs sm:text-sm transition-opacity duration-500 ${
+                  index === activeVideo ? 'opacity-100' : 'opacity-50 hover:opacity-90'
                 }`}
                 style={{
                   fontFamily: SANS,
                   color: '#ffffff',
-                  borderColor: index === activeVideo ? '#ffffff' : 'transparent',
                   textShadow: '0 1px 12px rgba(0, 0, 0, 0.55)',
                 }}
               >
                 {video.label}
+                <span
+                  className="absolute left-0 bottom-0 h-px w-full origin-left bg-white transition-transform duration-700 ease-out"
+                  style={{ transform: index === activeVideo ? 'scaleX(1)' : 'scaleX(0)' }}
+                />
               </button>
             ))}
           </div>
@@ -195,8 +209,12 @@ export default function App() {
 
         <footer className="px-5 sm:px-8 pb-6 sm:pb-8">
           <div
-            className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-white/70 text-xs sm:text-sm text-center"
-            style={{ fontFamily: SANS, textShadow: '0 1px 12px rgba(0, 0, 0, 0.5)' }}
+            className="rise flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-white/70 text-xs sm:text-sm text-center"
+            style={{
+              fontFamily: SANS,
+              textShadow: '0 1px 12px rgba(0, 0, 0, 0.5)',
+              animationDelay: '980ms',
+            }}
           >
             {STATS.map((stat, index) => (
               <span key={stat} className="flex items-center gap-3">
@@ -235,7 +253,7 @@ export default function App() {
           ))}
           <button
             onClick={() => setMenuOpen(false)}
-            className={`bg-white text-black text-base px-7 py-3 rounded-full transition-all duration-500 ${
+            className={`lift bg-white text-black text-base px-7 py-3 rounded-full transition-all duration-500 ${
               menuOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
             }`}
             style={{
