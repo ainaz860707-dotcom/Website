@@ -13,6 +13,17 @@ const CACHE_DAYS = 30;
 
 const PROFILES = [
   {
+    key: 'garment',
+    title: 'уход за одеждой и тканью, продаёт бережность',
+    marks: /химчист|аквачистк|прачечн|ателье|портн|кашемир|пуховик|дублёнк|глажк|подшив|пятн/i,
+    styles: ['Photography'],
+    categories: ['Shopping'],
+    pinterest: 'dry cleaning atelier website design',
+    cosmos: null,
+    pinned: ['https://blancliving.co/'],
+    gallery: true,
+  },
+  {
     key: 'visual',
     title: 'бизнес продаёт картинку',
     marks: /фото|видео|свадеб|тату|флорист|букет|интерьер|дизайн|барбершоп|маникюр|педикюр|стилист|бров|ресниц|кондитер|торт|мебел|декор|съёмк|съемк/i,
