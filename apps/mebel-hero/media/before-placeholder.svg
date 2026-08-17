@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <defs>
+    <linearGradient id="beforeBase" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2a2723" />
+      <stop offset="1" stop-color="#12100e" />
+    </linearGradient>
+    <pattern id="beforeWeave" width="16" height="16" patternUnits="userSpaceOnUse">
+      <rect width="16" height="16" fill="none" />
+      <path d="M0 8h16M8 0v16" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="900" fill="url(#beforeBase)" />
+  <rect width="1200" height="900" fill="url(#beforeWeave)" />
+  <ellipse cx="430" cy="470" rx="240" ry="150" fill="#000000" opacity="0.38" />
+  <ellipse cx="820" cy="620" rx="180" ry="110" fill="#000000" opacity="0.3" />
+
+  <g font-family="Onest, sans-serif" fill="#ffffff" text-anchor="middle">
+    <text x="600" y="420" font-size="52" letter-spacing="6" fill-opacity="0.9">ФОТО «ДО»</text>
+    <text x="600" y="486" font-size="27" fill-opacity="0.6">место для кадра клиента</text>
+    <text x="600" y="536" font-size="23" fill-opacity="0.45">тот же ракурс, что и «после»</text>
+  </g>
+</svg>
