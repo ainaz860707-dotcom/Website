@@ -34,18 +34,27 @@ export function photoQueries(description) {
   return hit ? hit.queries : FALLBACK;
 }
 
+export function searchUrl(query, perQuery) {
+  return `${ENDPOINT}?q=${encodeURIComponent(query)}&source=${SOURCES}&license=cc0&category=photograph&page_size=${perQuery}&mature=false`;
+}
+
+export function photographsOnly(results, query) {
+  return (results ?? [])
+    .filter((r) => r.category === 'photograph')
+    .map((r) => ({
+      url: r.url,
+      title: String(r.title ?? query).trim(),
+      query,
+      width: r.width ?? null,
+      height: r.height ?? null,
+    }));
+}
+
 async function search(query, perQuery) {
-  const url = `${ENDPOINT}?q=${encodeURIComponent(query)}&source=${SOURCES}&license=cc0&page_size=${perQuery}&mature=false`;
-  const res = await fetch(url, { headers: { 'User-Agent': 'site-generator/1.0' } });
+  const res = await fetch(searchUrl(query, perQuery), { headers: { 'User-Agent': 'site-generator/1.0' } });
   if (!res.ok) throw new Error(`Openverse ${res.status}`);
   const data = await res.json();
-  return (data.results ?? []).map((r) => ({
-    url: r.url,
-    title: String(r.title ?? query).trim(),
-    query,
-    width: r.width ?? null,
-    height: r.height ?? null,
-  }));
+  return photographsOnly(data.results, query);
 }
 
 async function loads(url) {
