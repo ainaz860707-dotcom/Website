@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200">
+  <defs>
+    <radialGradient id="field04" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.13" />
+      <stop offset="70%" stop-color="#ffffff" stop-opacity="0.03" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </radialGradient>
+    <clipPath id="tank04">
+      <path d="M430 430 h340 v380 a60 60 0 0 1 -60 60 h-220 a60 60 0 0 1 -60 -60 z" />
+    </clipPath>
+  </defs>
+
+  <circle cx="600" cy="600" r="520" fill="url(#field04)" />
+
+  <path d="M430 430 h340 v380 a60 60 0 0 1 -60 60 h-220 a60 60 0 0 1 -60 -60 z" fill="#ffffff" fill-opacity="0.05" />
+
+  <g clip-path="url(#tank04)">
+    <rect x="400" y="640" width="400" height="300" fill="#ffffff" fill-opacity="0.30" />
+    <path d="M400 640 q50 -26 100 0 t100 0 t100 0 t100 0 v40 H400 Z" fill="#ffffff" fill-opacity="0.45" />
+    <g fill="#ffffff" fill-opacity="0.55">
+      <circle cx="500" cy="740" r="16" />
+      <circle cx="580" cy="800" r="10" />
+      <circle cx="680" cy="726" r="13" />
+      <circle cx="640" cy="856" r="8" />
+      <circle cx="520" cy="866" r="11" />
+    </g>
+  </g>
+
+  <path d="M430 430 h340 v380 a60 60 0 0 1 -60 60 h-220 a60 60 0 0 1 -60 -60 z" fill="none" stroke="#ffffff" stroke-opacity="0.9" stroke-width="10" stroke-linejoin="round" />
+  <path d="M404 430 h392" stroke="#ffffff" stroke-opacity="0.9" stroke-width="16" stroke-linecap="round" />
+
+  <g stroke="#ffffff" stroke-opacity="0.35" stroke-width="5" stroke-linecap="round">
+    <path d="M770 520 h48" />
+    <path d="M770 620 h48" />
+    <path d="M770 720 h48" />
+  </g>
+
+  <path d="M600 430 V300 q0 -60 -60 -60 h-96" fill="none" stroke="#ffffff" stroke-opacity="0.75" stroke-width="12" stroke-linecap="round" />
+  <path d="M300 200 h160 v80 h-160 z" fill="none" stroke="#ffffff" stroke-opacity="0.85" stroke-width="10" stroke-linejoin="round" />
+
+  <g stroke="#ffffff" stroke-opacity="0.45" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M330 330 q-30 40 0 80" />
+    <path d="M258 316 q-42 56 0 112" />
+  </g>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200">
+  <defs>
+    <radialGradient id="field02" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.13" />
+      <stop offset="70%" stop-color="#ffffff" stop-opacity="0.03" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="suction02" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <circle cx="600" cy="560" r="520" fill="url(#field02)" />
+
+  <path d="M300 760 H900" stroke="#ffffff" stroke-opacity="0.85" stroke-width="8" stroke-linecap="round" />
+  <g stroke="#ffffff" stroke-opacity="0.30" stroke-width="6" stroke-linecap="round">
+    <path d="M320 800 H880" />
+    <path d="M350 838 H850" />
+  </g>
+
+  <g stroke="#ffffff" stroke-opacity="0.75" stroke-width="6" stroke-linecap="round">
+    <path d="M340 760 V700" />
+    <path d="M392 760 V684" />
+    <path d="M444 760 V706" />
+    <path d="M496 760 V676" />
+  </g>
+  <g stroke="#ffffff" stroke-opacity="0.35" stroke-width="6" stroke-linecap="round">
+    <path d="M712 760 V724" />
+    <path d="M764 760 V742" />
+    <path d="M816 760 V730" />
+    <path d="M868 760 V746" />
+  </g>
+
+  <path d="M470 300 H640 L700 660 H530 Z" fill="url(#suction02)" />
+  <path d="M470 300 H640 L700 660 H530 Z" fill="none" stroke="#ffffff" stroke-opacity="0.9" stroke-width="9" stroke-linejoin="round" />
+  <path d="M530 660 H700" stroke="#ffffff" stroke-opacity="0.95" stroke-width="14" stroke-linecap="round" />
+  <path d="M496 420 H660" stroke="#ffffff" stroke-opacity="0.35" stroke-width="5" />
+  <path d="M508 500 H672" stroke="#ffffff" stroke-opacity="0.25" stroke-width="5" />
+
+  <path d="M508 190 H602 V300" fill="none" stroke="#ffffff" stroke-opacity="0.55" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
+
+  <g stroke="#ffffff" stroke-opacity="0.45" stroke-width="5" stroke-linecap="round" fill="none">
+    <path d="M576 640 q-22 -44 6 -86" />
+    <path d="M640 634 q-24 -50 4 -96" />
+  </g>
+</svg>

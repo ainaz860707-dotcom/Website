@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200">
+  <defs>
+    <radialGradient id="field05" cx="50%" cy="46%" r="52%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.14" />
+      <stop offset="70%" stop-color="#ffffff" stop-opacity="0.03" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="drop05" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.12" />
+    </linearGradient>
+  </defs>
+
+  <circle cx="600" cy="560" r="520" fill="url(#field05)" />
+
+  <path d="M220 800 q190 -60 380 -60 t380 60" fill="none" stroke="#ffffff" stroke-opacity="0.85" stroke-width="9" stroke-linecap="round" />
+  <path d="M250 856 q180 -56 350 -56 t350 56" fill="none" stroke="#ffffff" stroke-opacity="0.28" stroke-width="7" stroke-linecap="round" />
+  <path d="M290 912 q170 -50 310 -50 t310 50" fill="none" stroke="#ffffff" stroke-opacity="0.14" stroke-width="6" stroke-linecap="round" />
+
+  <ellipse cx="600" cy="742" rx="170" ry="26" fill="#ffffff" fill-opacity="0.10" />
+
+  <path d="M600 430 c86 108 130 168 130 234 a130 130 0 0 1 -260 0 c0 -66 44 -126 130 -234 z" fill="url(#drop05)" />
+  <path d="M600 430 c86 108 130 168 130 234 a130 130 0 0 1 -260 0 c0 -66 44 -126 130 -234 z" fill="none" stroke="#ffffff" stroke-opacity="0.92" stroke-width="10" stroke-linejoin="round" />
+  <path d="M534 672 a66 66 0 0 1 30 -60" fill="none" stroke="#ffffff" stroke-opacity="0.85" stroke-width="9" stroke-linecap="round" />
+
+  <g stroke="#ffffff" stroke-opacity="0.4" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M368 520 q-32 46 0 92" />
+    <path d="M300 486 q-44 62 0 124" />
+    <path d="M832 520 q32 46 0 92" />
+    <path d="M900 486 q44 62 0 124" />
+  </g>
+
+  <g stroke="#ffffff" stroke-opacity="0.5" stroke-width="6" stroke-linecap="round">
+    <path d="M600 268 v-70" />
+    <path d="M470 300 l-38 -60" />
+    <path d="M730 300 l38 -60" />
+  </g>
+</svg>
