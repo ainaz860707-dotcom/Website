@@ -87,6 +87,13 @@ Work Sans/Barlow→IBM Plex Sans, Instrument Serif→PT Serif, Public Sans→Gol
 Anton/Bebas Neue→Oswald, Space Mono→JetBrains Mono, Baloo 2→Comfortaa,
 DM Serif Display→Prata, Karla→Manrope.
 
+Шрифт из брифа владельца заменять нельзя — его **допаривают**. Замер 2026-08-17: CSS Google
+Fonts для `Instrument Serif` отдаёт только `/* latin */` и `/* latin-ext */`, поэтому в
+`apps/mebel-hero` стек собран как `'Instrument Serif', 'Playfair Display', serif` — латиница
+достаётся заказанному шрифту, кириллица падает на `Playfair Display` (у него есть `/* cyrillic */`
+и курсив, характер высокого контраста тот же). В каталоге доски та же пара решена иначе —
+`Instrument Serif→PT Serif`: там шрифт свободно заменяем, здесь его назвал владелец.
+
 Проверка исполняемая: `node tools/check-fonts.mjs` дергает Google Fonts CSS по каждому
 шрифту каталога и ищет подмножество `/* cyrillic */`; при находке возвращает код 1 и
 печатает, какие направления затронуты. Гонять при добавлении направления.
