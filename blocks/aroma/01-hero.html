@@ -15,29 +15,35 @@
 .grain{position:fixed; inset:0; z-index:40; pointer-events:none; opacity:.045;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
-.hero{position:relative; min-height:100dvh; display:flex; align-items:center;
-  overflow:hidden; padding-block:clamp(72px,10vh,140px); perspective:1400px;}
+.hero{position:relative; min-height:clamp(600px, 56.25vw, 100dvh); display:flex; align-items:center;
+  overflow:hidden; padding-block:clamp(36px,5.5vh,84px); perspective:1400px;}
 
-.hero__stage{position:absolute; inset:-6%; z-index:0; will-change:transform; overflow:hidden;
-  transform:translate3d(var(--bgx,0),var(--bgy,0),0) scale(1.04);
-  animation:breathe 26s var(--ease-glide) infinite alternate;}
+.hero__stage{position:absolute; inset:0; z-index:0; will-change:transform; overflow:hidden;
+  transform:translate3d(var(--bgx,0),var(--bgy,0),0);
+  animation:breathe 30s var(--ease-glide) infinite alternate;}
 .hero__poster, .hero__vid{position:absolute; inset:0; width:100%; height:100%;
-  object-fit:cover; object-position:52% 46%; filter:saturate(.78) contrast(1.05);}
+  object-fit:cover; object-position:50% 50%;}
 .hero__vid{opacity:0; transition:opacity 900ms var(--ease-glide);}
 .hero__vid.is-on{opacity:1;}
 .dust{position:absolute; inset:0; z-index:2; pointer-events:none; opacity:.55;}
 
 .hero__depth{position:absolute; inset:0; z-index:1; pointer-events:none;
   background:
-    linear-gradient(97deg, rgba(14,16,19,.97) 0%, rgba(14,16,19,.92) 26%,
-      rgba(14,16,19,.58) 48%, rgba(14,16,19,.18) 68%, rgba(14,16,19,.62) 100%),
-    radial-gradient(75% 60% at 18% 34%, rgba(201,162,39,.16), transparent 62%);}
-.hero__floor{position:absolute; inset:auto 0 0 0; height:52%; z-index:1; pointer-events:none;
-  background:linear-gradient(0deg, var(--graphite) 2%, rgba(14,16,19,.78) 38%, transparent 100%);}
+    linear-gradient(97deg, rgba(11,13,16,.94) 0%, rgba(11,13,16,.86) 22%,
+      rgba(11,13,16,.44) 40%, rgba(11,13,16,.06) 56%, rgba(11,13,16,.0) 74%, rgba(11,13,16,.28) 100%),
+    radial-gradient(60% 55% at 14% 32%, rgba(201,162,39,.13), transparent 60%);}
+.hero__floor{position:absolute; inset:auto 0 0 0; height:34%; z-index:1; pointer-events:none;
+  background:linear-gradient(0deg, var(--graphite) 0%, rgba(14,16,19,.55) 42%, transparent 100%);}
 @media(max-width:999px){
+  .hero{display:block; min-height:0; padding-block:0 var(--sp-12); overflow:visible;}
+  .hero__stage{position:relative; inset:auto; width:100%; aspect-ratio:16/9; overflow:hidden;}
+  .hero__depth, .hero__floor, .hero__sweep, .dust{position:absolute; inset:0; height:100%;}
+  .hero__media{position:relative;}
+  .hero__grid{padding-top:var(--sp-9);}
+  .stack{justify-items:stretch;}
   .hero__depth{background:
-    linear-gradient(180deg, rgba(14,16,19,.72) 0%, rgba(14,16,19,.55) 40%, rgba(14,16,19,.9) 100%),
-    radial-gradient(80% 55% at 20% 26%, rgba(201,162,39,.14), transparent 64%);}
+    linear-gradient(180deg, rgba(11,13,16,.30) 0%, rgba(11,13,16,0) 26%, rgba(11,13,16,0) 62%, var(--graphite) 100%);}
+  .hero__floor{display:none;}
 }
 .hero__sweep{position:absolute; inset:0; z-index:2; pointer-events:none; overflow:hidden;}
 .hero__sweep i{position:absolute; top:-55%; bottom:-55%; left:-40%; width:26%;
@@ -87,14 +93,14 @@ h1 em{font-style:normal; color:var(--champagne);}
   font-size:13px; color:#B7B3AC; text-shadow:0 1px 12px rgba(6,7,9,.9);}
 .facts b{color:var(--bone); font-weight:600;}
 
-.stack{position:relative; display:grid; gap:var(--sp-5); transform-style:preserve-3d;
+.stack{position:relative; display:grid; gap:var(--sp-5); transform-style:preserve-3d; justify-items:end;
   transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
   transition:transform 700ms var(--ease-glide);}
 
 .shell{border-radius:26px; padding:7px; background:rgba(237,233,227,.055);
   border:1px solid rgba(237,233,227,.11);
   box-shadow:0 30px 70px rgba(6,7,9,.6), 0 6px 18px rgba(6,7,9,.5);}
-.core{border-radius:19px; padding:var(--sp-7); background:linear-gradient(168deg, rgba(24,27,32,.94), rgba(14,16,19,.92));
+.core{border-radius:19px; padding:var(--sp-7); background:linear-gradient(168deg, rgba(20,23,28,.90), rgba(11,13,16,.88));
   box-shadow:inset 0 1px 0 rgba(255,255,255,.10);}
 @media(min-width:768px){ .core{backdrop-filter:blur(14px);} }
 
@@ -119,7 +125,7 @@ h1 em{font-style:normal; color:var(--champagne);}
   transition-delay:calc(var(--d,0) * 110ms);}
 html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filter:none;}
 
-@keyframes breathe{ from{transform:scale(1.02);} to{transform:scale(1.09);} }
+@keyframes breathe{ from{transform:scale(1);} to{transform:scale(1.035);} }
 @keyframes sweep{ 0%{transform:translate3d(0,0,0) rotate(9deg); opacity:0;} 12%{opacity:1;} 58%{opacity:.75;}
   100%{transform:translate3d(500%,0,0) rotate(9deg); opacity:0;} }
 
@@ -138,16 +144,18 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
 <div class="grain" aria-hidden="true"></div>
 
 <section class="hero" id="hero">
+  <div class="hero__media">
   <div class="hero__stage" id="stage" aria-hidden="true">
-    <img class="hero__poster" id="poster" src="media/sofa-poster.jpg" alt="" width="1280" height="720">
+    <img class="hero__poster" id="poster" src="media/scene-poster.jpg" alt="" width="1280" height="720">
     <video class="hero__vid" id="vid" muted playsinline loop preload="none"
-           poster="media/sofa-poster.jpg" aria-hidden="true"></video>
+           poster="media/scene-poster.jpg" aria-hidden="true"></video>
   </div>
   </div>
   <div class="hero__depth" aria-hidden="true"></div>
   <div class="hero__floor" aria-hidden="true"></div>
   <canvas class="dust" id="dust" aria-hidden="true"></canvas>
   <div class="hero__sweep" aria-hidden="true"><i></i></div>
+  </div>
 
   <div class="wrap hero__grid">
     <div class="copy" id="copy">
@@ -210,8 +218,7 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
 
   var vid = document.getElementById('vid');
   if (vid && !calm) {
-    var portrait = window.matchMedia('(max-width: 720px)').matches;
-    var base = portrait ? 'media/sofa-9x16' : 'media/sofa-16x9';
+    var base = 'media/scene-16x9';
     var armed = false;
     new IntersectionObserver(function(en){
       en.forEach(function(e){
