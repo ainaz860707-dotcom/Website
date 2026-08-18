@@ -25,6 +25,13 @@
   opacity:0; transform:scale(1.04); filter:saturate(.72) contrast(1.06);
   transition:opacity 1600ms var(--ease-glide);}
 .hero__photo.is-on{opacity:1; animation:breathe 14s linear forwards;}
+.hero__fg{position:absolute; inset:0; display:block; background-image:inherit;
+  background-size:cover; background-position:62% 42%;
+  -webkit-mask-image:radial-gradient(46% 62% at var(--fx) var(--fy), #000 34%, rgba(0,0,0,.55) 62%, transparent 84%);
+  mask-image:radial-gradient(46% 62% at var(--fx) var(--fy), #000 34%, rgba(0,0,0,.55) 62%, transparent 84%);
+  transform:translate3d(var(--fgx,0),var(--fgy,0),0) scale(1.012);
+  transition:transform 900ms var(--ease-glide); will-change:transform;}
+.dust{position:absolute; inset:0; z-index:2; pointer-events:none; opacity:.55;}
 
 .hero__depth{position:absolute; inset:0; z-index:1; pointer-events:none;
   background:
@@ -126,7 +133,8 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
   .hero__photo{animation:none; transition:none;}
   .hero__photo:not(.is-on){display:none;}
   .hero__sweep{display:none;}
-  .stack, .hero__stage{transition:none; transform:none;}
+  .stack, .hero__stage, .hero__fg{transition:none; transform:none;}
+  .dust{display:none;}
   .rise, h1 .ln > span{opacity:1; transform:none; filter:none; transition:none;}
 }
 </style>
@@ -137,12 +145,13 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
 
 <section class="hero" id="hero">
   <div class="hero__stage" id="stage" aria-hidden="true">
-    <div class="hero__photo is-on" style="--shot:url('media/team-1.jpg')"></div>
-    <div class="hero__photo" style="--shot:url('media/team-2.jpg')"></div>
-    <div class="hero__photo" style="--shot:url('media/team-3.jpg')"></div>
+    <div class="hero__photo is-on" style="--shot:url('media/team-1.jpg'); --fx:63%; --fy:46%"><i class="hero__fg"></i></div>
+    <div class="hero__photo" style="--shot:url('media/team-2.jpg'); --fx:66%; --fy:44%"><i class="hero__fg"></i></div>
+    <div class="hero__photo" style="--shot:url('media/team-3.jpg'); --fx:62%; --fy:44%"><i class="hero__fg"></i></div>
   </div>
   <div class="hero__depth" aria-hidden="true"></div>
   <div class="hero__floor" aria-hidden="true"></div>
+  <canvas class="dust" id="dust" aria-hidden="true"></canvas>
   <div class="hero__sweep" aria-hidden="true"><i></i></div>
 
   <div class="wrap hero__grid">
@@ -222,6 +231,50 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
     }, 6500);
   }
 
+  var cv = document.getElementById('dust');
+  if (cv && !calm) {
+    var ctx = cv.getContext('2d'), motes = [], w = 0, h = 0, run = false, tick = 0;
+    var size = function(){
+      var r = hero.getBoundingClientRect();
+      w = cv.width = Math.round(r.width * Math.min(devicePixelRatio, 2));
+      h = cv.height = Math.round(r.height * Math.min(devicePixelRatio, 2));
+      cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+      motes = [];
+      var count = Math.round(Math.min(64, r.width / 22));
+      for (var i = 0; i < count; i++) motes.push({
+        x: Math.random() * w, y: Math.random() * h,
+        r: (Math.random() * 1.6 + .5) * Math.min(devicePixelRatio, 2),
+        vy: -(Math.random() * .18 + .05), vx: (Math.random() - .5) * .12,
+        a: Math.random() * .5 + .15, ph: Math.random() * 6.28
+      });
+    };
+    var draw = function(){
+      if (!run) return;
+      tick += .012;
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < motes.length; i++) {
+        var m = motes[i];
+        m.y += m.vy; m.x += m.vx + Math.sin(tick + m.ph) * .12;
+        if (m.y < -6) { m.y = h + 6; m.x = Math.random() * w; }
+        if (m.x < -6) m.x = w + 6; else if (m.x > w + 6) m.x = -6;
+        var glow = m.a * (.55 + .45 * Math.sin(tick * 1.7 + m.ph));
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(214,186,116,' + glow.toFixed(3) + ')';
+        ctx.arc(m.x, m.y, m.r, 0, 6.2832);
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    };
+    size();
+    addEventListener('resize', size, { passive: true });
+    new IntersectionObserver(function(en){
+      en.forEach(function(e){
+        if (e.isIntersecting && !run) { run = true; requestAnimationFrame(draw); }
+        else if (!e.isIntersecting) run = false;
+      });
+    }, { threshold: .05 }).observe(hero);
+  }
+
   if (!calm && window.matchMedia('(hover: hover)').matches) {
     var px = 0, py = 0, raf = 0;
     hero.addEventListener('pointermove', function(ev){
@@ -235,6 +288,10 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
       raf = 0;
       stage.style.setProperty('--bgx', (px * -22).toFixed(1) + 'px');
       stage.style.setProperty('--bgy', (py * -16).toFixed(1) + 'px');
+      var fx = (px * -46).toFixed(1) + 'px', fy = (py * -30).toFixed(1) + 'px';
+      Array.prototype.forEach.call(document.querySelectorAll('.hero__fg'), function(el){
+        el.style.setProperty('--fgx', fx); el.style.setProperty('--fgy', fy);
+      });
       stack.style.setProperty('--ry', (px * 7).toFixed(2) + 'deg');
       stack.style.setProperty('--rx', (py * -5).toFixed(2) + 'deg');
     }
