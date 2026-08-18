@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Блок 5 — вопросы до заказа · Арома клининг</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+.sec-faq{background:var(--card); padding-block:clamp(56px,7vw,110px);}
+.head-faq{display:grid; gap:var(--sp-7); align-items:end;}
+@media(min-width:900px){ .head-faq{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);} }
+.head-faq h2{margin:var(--sp-5) 0 0; font-size:clamp(27px,3.4vw,44px); line-height:1.12;
+  letter-spacing:-.014em; font-weight:400; max-width:18ch; text-wrap:balance;}
+.head-faq p{margin:0; color:var(--muted); font-size:clamp(15px,1.2vw,16.5px); max-width:52ch;}
+
+.qa{margin-top:clamp(36px,4vw,64px); border-top:1px solid var(--hair);}
+.qa__item{border-bottom:1px solid var(--hair);}
+.qa__item summary{display:flex; align-items:center; justify-content:space-between; gap:var(--sp-6);
+  padding:clamp(18px,2vw,26px) 0; cursor:pointer; list-style:none;
+  font-family:var(--display); font-size:clamp(17px,1.5vw,21px); font-weight:400; line-height:1.32;
+  transition:color 420ms var(--mass);}
+.qa__item summary::-webkit-details-marker{display:none;}
+.qa__item summary:focus-visible{outline:2px solid var(--teal); outline-offset:4px;}
+@media (hover: hover){ .qa__item summary:hover{color:var(--teal-ink);} }
+.qa__sign{position:relative; flex:0 0 auto; width:34px; height:34px; border-radius:999px;
+  border:1px solid var(--gold-line); background:var(--teal-soft);
+  transition:transform 520ms var(--mass), background 320ms var(--mass);}
+.qa__sign::before, .qa__sign::after{content:""; position:absolute; top:50%; left:50%; width:12px; height:1.5px;
+  background:var(--teal-ink); transform:translate(-50%,-50%); transition:opacity 320ms var(--mass);}
+.qa__sign::after{transform:translate(-50%,-50%) rotate(90deg);}
+.qa__item[open] .qa__sign{transform:rotate(180deg);}
+.qa__item[open] .qa__sign::after{opacity:0;}
+.qa__body{padding:0 clamp(52px,6vw,78px) clamp(20px,2.4vw,28px) 0; margin:0;
+  color:var(--muted); font-size:15px; max-width:70ch;}
+.qa__body b{color:var(--ink); font-weight:500;}
+
+.after{display:grid; gap:var(--sp-5); margin-top:clamp(32px,3.6vw,52px); align-items:center;}
+@media(min-width:820px){ .after{grid-template-columns:minmax(0,1fr) auto;} }
+.after__text{color:var(--muted); font-size:14.5px; max-width:56ch;}
+.after__text b{color:var(--ink); font-weight:500;}
+.after__cta{display:inline-flex; align-items:center; justify-content:center; gap:14px; min-height:56px;
+  padding:0 10px 0 28px; border-radius:999px; text-decoration:none; color:var(--on-teal);
+  background:linear-gradient(178deg,#E7D08A,#C9A227 62%,#A9821B); font-size:15px; font-weight:500;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45), var(--shadow-cta);
+  transition:transform 520ms var(--mass), box-shadow 520ms var(--mass);}
+.after__cta span{display:grid; place-items:center; width:36px; height:36px; border-radius:50%;
+  background:rgba(23,19,10,.14); transition:transform 520ms var(--mass);}
+.after__cta svg{width:14px; height:14px; fill:none; stroke:var(--on-teal); stroke-width:1.5;}
+@media (hover: hover){
+  .after__cta:hover{transform:translateY(-2px); box-shadow:inset 0 1px 0 rgba(255,255,255,.5), var(--shadow-cta-hover);}
+  .after__cta:hover span{transform:translate3d(3px,-2px,0) scale(1.05);}
+}
+
+.slot-faq{position:relative; display:inline-block; margin-top:clamp(28px,3.4vw,44px); border-radius:var(--r);
+  border:1px dashed var(--gold-line); background:var(--paper); padding:16px 20px;}
+.slot-faq__tag{position:absolute; top:-8px; left:16px; padding:0 8px; background:var(--card);
+  font-size:9.5px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--teal-ink);}
+.slot-faq p{margin:0; font-size:13px; color:var(--muted);}
+.slot-faq p b{color:var(--ink); font-weight:500;}
+
+.rise{opacity:0; transform:translateY(18px);}
+.lit .rise{opacity:1; transform:none;
+  transition:opacity 760ms var(--glide), transform 760ms var(--glide); transition-delay:calc(var(--d,0) * 70ms);}
+html:not(.js) .rise{opacity:1; transform:none;}
+@media (prefers-reduced-motion: reduce){ .rise{opacity:1; transform:none; transition:none;} }
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<section class="sec-faq" id="faq">
+  <div class="wrap">
+
+    <div class="head-faq">
+      <div>
+        <span class="kicker rise" style="--d:0">Вопросы до заказа</span>
+        <h2 class="rise" style="--d:1">Отвечаем до того, как вы наберёте номер</h2>
+      </div>
+      <p class="rise" style="--d:2">Здесь только то, что мастер говорит по телефону каждый день. Если вопроса нет в списке, задайте его при звонке: осмотр и расчёт до начала работы бесплатны.</p>
+    </div>
+
+    <div class="qa">
+      <details class="qa__item rise" style="--d:0" open>
+        <summary>Сколько сохнет диван после чистки<span class="qa__sign" aria-hidden="true"></span></summary>
+        <p class="qa__body"><b>4-6 часов при открытом окне.</b> Последним проходом идёт сухой цикл, он вытягивает остатки влаги, поэтому обивка остаётся влажной только сверху, а не промокает насквозь.</p>
+      </details>
+
+      <details class="qa__item rise" style="--d:1">
+        <summary>Мебель нужно вывозить или разбирать<span class="qa__sign" aria-hidden="true"></span></summary>
+        <p class="qa__body"><b>Нет, чистим на месте.</b> Экстрактор, химия и сушка приезжают с бригадой, к вашей технике ничего не подключаем. Диван, матрас и ковёр остаются дома.</p>
+      </details>
+
+      <details class="qa__item rise" style="--d:2">
+        <summary>Какой минимальный заказ<span class="qa__sign" aria-hidden="true"></span></summary>
+        <p class="qa__body"><b>2000 ₽.</b> Если по прайсу вышло меньше, мастер предложит добавить позицию: кресло, стулья или матрас, чтобы выезд не пропал впустую.</p>
+      </details>
+
+      <details class="qa__item rise" style="--d:3">
+        <summary>Есть ли скидки на большой заказ<span class="qa__sign" aria-hidden="true"></span></summary>
+        <p class="qa__body">Скидка растёт вместе с суммой: <b>от 3000 ₽ пять процентов, от 4000 ₽ десять, от 5000 ₽ пятнадцать.</b> Письмо на почту после чистки даёт ещё десять процентов на следующий заказ.</p>
+      </details>
+
+      <details class="qa__item rise" style="--d:4">
+        <summary>А если пятно старое и не отходит<span class="qa__sign" aria-hidden="true"></span></summary>
+        <p class="qa__body">Пыль, шерсть, разводы от воды, кофе, чай, сок и следы от рук уходят полностью. <b>Застарелая краска, зелёнка, чернила и ржавчина светлеют, но остаются</b> — мастер скажет об этом на осмотре, до начала работы.</p>
+      </details>
+
+      <details class="qa__item rise" style="--d:5">
+        <summary>Что вы не берёте в работу<span class="qa__sign" aria-hidden="true"></span></summary>
+        <p class="qa__body">Натуральную кожу и замшу, шёлк и вискозу без маркировки состава, антиквариат и ковры ручной работы. <b>Отказ звучит на осмотре</b>, а не после того, как ткань испорчена.</p>
+      </details>
+
+      <details class="qa__item rise" style="--d:6">
+        <summary>Когда можно вызвать мастера<span class="qa__sign" aria-hidden="true"></span></summary>
+        <p class="qa__body"><b>Выезд с 8:00 до 22:00</b>, Новосибирск и все районы города. Гарантия на работу 30 дней.</p>
+      </details>
+    </div>
+
+    <div class="slot-faq rise" style="--d:0">
+      <span class="slot-faq__tag">Место под ответ клиента</span>
+      <p><b>Условия гарантии 30 дней</b> и способ связи помимо телефона добавим сюда, как только компания их назовёт.</p>
+    </div>
+
+    <div class="after">
+      <p class="after__text rise" style="--d:1">Осмотр и расчёт бесплатны: мастер называет сумму по прайсу до начала работы, на месте она не растёт.</p>
+      <a class="after__cta rise" style="--d:2" href="tel:+73833814483">Задать вопрос мастеру
+        <span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  var sec = document.getElementById('faq');
+  new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) sec.classList.add('lit'); });
+  }, { threshold: .1 }).observe(sec);
+})();
+</script>
+</body>
+</html>

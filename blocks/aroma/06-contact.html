@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Блок 6 — вызов мастера и контакты · Арома клининг</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+.sec-cta{position:relative; background:var(--paper); padding-block:clamp(56px,7vw,110px); overflow:hidden;}
+.sec-cta::before{content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(58% 60% at 78% 12%, rgba(201,162,39,.12), transparent 68%);}
+.cta-in{position:relative; z-index:2;}
+
+.call{display:grid; gap:clamp(28px,3.4vw,52px); align-items:center;
+  border:1px solid var(--hair); border-radius:calc(var(--r) + 4px); background:var(--card);
+  padding:clamp(26px,3.4vw,52px); box-shadow:var(--shadow-soft);}
+@media(min-width:960px){ .call{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);} }
+.call h2{margin:var(--sp-5) 0 0; font-size:clamp(27px,3.4vw,44px); line-height:1.12;
+  letter-spacing:-.014em; font-weight:400; max-width:17ch; text-wrap:balance;}
+.call__lead{margin:var(--sp-5) 0 0; color:var(--muted); font-size:clamp(15px,1.2vw,16.5px); max-width:48ch;}
+
+.dial{display:grid; gap:var(--sp-4); align-content:start;
+  border:1px solid var(--gold-line); border-radius:var(--r); background:var(--paper);
+  padding:clamp(22px,2.4vw,30px);}
+.dial__label{font-size:10.5px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--teal-ink);}
+.dial__num{font-family:var(--display); font-size:clamp(24px,2.6vw,33px); font-weight:500; letter-spacing:-.01em;
+  text-decoration:none; white-space:nowrap; color:var(--ink); font-variant-numeric:tabular-nums;
+  transition:color 420ms var(--mass);}
+@media (hover: hover){ .dial__num:hover{color:var(--teal-ink);} }
+.dial__hours{font-size:13.5px; color:var(--muted);}
+.dial__hours b{color:var(--ink); font-weight:500;}
+.dial__cta{display:inline-flex; align-items:center; justify-content:center; gap:14px; min-height:56px;
+  padding:0 10px 0 28px; border-radius:999px; text-decoration:none; color:var(--on-teal);
+  background:linear-gradient(178deg,#E7D08A,#C9A227 62%,#A9821B); font-size:15px; font-weight:500;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45), var(--shadow-cta);
+  transition:transform 520ms var(--mass), box-shadow 520ms var(--mass);}
+.dial__cta span{display:grid; place-items:center; width:36px; height:36px; border-radius:50%;
+  background:rgba(23,19,10,.14); transition:transform 520ms var(--mass);}
+.dial__cta svg{width:14px; height:14px; fill:none; stroke:var(--on-teal); stroke-width:1.5;}
+@media (hover: hover){
+  .dial__cta:hover{transform:translateY(-2px); box-shadow:inset 0 1px 0 rgba(255,255,255,.5), var(--shadow-cta-hover);}
+  .dial__cta:hover span{transform:translate3d(3px,-2px,0) scale(1.05);}
+}
+
+.steps-call{display:grid; gap:var(--sp-4); margin-top:clamp(28px,3vw,44px);}
+@media(min-width:820px){ .steps-call{grid-template-columns:repeat(3,minmax(0,1fr));} }
+.scall{display:grid; gap:8px; padding:var(--sp-6); border:1px solid var(--hair); border-radius:var(--r);
+  background:var(--card); transition:border-color 420ms var(--mass);}
+@media (hover: hover){ .scall:hover{border-color:var(--gold-line);} }
+.scall__n{font-family:var(--display); font-size:12px; font-weight:500; color:var(--teal-ink);
+  letter-spacing:.12em;}
+.scall b{font-family:var(--display); font-size:17px; font-weight:400; color:var(--ink);}
+.scall p{margin:0; font-size:13.5px; color:var(--muted);}
+
+.slot-cta{position:relative; display:block; margin-top:clamp(28px,3vw,44px); border-radius:var(--r);
+  border:1px dashed var(--gold-line); background:var(--card); padding:20px 22px;}
+.slot-cta__tag{position:absolute; top:-8px; left:16px; padding:0 8px; background:var(--paper);
+  font-size:9.5px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--teal-ink);}
+.slot-cta ul{margin:0; padding:0; list-style:none; display:grid; gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); font-size:13px; color:var(--muted);}
+.slot-cta li{display:flex; gap:9px; align-items:flex-start;}
+.slot-cta i{width:5px; height:5px; border-radius:50%; background:var(--teal); margin-top:8px; flex:0 0 auto;}
+.slot-cta b{color:var(--ink); font-weight:500;}
+
+.foot{margin-top:clamp(40px,4.6vw,72px); padding-top:clamp(22px,2.4vw,30px);
+  border-top:1px solid var(--hair); display:flex; flex-wrap:wrap; gap:var(--sp-5) var(--sp-7);
+  align-items:baseline; justify-content:space-between; font-size:13px; color:var(--muted);}
+.foot__brand{font-family:var(--display); font-size:16px; color:var(--ink);}
+.foot__brand em{font-style:normal; color:var(--teal-ink);}
+.foot__nav{display:flex; flex-wrap:wrap; gap:var(--sp-5);}
+.foot__nav a{text-decoration:none; transition:color 420ms var(--mass);}
+@media (hover: hover){ .foot__nav a:hover{color:var(--teal-ink);} }
+
+.rise{opacity:0; transform:translateY(18px);}
+.lit .rise{opacity:1; transform:none;
+  transition:opacity 760ms var(--glide), transform 760ms var(--glide); transition-delay:calc(var(--d,0) * 70ms);}
+html:not(.js) .rise{opacity:1; transform:none;}
+@media (prefers-reduced-motion: reduce){ .rise{opacity:1; transform:none; transition:none;} }
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<section class="sec-cta" id="contact">
+  <div class="wrap cta-in">
+
+    <div class="call rise" style="--d:0">
+      <div>
+        <span class="kicker">Вызов мастера</span>
+        <h2>Позвоните, и бригада приедет со своим оборудованием</h2>
+        <p class="call__lead">Осмотр и расчёт по прайсу бесплатны, сумму мастер называет до начала работы. Чистим на месте, вывозить и разбирать мебель не нужно.</p>
+      </div>
+
+      <div class="dial">
+        <span class="dial__label">Новосибирск, все районы</span>
+        <a class="dial__num" href="tel:+73833814483">8 (383) 381-44-83</a>
+        <span class="dial__hours">Выезд <b>с 8:00 до 22:00</b>, гарантия <b>30 дней</b></span>
+        <a class="dial__cta" href="tel:+73833814483">Вызвать мастера
+          <span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="steps-call">
+      <div class="scall rise" style="--d:1">
+        <span class="scall__n">01</span>
+        <b>Звонок</b>
+        <p>Говорите, что чистим: диван, матрас, кресла, ковёр. Сумму по прайсу называем сразу на линии.</p>
+      </div>
+      <div class="scall rise" style="--d:2">
+        <span class="scall__n">02</span>
+        <b>Осмотр на месте</b>
+        <p>Мастер смотрит ткань и степень загрязнения, делает тест на скрытом участке и подтверждает цену.</p>
+      </div>
+      <div class="scall rise" style="--d:3">
+        <span class="scall__n">03</span>
+        <b>Чистка и сушка</b>
+        <p>Экстракторная чистка, сухой цикл, дальше обивка сохнет 4-6 часов при открытом окне.</p>
+      </div>
+    </div>
+
+    <div class="slot-cta rise" style="--d:4">
+      <span class="slot-cta__tag">Место под данные компании</span>
+      <ul>
+        <li><i></i><span><b>Мессенджеры</b> — номер для WhatsApp и Telegram</span></li>
+        <li><i></i><span><b>Почта</b> — адрес для писем и отзывов</span></li>
+        <li><i></i><span><b>Юридические данные</b> — название, ИНН, реквизиты</span></li>
+        <li><i></i><span><b>Соцсети</b> — ссылки на аккаунты с работами</span></li>
+      </ul>
+    </div>
+
+    <div class="foot rise" style="--d:5">
+      <span class="foot__brand">Арома <em>клининг</em></span>
+      <nav class="foot__nav">
+        <a href="#process">Как чистим</a>
+        <a href="#proof">До и после</a>
+        <a href="#price">Цены</a>
+        <a href="#faq">Вопросы</a>
+        <a href="tel:+73833814483">8 (383) 381-44-83</a>
+      </nav>
+      <span>Химчистка мебели на дому, Новосибирск</span>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  var sec = document.getElementById('contact');
+  new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) sec.classList.add('lit'); });
+  }, { threshold: .1 }).observe(sec);
+})();
+</script>
+</body>
+</html>

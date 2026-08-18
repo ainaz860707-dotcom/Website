@@ -34,7 +34,7 @@ RENAMES = {
 }
 
 sections, styles, scripts = [], [], []
-for f in ['01-hero.html', '02-process.html', '03-proof.html', '04-price.html']:
+for f in ['01-hero.html', '02-process.html', '03-proof.html', '04-price.html', '05-faq.html', '06-contact.html']:
     src = (BLOCKS / f).read_text(encoding='utf-8')
     for a, b in RENAMES.get(f, []):
         src = src.replace(a, b)
