@@ -7,8 +7,9 @@ PUB = SCR / 'pub'
 def data_uri(path, mime):
     return f'data:{mime};base64,' + base64.b64encode(pathlib.Path(path).read_bytes()).decode()
 
-VIDEO = data_uri(PUB / 'work-loop.mp4', 'video/mp4')
+VIDEO = data_uri(BLOCKS / 'media' / 'hero-loop.mp4', 'video/mp4')
 MEDIA = {
+    'media/hero-loop-poster.jpg': data_uri(BLOCKS / 'media' / 'hero-loop-poster.jpg', 'image/jpeg'),
     'media/work-loop-poster.jpg': data_uri(PUB / 'poster.webp', 'image/webp'),
     'media/nozzle-close.jpg': data_uri(PUB / 'nozzle.webp', 'image/webp'),
     'media/ba-before.webp': data_uri(PUB / 'ba-before.webp', 'image/webp'),
@@ -48,20 +49,13 @@ for f in ['01-hero.html', '02-process.html', '03-proof.html', '04-price.html']:
     scripts.extend(scr)
 
 merged_js = '\n'.join(scripts).replace(
-    """          ['webm', 'mp4'].forEach(function(ext){
-            var s = document.createElement('source');
-            s.src = 'media/work-loop.' + ext;
-            s.type = ext === 'webm' ? 'video/webm' : 'video/mp4';
-            vid.appendChild(s);
-          });""",
-    f"""          var s = document.createElement('source');
-          s.src = '{VIDEO}';
-          s.type = 'video/mp4';
-          vid.appendChild(s);""")
+    "s.src = 'media/hero-loop.mp4';",
+    f"s.src = '{VIDEO}';")
 
 tokens = (BLOCKS / 'tokens.css').read_text(encoding='utf-8')
 
-page = f"""<title>Арома клининг, первый вариант</title>
+page = f"""<meta charset="utf-8">
+<title>Арома клининг, первый вариант</title>
 <style>
 {''.join(faces)}
 {tokens}
@@ -74,6 +68,6 @@ img, video{{max-width:100%;}}
 {merged_js}
 </script>
 """
-out = SCR / 'aroma-page.html'
+out = BLOCKS / 'dist' / 'aroma-klining.html'
 out.write_text(page, encoding='utf-8')
 print('готово:', round(len(page.encode()) / 1024 / 1024, 2), 'МБ · видео вшито:', VIDEO[:30] in page)
