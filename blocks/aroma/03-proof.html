@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Блок 3 — до и после · Арома клининг</title>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+.sec{background:var(--card); padding-block:clamp(56px,7vw,110px);}
+.head{max-width:64ch;}
+.kicker{display:inline-flex; border-radius:999px; padding:7px 14px; background:var(--teal-soft);
+  color:var(--teal-ink); font-size:12px; font-weight:600;}
+h2{margin:var(--sp-5) 0 0; font-size:clamp(26px,3.2vw,42px); line-height:1.1; letter-spacing:-.025em;
+  font-weight:600; text-wrap:balance;}
+.head p{margin:var(--sp-5) 0 0; color:var(--muted); font-size:clamp(15px,1.2vw,16.5px);}
+
+.ba{position:relative; margin-top:clamp(32px,3.6vw,56px); border-radius:var(--r); overflow:hidden;
+  aspect-ratio:1280 / 596; outline:1px solid var(--hair); outline-offset:-1px; box-shadow:var(--shadow-soft);
+  touch-action:pan-y;}
+.ba img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.ba__after{clip-path:inset(0 0 0 var(--split, 50%));}
+.ba__line{position:absolute; top:0; bottom:0; left:var(--split, 50%); width:2px; background:#fff;
+  box-shadow:0 0 0 1px rgba(15,26,28,.18); z-index:3; pointer-events:none;}
+.ba__knob{position:absolute; top:50%; left:var(--split, 50%); transform:translate(-50%,-50%); z-index:4;
+  width:46px; height:46px; border-radius:999px; background:#fff; display:grid; place-items:center;
+  box-shadow:0 8px 20px -8px rgba(15,26,28,.55); pointer-events:none; color:var(--teal-ink);}
+.ba__knob svg{width:20px; height:20px;}
+.ba__tag{position:absolute; top:var(--sp-5); z-index:5; padding:6px 12px; border-radius:999px;
+  font-size:11.5px; font-weight:600; letter-spacing:.04em; background:rgba(255,255,255,.94);
+  border:1px solid var(--hair); color:var(--ink);}
+.ba__tag--l{left:var(--sp-5);} .ba__tag--r{right:var(--sp-5); color:var(--teal-ink);}
+.ba__range{position:absolute; inset:0; z-index:6; width:100%; height:100%; margin:0; opacity:0; cursor:ew-resize;}
+.ba__hint{margin:var(--sp-4) 0 0; font-size:13px; color:var(--muted); text-align:center;}
+
+.limits{display:grid; gap:var(--sp-4); margin-top:clamp(36px,4vw,64px);}
+@media(min-width:820px){ .limits{grid-template-columns:repeat(3,minmax(0,1fr));} }
+.limit{border:1px solid var(--hair); border-radius:var(--r); padding:var(--sp-6); background:var(--paper);}
+.limit b{display:block; font-size:16px; font-weight:600; margin-bottom:6px;}
+.limit p{margin:0; font-size:13.5px; color:var(--muted);}
+.limit--yes b{color:var(--teal-ink);}
+
+.rise{opacity:0; transform:translateY(16px);}
+.lit .rise{opacity:1; transform:none;
+  transition:opacity 700ms var(--ease), transform 700ms var(--ease); transition-delay:calc(var(--d,0) * 85ms);}
+html:not(.js) .rise{opacity:1; transform:none;}
+@media (prefers-reduced-motion: reduce){ .rise{opacity:1; transform:none; transition:none;} }
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<section class="sec" id="proof">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker rise" style="--d:0">Доказательство</span>
+      <h2 class="rise" style="--d:1">Один и тот же диван до чистки и после</h2>
+      <p class="rise" style="--d:2">Потяните ползунок. Слева диван, каким его видит мастер на выезде: пятно на сиденье, крошки, потемневшие подлокотники. Справа он же после экстракторной чистки. Комната та же, диван тот же, ракурс не менялся.</p>
+    </div>
+
+    <div class="ba rise" id="ba" style="--d:2">
+      <img src="media/ba-before.webp" alt="Трёхместный диван с пятном и крошками на сиденьях до чистки" width="1280" height="596">
+      <img class="ba__after" id="baAfter" src="media/ba-after.webp" alt="Тот же диван в той же комнате после чистки, пятен и крошек нет" width="1280" height="596">
+      <span class="ba__tag ba__tag--l">До чистки</span>
+      <span class="ba__tag ba__tag--r">После</span>
+      <span class="ba__line" id="baLine"></span>
+      <span class="ba__knob" id="baKnob" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg>
+      </span>
+      <input class="ba__range" id="baRange" type="range" min="0" max="100" step="0.5" value="50"
+             aria-label="Показать больше кадра до или после чистки">
+    </div>
+    <p class="ba__hint rise" style="--d:3">Ползунок двигается мышью, пальцем и стрелками на клавиатуре</p>
+
+    <div class="limits">
+      <div class="limit limit--yes rise" style="--d:0">
+        <b>Уходят полностью</b>
+        <p>Пыль, шерсть животных, разводы от воды, кофе, чай, сок, детские неожиданности, следы от рук на подлокотниках.</p>
+      </div>
+      <div class="limit rise" style="--d:1">
+        <b>Светлеют, но остаются</b>
+        <p>Застарелая краска, зелёнка, чернила и ржавчина. Мастер скажет об этом на осмотре, до начала работы.</p>
+      </div>
+      <div class="limit rise" style="--d:2">
+        <b>Не берём в работу</b>
+        <p>Натуральную кожу и замшу, шёлк и вискозу без маркировки состава, антиквариат и ковры ручной работы.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var sec = document.getElementById('proof');
+  new IntersectionObserver(function(e){
+    e.forEach(function(x){ if (x.isIntersecting) sec.classList.add('lit'); });
+  }, { threshold: .1 }).observe(sec);
+
+  var range = document.getElementById('baRange');
+  var after = document.getElementById('baAfter');
+  var line = document.getElementById('baLine');
+  var knob = document.getElementById('baKnob');
+  if (!range) return;
+
+  var set = function(v){
+    var pct = v + '%';
+    after.style.setProperty('--split', pct);
+    line.style.left = pct;
+    knob.style.left = pct;
+  };
+  set(50);
+  range.addEventListener('input', function(){ set(this.value); });
+})();
+</script>
+</body>
+</html>
