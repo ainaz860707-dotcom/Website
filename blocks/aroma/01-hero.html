@@ -139,9 +139,9 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
 
 <section class="hero" id="hero">
   <div class="hero__stage" id="stage" aria-hidden="true">
-    <img class="hero__poster" id="poster" src="media/work-poster.jpg" alt="" width="1280" height="720">
+    <img class="hero__poster" id="poster" src="media/sofa-poster.jpg" alt="" width="1280" height="720">
     <video class="hero__vid" id="vid" muted playsinline loop preload="none"
-           poster="media/work-poster.jpg" aria-hidden="true"></video>
+           poster="media/sofa-poster.jpg" aria-hidden="true"></video>
   </div>
   </div>
   <div class="hero__depth" aria-hidden="true"></div>
@@ -211,7 +211,7 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
   var vid = document.getElementById('vid');
   if (vid && !calm) {
     var portrait = window.matchMedia('(max-width: 720px)').matches;
-    var base = portrait ? 'media/work-9x16' : 'media/work-16x9';
+    var base = portrait ? 'media/sofa-9x16' : 'media/sofa-16x9';
     var armed = false;
     new IntersectionObserver(function(en){
       en.forEach(function(e){
