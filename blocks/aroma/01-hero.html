@@ -139,6 +139,17 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
   .dust{display:none;}
   .rise, h1 .ln > span{opacity:1; transform:none; filter:none; transition:none;}
 }
+@media(max-width:720px){
+  .hero__grid{display:flex; flex-direction:column; align-items:stretch;}
+  .stack{display:contents;}
+  .hero__media{order:-1;}
+  .copy{order:0;}
+  .price{order:1;}
+  .slot{order:2;}
+  .hero__stage{aspect-ratio:2 / 1;}
+  .hero__poster, .hero__vid{object-position:50% 72%;}
+  .hero__depth{background:linear-gradient(180deg, rgba(11,13,16,.14) 0%, transparent 30%, transparent 74%, rgba(11,13,16,.30) 100%);}
+}
 </style>
 <script>document.documentElement.classList.add('js')</script>
 </head>
