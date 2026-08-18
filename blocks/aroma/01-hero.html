@@ -15,44 +15,41 @@
 .grain{position:fixed; inset:0; z-index:40; pointer-events:none; opacity:.045;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
-.hero{position:relative; min-height:clamp(600px, 56.25vw, 100dvh); display:flex; align-items:center;
-  overflow:hidden; padding-block:clamp(36px,5.5vh,84px); perspective:1400px;}
+.hero{position:relative; min-height:auto; display:flex; align-items:center;
+  overflow:hidden; padding-block:clamp(48px,7vh,104px); perspective:1600px;
+  background:
+    radial-gradient(70% 60% at 12% 22%, rgba(201,162,39,.10), transparent 62%),
+    radial-gradient(60% 60% at 92% 88%, rgba(120,150,175,.07), transparent 66%),
+    var(--graphite);}
 
-.hero__stage{position:absolute; inset:0; z-index:0; will-change:transform; overflow:hidden;
-  transform:translate3d(var(--bgx,0),var(--bgy,0),0);
-  animation:breathe 30s var(--ease-glide) infinite alternate;}
+.hero__media{position:relative; transform-style:preserve-3d;
+  transform:rotateX(var(--mrx,0deg)) rotateY(var(--mry,0deg));
+  transition:transform 800ms var(--ease-glide);}
+.hero__stage{position:relative; z-index:0; overflow:hidden; border-radius:19px;
+  aspect-ratio:16/9; background:var(--graphite-deep);}
 .hero__poster, .hero__vid{position:absolute; inset:0; width:100%; height:100%;
   object-fit:cover; object-position:50% 50%;}
 .hero__vid{opacity:0; transition:opacity 900ms var(--ease-glide);}
 .hero__vid.is-on{opacity:1;}
-.dust{position:absolute; inset:0; z-index:2; pointer-events:none; opacity:.55;}
+.dust{position:absolute; inset:0; z-index:2; pointer-events:none; opacity:.5; border-radius:19px;}
 
 .hero__depth{position:absolute; inset:0; z-index:1; pointer-events:none;
-  background:
-    linear-gradient(97deg, rgba(11,13,16,.94) 0%, rgba(11,13,16,.86) 22%,
-      rgba(11,13,16,.44) 40%, rgba(11,13,16,.06) 56%, rgba(11,13,16,.0) 74%, rgba(11,13,16,.28) 100%),
-    radial-gradient(60% 55% at 14% 32%, rgba(201,162,39,.13), transparent 60%);}
-.hero__floor{position:absolute; inset:auto 0 0 0; height:34%; z-index:1; pointer-events:none;
-  background:linear-gradient(0deg, var(--graphite) 0%, rgba(14,16,19,.55) 42%, transparent 100%);}
+  background:linear-gradient(180deg, rgba(11,13,16,.10) 0%, transparent 22%, transparent 68%, rgba(11,13,16,.42) 100%);}
+
 @media(max-width:999px){
-  .hero{display:block; min-height:0; padding-block:0 var(--sp-12); overflow:visible;}
-  .hero__stage{position:relative; inset:auto; width:100%; aspect-ratio:16/9; overflow:hidden;}
-  .hero__depth, .hero__floor, .hero__sweep, .dust{position:absolute; inset:0; height:100%;}
-  .hero__media{position:relative;}
-  .hero__grid{padding-top:var(--sp-9);}
+  .hero__grid{gap:var(--sp-9);}
   .stack{justify-items:stretch;}
-  .hero__depth{background:
-    linear-gradient(180deg, rgba(11,13,16,.30) 0%, rgba(11,13,16,0) 26%, rgba(11,13,16,0) 62%, var(--graphite) 100%);}
-  .hero__floor{display:none;}
+  .hero__media{transform:none;}
+
 }
-.hero__sweep{position:absolute; inset:0; z-index:2; pointer-events:none; overflow:hidden;}
+.hero__sweep{position:absolute; inset:0; z-index:2; pointer-events:none; overflow:hidden; border-radius:19px;}
 .hero__sweep i{position:absolute; top:-55%; bottom:-55%; left:-40%; width:26%;
   background:linear-gradient(100deg, transparent, rgba(237,233,227,.09) 44%, rgba(201,162,39,.20) 52%, transparent);
   mix-blend-mode:screen; transform:rotate(9deg); animation:sweep 19s var(--ease-glide) infinite;}
 
 .hero__grid{position:relative; z-index:3; display:grid; gap:clamp(40px,5vw,72px);
   grid-template-columns:minmax(0,1fr); align-items:center;}
-@media(min-width:1000px){ .hero__grid{grid-template-columns:minmax(0,.58fr) minmax(0,.42fr);} }
+@media(min-width:1000px){ .hero__grid{grid-template-columns:minmax(0,.42fr) minmax(0,.58fr); align-items:center;} }
 
 .tag{display:inline-flex; align-items:center; gap:8px; border-radius:999px;
   padding:7px 15px 7px 12px; font-size:clamp(9px,2.4vw,10.5px); letter-spacing:.16em;
@@ -93,7 +90,7 @@ h1 em{font-style:normal; color:var(--champagne);}
   font-size:13px; color:#B7B3AC; text-shadow:0 1px 12px rgba(6,7,9,.9);}
 .facts b{color:var(--bone); font-weight:600;}
 
-.stack{position:relative; display:grid; gap:var(--sp-5); transform-style:preserve-3d; justify-items:end;
+.stack{position:relative; display:grid; gap:var(--sp-5); transform-style:preserve-3d; justify-items:stretch;
   transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
   transition:transform 700ms var(--ease-glide);}
 
@@ -113,6 +110,12 @@ h1 em{font-style:normal; color:var(--champagne);}
 .slot__text{margin:var(--sp-3) 0 0; font-size:13.5px; color:#C6C2BB;}
 
 .price{transform:translateZ(38px);}
+@media(min-width:1000px){
+  .stack{grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start;}
+  .hero__media{grid-column:1 / -1;}
+  .price .core{height:100%;}
+  .slot .core{height:100%;}
+}
 .price .core{display:flex; align-items:center; gap:var(--sp-6); flex-wrap:nowrap;}
 .price__num{font-family:var(--display); font-size:clamp(34px,3vw,42px); line-height:1;
   color:var(--champagne); white-space:nowrap; flex:0 0 auto;}
@@ -131,9 +134,8 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
 
 @media (prefers-reduced-motion: reduce){
   .hero__vid{display:none;}
-  .hero__stage{animation:none;}
   .hero__sweep{display:none;}
-  .stack, .hero__stage{transition:none; transform:none;}
+  .stack, .hero__media{transition:none; transform:none;}
   .dust{display:none;}
   .rise, h1 .ln > span{opacity:1; transform:none; filter:none; transition:none;}
 }
@@ -144,12 +146,6 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
 <div class="grain" aria-hidden="true"></div>
 
 <section class="hero" id="hero">
-  <div class="hero__media">
-  <div class="hero__stage" id="stage" aria-hidden="true">
-    <img class="hero__poster" id="poster" src="media/scene-poster.jpg" alt="" width="1280" height="720">
-    <video class="hero__vid" id="vid" muted playsinline loop preload="none"
-           poster="media/scene-poster.jpg" aria-hidden="true"></video>
-  </div>
   </div>
   <div class="hero__depth" aria-hidden="true"></div>
   <div class="hero__floor" aria-hidden="true"></div>
@@ -186,6 +182,17 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
     </div>
 
     <div class="stack" id="stack">
+      <div class="hero__media rise" style="--d:2">
+        <div class="shell"><div class="hero__stage" id="stage">
+          <img class="hero__poster" id="poster" src="media/scene-poster.jpg" alt="Мастер чистит диван экстрактором в гостиной" width="1280" height="720">
+          <video class="hero__vid" id="vid" muted playsinline loop preload="none"
+                 poster="media/scene-poster.jpg" aria-hidden="true"></video>
+          <div class="hero__depth" aria-hidden="true"></div>
+          <canvas class="dust" id="dust" aria-hidden="true"></canvas>
+          <div class="hero__sweep" aria-hidden="true"><i></i></div>
+        </div></div>
+      </div>
+
       <div class="price rise" style="--d:3">
         <div class="shell"><div class="core">
           <span class="price__num">1500 ₽</span>
@@ -295,8 +302,11 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
     hero.addEventListener('pointerleave', function(){ px = 0; py = 0; if (!raf) raf = requestAnimationFrame(place); });
     function place(){
       raf = 0;
-      stage.style.setProperty('--bgx', (px * -22).toFixed(1) + 'px');
-      stage.style.setProperty('--bgy', (py * -16).toFixed(1) + 'px');
+      var media = document.querySelector('.hero__media');
+      if (media) {
+        media.style.setProperty('--mry', (px * 6).toFixed(2) + 'deg');
+        media.style.setProperty('--mrx', (py * -4).toFixed(2) + 'deg');
+      }
       stack.style.setProperty('--ry', (px * 7).toFixed(2) + 'deg');
       stack.style.setProperty('--rx', (py * -5).toFixed(2) + 'deg');
     }
