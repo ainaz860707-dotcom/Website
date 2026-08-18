@@ -20,14 +20,14 @@ h2{margin:var(--sp-5) 0 0; font-size:clamp(26px,3.2vw,42px); line-height:1.1; le
   touch-action:pan-y;}
 .ba img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
 .ba__after{clip-path:inset(0 0 0 var(--split, 50%));}
-.ba__line{position:absolute; top:0; bottom:0; left:var(--split, 50%); width:2px; background:#fff;
+.ba__line{position:absolute; top:0; bottom:0; left:var(--split, 50%); width:2px; background:var(--card);
   box-shadow:0 0 0 1px rgba(15,26,28,.18); z-index:3; pointer-events:none;}
 .ba__knob{position:absolute; top:50%; left:var(--split, 50%); transform:translate(-50%,-50%); z-index:4;
-  width:46px; height:46px; border-radius:999px; background:#fff; display:grid; place-items:center;
-  box-shadow:0 8px 20px -8px rgba(15,26,28,.55); pointer-events:none; color:var(--teal-ink);}
+  width:46px; height:46px; border-radius:999px; background:var(--card); display:grid; place-items:center;
+  box-shadow:var(--shadow-soft); pointer-events:none; color:var(--teal-ink);}
 .ba__knob svg{width:20px; height:20px;}
 .ba__tag{position:absolute; top:var(--sp-5); z-index:5; padding:6px 12px; border-radius:999px;
-  font-size:11.5px; font-weight:600; letter-spacing:.04em; background:rgba(255,255,255,.94);
+  font-size:11.5px; font-weight:600; letter-spacing:.04em; background:var(--scrim);
   border:1px solid var(--hair); color:var(--ink);}
 .ba__tag--l{left:var(--sp-5);} .ba__tag--r{right:var(--sp-5); color:var(--teal-ink);}
 .ba__range{position:absolute; inset:0; z-index:6; width:100%; height:100%; margin:0; opacity:0; cursor:ew-resize;}
