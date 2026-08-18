@@ -55,23 +55,23 @@ h1 em{font-style:normal; color:var(--champagne);}
 .media{position:absolute; inset:0; z-index:0;}
 .media__frame{position:relative; aspect-ratio:4 / 3; overflow:visible; border-radius:20px;
   background:var(--graphite-deep); border:1px solid rgba(237,233,227,.10);
-  box-shadow:0 30px 70px -28px rgba(6,7,9,.85);}
+  box-shadow:0 30px 70px -28px rgba(10,12,15,.85);}
 .media__frame > img, .media__frame > video{position:absolute; inset:0; width:100%; height:100%;
-  object-fit:cover; object-position:50% 58%; transform:scaleX(-1);}
+  object-fit:cover; object-position:50% 58%; transform:scaleX(-1); filter:brightness(1.10) saturate(1.04);}
 .media__frame video{opacity:0; transition:opacity 900ms var(--ease-glide);}
 .media__frame video.is-on{opacity:1;}
 .media__veil{position:absolute; inset:0; z-index:1; pointer-events:none;
   background:
-    linear-gradient(97deg, rgba(11,13,16,.94) 0%, rgba(11,13,16,.86) 26%, rgba(11,13,16,.46) 44%,
-      rgba(11,13,16,.08) 60%, rgba(11,13,16,0) 78%, rgba(11,13,16,.24) 100%),
-    linear-gradient(0deg, rgba(11,13,16,.42) 0%, transparent 26%);}
+    linear-gradient(97deg, rgba(21,25,32,.86) 0%, rgba(21,25,32,.74) 26%, rgba(21,25,32,.34) 44%,
+      rgba(21,25,32,.04) 58%, rgba(21,25,32,0) 76%, rgba(21,25,32,.14) 100%),
+    linear-gradient(0deg, rgba(21,25,32,.30) 0%, transparent 24%);}
 
 .overlay{position:relative; z-index:2; display:grid; gap:var(--sp-4);
   grid-template-columns:minmax(0,1fr); align-items:stretch;}
 .chip{border-radius:14px; padding:var(--sp-4) var(--sp-5);
-  background:rgba(14,16,19,.62); border:1px solid rgba(237,233,227,.14);
-  box-shadow:0 14px 34px -18px rgba(6,7,9,.9);}
-@supports (backdrop-filter: blur(10px)){ .chip{backdrop-filter:blur(12px); background:rgba(14,16,19,.44);} }
+  background:rgba(21,25,32,.62); border:1px solid rgba(237,233,227,.14);
+  box-shadow:0 14px 34px -18px rgba(10,12,15,.9);}
+@supports (backdrop-filter: blur(10px)){ .chip{backdrop-filter:blur(12px); background:rgba(21,25,32,.44);} }
 .chip--price{display:flex; align-items:baseline; gap:10px; white-space:nowrap;}
 .chip__num{font-family:var(--display); font-size:26px; line-height:1; color:var(--champagne);}
 .chip__cap{font-size:12.5px; color:#CFCBC4;}
