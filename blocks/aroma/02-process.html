@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Блок 2 — как мы чистим · Арома клининг</title>
-<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tokens.css">
 <style>
 
@@ -12,10 +13,9 @@
 .sec{position:relative; background:var(--paper); padding-block:clamp(56px,7vw,110px);}
 .sec__in{position:relative; z-index:2;}
 
-.kicker{display:inline-flex; align-items:center; gap:8px; border-radius:999px; padding:7px 14px;
-  background:var(--teal-soft); color:var(--teal-ink); font-size:12px; font-weight:600;}
 
-h2{font-weight:600; font-size:clamp(26px,3.2vw,42px); line-height:1.1; letter-spacing:-.025em;
+
+h2{font-weight:400; font-size:clamp(27px,3.4vw,44px); line-height:1.12; letter-spacing:-.014em;
   color:var(--ink); margin:var(--sp-5) 0 0; max-width:20ch; text-wrap:balance;}
 .sec__lead{margin:var(--sp-5) 0 0; max-width:58ch; color:var(--muted); font-size:clamp(15px,1.2vw,16.5px);}
 
@@ -29,11 +29,13 @@ h2{font-weight:600; font-size:clamp(26px,3.2vw,42px); line-height:1.1; letter-sp
 .step{background:var(--card); padding:clamp(20px,2vw,28px); display:flex; flex-direction:column; gap:var(--sp-3);
   transition:background 320ms var(--ease);}
 .step:hover{background:var(--card-hover);}
-.step__n{display:inline-grid; place-items:center; width:28px; height:28px; border-radius:999px;
-  background:var(--teal-soft); color:var(--teal-ink); font-size:12px; font-weight:700;}
-.step h3{margin:0; font-size:17px; font-weight:600; color:var(--ink); line-height:1.25;}
+.step__n{display:inline-grid; place-items:center; width:30px; height:30px; border-radius:999px;
+  border:1px solid var(--gold-line); background:var(--teal-soft); color:var(--teal-ink);
+  font-family:var(--display); font-size:12px; font-weight:500;}
+.step h3{margin:0; font-size:18px; font-weight:400; color:var(--ink); line-height:1.28;}
 .step p{margin:0; font-size:13.5px; color:var(--muted);}
-.step__meta{margin-top:auto; padding-top:var(--sp-4); font-size:12px; font-weight:600; color:var(--teal-ink);
+.step__meta{margin-top:auto; padding-top:var(--sp-4); font-size:11px; font-weight:500;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--teal-ink);
   border-top:1px solid var(--hair);}
 
 .proof{display:grid; gap:clamp(20px,2.4vw,32px); margin-top:clamp(36px,4vw,64px);}
@@ -46,16 +48,16 @@ h2{font-weight:600; font-size:clamp(26px,3.2vw,42px); line-height:1.1; letter-sp
   background:var(--scrim); border:1px solid var(--hair); border-radius:12px;
   padding:12px 15px; font-size:13px; color:var(--muted);
   box-shadow:var(--shadow-soft);}
-.proof__cap b{color:var(--ink); font-weight:600;}
+.proof__cap b{color:var(--ink); font-weight:500;}
 
 .kit{display:grid; gap:var(--sp-4); align-content:start;}
 .kit__item{display:grid; grid-template-columns:auto minmax(0,1fr); gap:var(--sp-4); align-items:start;
   padding:var(--sp-5); border:1px solid var(--hair); border-radius:var(--r); background:var(--card);
-  box-shadow:0 1px 2px rgba(15,26,28,.04);}
-.kit__ic{width:36px; height:36px; border-radius:10px; display:grid; place-items:center;
-  background:var(--teal-soft); color:var(--teal-ink);}
+  box-shadow:var(--shadow-soft);}
+.kit__ic{width:38px; height:38px; border-radius:999px; display:grid; place-items:center;
+  border:1px solid var(--gold-line); background:var(--teal-soft); color:var(--teal-ink);}
 .kit__ic svg{width:18px; height:18px;}
-.kit__item b{display:block; color:var(--ink); font-size:15px; font-weight:600;}
+.kit__item b{display:block; color:var(--ink); font-size:15.5px; font-weight:500;}
 .kit__item span{font-size:13px; color:var(--muted);}
 
 .rise{opacity:0; transform:translateY(20px);}
