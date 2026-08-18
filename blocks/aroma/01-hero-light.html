@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Блок 1 — светлый вариант · Арома клининг</title>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F6F6;
+  --paper-2:#FFFFFF;
+  --ink:#12191B;
+  --muted:#5E6E70;
+  --hair:#DCE3E3;
+  --teal:#0E6F66;
+  --teal-soft:#E4EFED;
+
+  --text:'Golos Text','Helvetica Neue',Arial,sans-serif;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+
+  --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px; --sp-6:24px; --sp-7:32px;
+  --sp-8:40px; --sp-9:48px; --sp-11:64px; --sp-12:80px;
+}
+*{box-sizing:border-box;}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--text);
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1200px; margin:0 auto; padding-inline:clamp(20px,4vw,44px);}
+
+.top{border-bottom:1px solid var(--hair); background:rgba(255,255,255,.7); backdrop-filter:blur(8px);
+  position:sticky; top:0; z-index:10;}
+.top__in{display:flex; align-items:center; justify-content:space-between; gap:var(--sp-6);
+  padding-block:var(--sp-4);}
+.logo{font-weight:700; letter-spacing:-.01em; font-size:18px;}
+.logo span{color:var(--teal);}
+.top__phone{font-weight:600; font-size:15px; text-decoration:none; color:var(--ink);
+  display:inline-flex; align-items:center; gap:9px;}
+.top__phone i{width:7px; height:7px; border-radius:50%; background:var(--teal);}
+
+.hero{padding-block:clamp(40px,6vw,84px);}
+.hero__in{display:grid; gap:clamp(28px,4vw,56px); grid-template-columns:minmax(0,1fr); align-items:center;}
+@media(min-width:940px){ .hero__in{grid-template-columns:minmax(0,.46fr) minmax(0,.54fr);} }
+
+.eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--teal);
+  background:var(--teal-soft); border-radius:999px; padding:6px 13px;}
+
+h1{font-size:clamp(32px,4.2vw,50px); line-height:1.1; letter-spacing:-.025em; font-weight:600;
+  margin:var(--sp-6) 0 0; text-wrap:balance;}
+.lead{margin:var(--sp-5) 0 0; max-width:44ch; color:var(--muted); font-size:clamp(15px,1.4vw,17px);}
+
+.cta{display:flex; flex-wrap:wrap; gap:var(--sp-3); margin-top:var(--sp-8);}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:52px;
+  padding:0 24px; border-radius:10px; font-weight:600; font-size:15px; text-decoration:none;
+  border:1px solid transparent; transition:transform 260ms var(--ease), box-shadow 260ms var(--ease), background 200ms var(--ease);}
+.btn--main{background:var(--teal); color:#fff; box-shadow:0 8px 20px rgba(14,111,102,.20);}
+.btn--main:hover{transform:translateY(-2px); box-shadow:0 14px 30px rgba(14,111,102,.26);}
+.btn--plain{background:var(--paper-2); color:var(--ink); border-color:var(--hair);}
+.btn--plain:hover{border-color:var(--teal); color:var(--teal);}
+
+.trust{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:var(--sp-9);
+  border-top:1px solid var(--hair);}
+.trust div{padding-top:var(--sp-5); padding-right:var(--sp-4);}
+.trust b{display:block; font-size:15px; font-weight:600;}
+.trust span{font-size:13px; color:var(--muted);}
+
+.shot{position:relative;}
+.shot__frame{position:relative; border-radius:18px; overflow:hidden; background:var(--paper-2);
+  box-shadow:0 1px 2px rgba(18,25,27,.05), 0 24px 48px -24px rgba(18,25,27,.28);
+  outline:1px solid var(--hair); outline-offset:-1px;}
+.shot__frame img{display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:cover;}
+.shot__badge{position:absolute; left:var(--sp-5); bottom:var(--sp-5); z-index:2;
+  background:rgba(255,255,255,.94); border:1px solid var(--hair); border-radius:12px;
+  padding:10px 14px; display:flex; align-items:center; gap:10px;
+  box-shadow:0 10px 24px -12px rgba(18,25,27,.35);}
+.shot__badge b{font-size:14px; font-weight:600;}
+.shot__badge span{font-size:12.5px; color:var(--muted);}
+.shot__dot{width:9px; height:9px; border-radius:50%; background:var(--teal); flex:0 0 auto;
+  box-shadow:0 0 0 4px var(--teal-soft);}
+
+.slot{margin-top:var(--sp-5); border:1px dashed #BFD3CF; border-radius:14px; background:var(--paper-2);
+  padding:var(--sp-5) var(--sp-6); position:relative;}
+.slot__tag{position:absolute; top:-9px; left:20px; background:var(--paper); padding:0 8px;
+  font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--teal); font-weight:600;}
+.slot p{margin:0; font-size:14px; color:var(--muted);}
+.slot p b{color:var(--ink); font-weight:600;}
+
+.rise{opacity:0; transform:translateY(16px);}
+.lit .rise{opacity:1; transform:none;
+  transition:opacity 700ms var(--ease), transform 700ms var(--ease);
+  transition-delay:calc(var(--d,0) * 90ms);}
+html:not(.js) .rise{opacity:1; transform:none;}
+@media (prefers-reduced-motion: reduce){ .rise{opacity:1; transform:none; transition:none;} }
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top__in">
+    <span class="logo">Арома <span>клининг</span></span>
+    <a class="top__phone" href="tel:+73833814483"><i></i>8 (383) 381-44-83</a>
+  </div>
+</header>
+
+<section class="hero" id="hero">
+  <div class="wrap hero__in">
+    <div>
+      <span class="eyebrow rise" style="--d:0">Новосибирск · выезд во все районы</span>
+      <h1 class="rise" style="--d:1">Почистим диван сегодня — спать на нём можно уже ночью</h1>
+      <p class="lead rise" style="--d:2">Бригада приезжает со своим экстрактором и профессиональной химией, чистит прямо у вас дома. Обивка сохнет 4–6 часов, запаха не остаётся.</p>
+
+      <div class="cta rise" style="--d:3">
+        <a class="btn btn--main" href="tel:+73833814483">Вызвать мастера</a>
+        <a class="btn btn--plain" href="#price">Посмотреть цены</a>
+      </div>
+
+      <div class="trust rise" style="--d:4">
+        <div><b>8:00–22:00</b><span>без выходных</span></div>
+        <div><b>30 дней</b><span>гарантия на результат</span></div>
+        <div><b>Все районы</b><span>выезд по городу</span></div>
+      </div>
+    </div>
+
+    <div class="shot rise" style="--d:2">
+      <div class="shot__frame">
+        <img src="media/team-1.jpg" alt="Бригада химчистки с экстрактором и профессиональной химией в гостиной" width="1280" height="720">
+        <div class="shot__badge">
+          <span class="shot__dot"></span>
+          <span><b>Своё оборудование</b><br><span>экстрактор, химия, сушка</span></span>
+        </div>
+      </div>
+
+      <div class="slot">
+        <span class="slot__tag">Место под подпись</span>
+        <p><b>«Диван, матрас и ковёр — за один выезд»</b> — это место меняется под каждую компанию.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var io = new IntersectionObserver(function(e){
+    e.forEach(function(x){ if (x.isIntersecting){ x.target.classList.add('lit'); io.unobserve(x.target); } });
+  }, { threshold: .15 });
+  io.observe(document.getElementById('hero'));
+})();
+</script>
+</body>
+</html>
