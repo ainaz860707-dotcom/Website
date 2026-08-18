@@ -10,13 +10,14 @@
 :root{ --ease-mass:cubic-bezier(0.32,0.72,0,1); --ease-glide:cubic-bezier(0.16,1,0.3,1); }
 
 .hero{position:relative; background:var(--graphite); overflow:hidden;
-  padding-block:clamp(20px,3.4vh,64px);}
+  min-height:min(100dvh, 56.25vw); display:flex; align-items:center;
+  padding-block:clamp(28px,4vh,72px);}
 .hero::before{content:""; position:absolute; inset:0; pointer-events:none;
   background:radial-gradient(58% 52% at 8% 18%, rgba(201,162,39,.10), transparent 62%);}
 
 .hero__in{position:relative; z-index:2; display:grid; gap:clamp(28px,3.4vw,52px);
   grid-template-columns:minmax(0,1fr); align-items:center;}
-@media(min-width:1000px){ .hero__in{grid-template-columns:minmax(0,.44fr) minmax(0,.56fr);} }
+@media(min-width:1000px){ .hero__in{grid-template-columns:minmax(0,.48fr) minmax(0,.34fr);} }
 
 .tag{display:inline-flex; align-items:center; gap:8px; border-radius:999px;
   padding:6px 14px 6px 11px; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
@@ -51,20 +52,22 @@ h1 em{font-style:normal; color:var(--champagne);}
 .facts b{color:var(--bone); font-weight:600;}
 .facts span{flex:0 0 auto;}
 
-.media{position:relative; padding-bottom:clamp(28px,3vw,44px);}
+.media{position:absolute; inset:0; z-index:0;}
 .media__frame{position:relative; aspect-ratio:4 / 3; overflow:visible; border-radius:20px;
   background:var(--graphite-deep); border:1px solid rgba(237,233,227,.10);
   box-shadow:0 30px 70px -28px rgba(6,7,9,.85);}
-.media__frame > img, .media__frame > video{position:absolute; inset:0; border-radius:20px; width:100%; height:100%;
-  object-fit:cover; object-position:52% 62%;}
+.media__frame > img, .media__frame > video{position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:50% 58%; transform:scaleX(-1);}
 .media__frame video{opacity:0; transition:opacity 900ms var(--ease-glide);}
 .media__frame video.is-on{opacity:1;}
-.media__veil{position:absolute; inset:0; z-index:1; pointer-events:none; border-radius:20px;
-  background:linear-gradient(180deg, rgba(11,13,16,.16) 0%, transparent 22%, transparent 66%, rgba(11,13,16,.34) 100%);}
+.media__veil{position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    linear-gradient(97deg, rgba(11,13,16,.94) 0%, rgba(11,13,16,.86) 26%, rgba(11,13,16,.46) 44%,
+      rgba(11,13,16,.08) 60%, rgba(11,13,16,0) 78%, rgba(11,13,16,.24) 100%),
+    linear-gradient(0deg, rgba(11,13,16,.42) 0%, transparent 26%);}
 
-.overlay{position:absolute; left:var(--sp-5); right:var(--sp-5); bottom:0; z-index:2;
-  display:grid; grid-template-columns:auto minmax(0,1fr); gap:var(--sp-4);
-  align-items:end; transform:translateY(46%);}
+.overlay{position:relative; z-index:2; display:grid; gap:var(--sp-4);
+  grid-template-columns:minmax(0,1fr); align-items:stretch;}
 .chip{border-radius:14px; padding:var(--sp-4) var(--sp-5);
   background:rgba(14,16,19,.62); border:1px solid rgba(237,233,227,.14);
   box-shadow:0 14px 34px -18px rgba(6,7,9,.9);}
@@ -113,6 +116,15 @@ html:not(.js) .rise{opacity:1; transform:none;}
 <body>
 
 <section class="hero" id="hero">
+  <div class="media" aria-hidden="false">
+      <div class="media__frame" id="frame">
+        <img id="poster" src="media/work-loop-poster.jpg" alt="Мастер ведёт насадку экстрактора по подушке светлого дивана, на ткани чистая полоса" width="1280" height="720">
+        <video id="vid" muted playsinline loop preload="none" poster="media/work-loop-poster.jpg" aria-hidden="true"></video>
+        <div class="media__veil" aria-hidden="true"></div>
+
+      </div>
+    </div>
+
   <div class="wrap hero__in">
 
     <div class="copy">
@@ -127,31 +139,23 @@ html:not(.js) .rise{opacity:1; transform:none;}
         <a class="pill pill--ghost" href="#price">Посмотреть цены</a>
       </div>
 
+      <div class="overlay rise" style="--d:5">
+          <div class="chip chip--price">
+            <span class="chip__num">1500 ₽</span>
+            <span class="chip__cap"><b>Трёхместный диван</b>с выдвижным местом</span>
+        </div>
+          <div class="chip chip--slot">
+            <span class="chip__tag">Место под подпись</span>
+            <b>«Диван, матрас и ковёр — за один выезд»</b>
+            <p>Меняется под каждую компанию.</p>
+        </div>
+      </div>
       <div class="facts rise" style="--d:4">
         <span>Выезд <b>с 8:00 до 22:00</b></span>
         <span>Гарантия <b>30 дней</b></span>
       </div>
     </div>
 
-    <div class="media rise" style="--d:2">
-      <div class="media__frame" id="frame">
-        <img id="poster" src="media/work-loop-poster.jpg" alt="Мастер ведёт насадку экстрактора по подушке светлого дивана, на ткани чистая полоса" width="1280" height="720">
-        <video id="vid" muted playsinline loop preload="none" poster="media/work-loop-poster.jpg" aria-hidden="true"></video>
-        <div class="media__veil" aria-hidden="true"></div>
-
-        <div class="overlay">
-          <div class="chip chip--price">
-            <span class="chip__num">1500 ₽</span>
-            <span class="chip__cap"><b>Трёхместный диван</b>с выдвижным местом</span>
-          </div>
-          <div class="chip chip--slot">
-            <span class="chip__tag">Место под подпись</span>
-            <b>«Диван, матрас и ковёр — за один выезд»</b>
-            <p>Меняется под каждую компанию.</p>
-          </div>
-        </div>
-      </div>
-    </div>
 
   </div>
 </section>
