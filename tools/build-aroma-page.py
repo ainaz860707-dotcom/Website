@@ -55,7 +55,7 @@ merged_js = '\n'.join(scripts).replace(
 tokens = (BLOCKS / 'tokens.css').read_text(encoding='utf-8')
 
 page = f"""<meta charset="utf-8">
-<title>Арома клининг, первый вариант</title>
+<title>Арома клининг — химчистка мебели на дому, Новосибирск</title>
 <style>
 {''.join(faces)}
 {tokens}
