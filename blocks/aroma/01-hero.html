@@ -56,7 +56,7 @@ h1 em{font-style:normal; color:var(--champagne);}
   background:var(--graphite-deep); border:1px solid rgba(237,233,227,.10);
   box-shadow:0 30px 70px -28px rgba(6,7,9,.85);}
 .media__frame > img, .media__frame > video{position:absolute; inset:0; border-radius:20px; width:100%; height:100%;
-  object-fit:cover; object-position:64% 70%;}
+  object-fit:cover; object-position:52% 62%;}
 .media__frame video{opacity:0; transition:opacity 900ms var(--ease-glide);}
 .media__frame video.is-on{opacity:1;}
 .media__veil{position:absolute; inset:0; z-index:1; pointer-events:none; border-radius:20px;
@@ -135,8 +135,8 @@ html:not(.js) .rise{opacity:1; transform:none;}
 
     <div class="media rise" style="--d:2">
       <div class="media__frame" id="frame">
-        <img id="poster" src="media/scene-poster.jpg" alt="Мастер чистит диван экстрактором в гостиной" width="1280" height="720">
-        <video id="vid" muted playsinline loop preload="none" poster="media/scene-poster.jpg" aria-hidden="true"></video>
+        <img id="poster" src="media/work-loop-poster.jpg" alt="Мастер ведёт насадку экстрактора по подушке светлого дивана, на ткани чистая полоса" width="1280" height="720">
+        <video id="vid" muted playsinline loop preload="none" poster="media/work-loop-poster.jpg" aria-hidden="true"></video>
         <div class="media__veil" aria-hidden="true"></div>
 
         <div class="overlay">
@@ -175,7 +175,7 @@ html:not(.js) .rise{opacity:1; transform:none;}
           armed = true;
           ['webm', 'mp4'].forEach(function(ext){
             var src = document.createElement('source');
-            src.src = 'media/scene-16x9.' + ext;
+            src.src = 'media/work-loop.' + ext;
             src.type = ext === 'webm' ? 'video/webm' : 'video/mp4';
             vid.appendChild(src);
           });
