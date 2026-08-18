@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Блок 1 — первый экран · Арома клининг</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+.hero{position:relative; min-height:100svh; display:flex; align-items:center; overflow:hidden;
+  padding-block:var(--sp-12);}
+
+.hero__photo{position:absolute; inset:0; z-index:0;
+  background-image:var(--shot, url('media/team-1.jpg'));
+  background-size:cover; background-position:60% 42%;
+  transform:scale(1.06) translate3d(var(--px,0),var(--py,0),0);
+  transition:transform 900ms var(--ease-scene);
+  animation:heroBreathe 34s var(--ease-scene) infinite alternate;}
+.hero__photo::after{content:""; position:absolute; inset:0;
+  background:linear-gradient(96deg,
+    rgba(14,16,19,.96) 0%, rgba(14,16,19,.9) 30%,
+    rgba(14,16,19,.55) 52%, rgba(14,16,19,.22) 72%, rgba(14,16,19,.5) 100%);}
+.hero__photo::before{content:""; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(0deg, rgba(14,16,19,.85) 0%, transparent 42%);}
+
+.hero__sweep{position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden;}
+.hero__sweep::before{content:""; position:absolute; top:-50%; bottom:-50%; left:-40%; width:30%;
+  background:linear-gradient(100deg, transparent, rgba(237,233,227,.10) 44%, rgba(201,162,39,.20) 52%, transparent);
+  mix-blend-mode:screen; transform:rotate(9deg); animation:sweep 17s var(--ease-scene) infinite;}
+
+.hero__grid{position:relative; z-index:2; display:grid; gap:var(--sp-9);
+  grid-template-columns:minmax(0,1fr);}
+@media(min-width:960px){ .hero__grid{grid-template-columns:minmax(0,.56fr) minmax(0,.44fr); align-items:end;} }
+
+.eyebrow{font-size:12px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--champagne);}
+.hero h1{font-family:var(--display); font-weight:400; font-size:clamp(36px,5.4vw,66px);
+  line-height:1.04; letter-spacing:-.01em; margin:var(--sp-6) 0 0; text-wrap:balance;}
+.hero h1 b{font-weight:400; color:var(--champagne);}
+.hero__lead{margin:var(--sp-6) 0 0; max-width:46ch; font-size:clamp(16px,1.5vw,18px); color:#D7D3CC;}
+
+.hero__cta{display:flex; flex-wrap:wrap; gap:var(--sp-4); margin-top:var(--sp-8);}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  min-height:54px; padding:0 26px; border-radius:3px; font-weight:600; font-size:15px;
+  text-decoration:none; border:1px solid transparent; cursor:pointer;
+  transition:transform 140ms var(--ease-ui), box-shadow 140ms var(--ease-ui), background 140ms var(--ease-ui);}
+.btn--gold{background:var(--champagne); color:#171310; box-shadow:0 10px 30px rgba(201,162,39,.22);}
+.btn--gold:hover{transform:translateY(-2px); box-shadow:0 16px 40px rgba(201,162,39,.3);}
+.btn--ghost{border-color:rgba(237,233,227,.34); color:var(--bone);}
+.btn--ghost:hover{border-color:var(--champagne); background:rgba(201,162,39,.08);}
+
+.hero__facts{display:flex; flex-wrap:wrap; gap:var(--sp-6) var(--sp-8); margin-top:var(--sp-9);
+  font-size:13px; letter-spacing:.04em; color:var(--smoke);}
+.hero__facts b{color:var(--bone); font-weight:600;}
+
+.slot{position:relative; border:1px dashed rgba(201,162,39,.55); border-radius:4px;
+  background:rgba(14,16,19,.55); backdrop-filter:blur(6px);
+  padding:var(--sp-6); max-width:400px;}
+.slot__label{position:absolute; top:-10px; left:var(--sp-5); padding:0 8px; background:var(--graphite-deep);
+  font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--champagne);}
+.slot__title{font-family:var(--display); font-size:22px; font-weight:500; margin:0;}
+.slot__text{margin:var(--sp-3) 0 0; font-size:14px; color:#CFCBC4;}
+
+.reveal{opacity:0; transform:translateY(22px);}
+.js .is-in{opacity:1; transform:none; transition:opacity var(--dur-reveal) var(--ease-ui), transform var(--dur-reveal) var(--ease-ui); transition-delay:calc(var(--i,0) * 90ms);}
+html:not(.js) .reveal{opacity:1; transform:none;}
+
+@keyframes heroBreathe{ from{transform:scale(1.06);} to{transform:scale(1.13);} }
+@keyframes sweep{ 0%{transform:translate3d(0,0,0) rotate(9deg); opacity:0;} 14%{opacity:1;} 62%{opacity:.8;}
+  100%{transform:translate3d(480%,0,0) rotate(9deg); opacity:0;} }
+@media (prefers-reduced-motion: reduce){
+  .hero__photo{animation:none; transition:none;}
+  .hero__sweep{display:none;}
+  .reveal{opacity:1; transform:none;}
+}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<section class="hero" id="hero">
+  <div class="hero__photo" id="heroPhoto" role="img" aria-label="Бригада химчистки с экстрактором в гостиной"></div>
+  <div class="hero__sweep" aria-hidden="true"></div>
+
+  <div class="wrap hero__grid">
+    <div>
+      <p class="eyebrow reveal" style="--i:0">Новосибирск · выезд во все районы</p>
+      <h1 class="reveal" style="--i:1">Приведём мебель в порядок <b>за один выезд</b></h1>
+      <p class="hero__lead reveal" style="--i:2">Бригада приезжает со своим экстрактором и химией, чистит диван, матрас или ковёр прямо у вас дома и уезжает, когда вещь снова выглядит как новая.</p>
+
+      <div class="hero__cta reveal" style="--i:3">
+        <a class="btn btn--gold" href="tel:+73833814483">Вызвать мастера</a>
+        <a class="btn btn--ghost" href="#price">Посмотреть цены</a>
+      </div>
+
+      <div class="hero__facts reveal" style="--i:4">
+        <span>Работаем <b>с 8:00 до 22:00</b>, без выходных</span>
+        <span>Диван <b>от 1500 ₽</b></span>
+        <span>Гарантия <b>30 дней</b></span>
+      </div>
+    </div>
+
+    <aside class="slot reveal" style="--i:5">
+      <span class="slot__label">Место под подпись</span>
+      <p class="slot__title">Здесь стоит УТП клиента</p>
+      <p class="slot__text">Один абзац, который меняется под каждую компанию: что они обещают у себя на сайте — то же самое, только сильнее и конкретнее.</p>
+    </aside>
+  </div>
+</section>
+
+<script>
+(function(){
+  var reveals = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } });
+  }, { threshold: .15 });
+  reveals.forEach(function(el){ io.observe(el); });
+
+  var photo = document.getElementById('heroPhoto');
+  var hero = document.getElementById('hero');
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (photo && hero && !calm && window.matchMedia('(hover: hover)').matches) {
+    hero.addEventListener('pointermove', function(ev){
+      var r = hero.getBoundingClientRect();
+      var dx = (ev.clientX - r.left) / r.width - .5;
+      var dy = (ev.clientY - r.top) / r.height - .5;
+      photo.style.setProperty('--px', (dx * -18).toFixed(1) + 'px');
+      photo.style.setProperty('--py', (dy * -14).toFixed(1) + 'px');
+    });
+    hero.addEventListener('pointerleave', function(){
+      photo.style.setProperty('--px', '0px');
+      photo.style.setProperty('--py', '0px');
+    });
+  }
+})();
+</script>
+</body>
+</html>
