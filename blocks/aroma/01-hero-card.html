@@ -15,23 +15,26 @@
 .grain{position:fixed; inset:0; z-index:40; pointer-events:none; opacity:.045;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
-.hero{position:relative; min-height:min(100dvh, 56.25vw); display:flex; align-items:center;
-  overflow:hidden; padding-block:clamp(32px,4vh,64px); perspective:1600px; background:var(--graphite);}
+.hero{position:relative; min-height:auto; display:flex; align-items:center;
+  overflow:hidden; padding-block:clamp(48px,7vh,104px); perspective:1600px;
+  background:
+    radial-gradient(70% 60% at 12% 22%, rgba(201,162,39,.10), transparent 62%),
+    radial-gradient(60% 60% at 92% 88%, rgba(120,150,175,.07), transparent 66%),
+    var(--graphite);}
 
-.hero__media{position:absolute; inset:0; z-index:0;}
-.hero__stage{position:absolute; inset:0; overflow:hidden; background:var(--graphite-deep);}
-.hero__poster, .hero__vid{transform:scale(1.12) translateX(7%);}
+.hero__media{position:relative; transform-style:preserve-3d;
+  transform:rotateX(var(--mrx,0deg)) rotateY(var(--mry,0deg));
+  transition:transform 800ms var(--ease-glide);}
+.hero__stage{position:relative; z-index:0; overflow:hidden; border-radius:19px;
+  aspect-ratio:16/9; background:var(--graphite-deep);}
 .hero__poster, .hero__vid{position:absolute; inset:0; width:100%; height:100%;
-  object-fit:cover; object-position:50% 58%;}
+  object-fit:cover; object-position:50% 50%;}
 .hero__vid{opacity:0; transition:opacity 900ms var(--ease-glide);}
 .hero__vid.is-on{opacity:1;}
-.dust{position:absolute; inset:0; z-index:2; pointer-events:none; opacity:.5;}
+.dust{position:absolute; inset:0; z-index:2; pointer-events:none; opacity:.5; border-radius:19px;}
 
 .hero__depth{position:absolute; inset:0; z-index:1; pointer-events:none;
-  background:
-    linear-gradient(97deg, rgba(11,13,16,.95) 0%, rgba(11,13,16,.88) 24%,
-      rgba(11,13,16,.50) 42%, rgba(11,13,16,.10) 58%, rgba(11,13,16,0) 76%, rgba(11,13,16,.22) 100%),
-    linear-gradient(0deg, rgba(11,13,16,.55) 0%, transparent 34%);}
+  background:linear-gradient(180deg, rgba(11,13,16,.10) 0%, transparent 22%, transparent 68%, rgba(11,13,16,.42) 100%);}
 
 @media(max-width:999px){
   .hero__grid{gap:var(--sp-9);}
@@ -39,14 +42,14 @@
   .hero__media{transform:none;}
 
 }
-.hero__sweep{position:absolute; inset:0; z-index:2; pointer-events:none; overflow:hidden;}
+.hero__sweep{position:absolute; inset:0; z-index:2; pointer-events:none; overflow:hidden; border-radius:19px;}
 .hero__sweep i{position:absolute; top:-55%; bottom:-55%; left:-40%; width:26%;
   background:linear-gradient(100deg, transparent, rgba(237,233,227,.09) 44%, rgba(201,162,39,.20) 52%, transparent);
   mix-blend-mode:screen; transform:rotate(9deg); animation:sweep 19s var(--ease-glide) infinite;}
 
 .hero__grid{position:relative; z-index:3; display:grid; gap:clamp(40px,5vw,72px);
   grid-template-columns:minmax(0,1fr); align-items:center;}
-@media(min-width:1000px){ .hero__grid{grid-template-columns:minmax(0,.52fr) minmax(0,.34fr); align-items:center; justify-content:space-between;} }
+@media(min-width:1000px){ .hero__grid{grid-template-columns:minmax(0,.42fr) minmax(0,.58fr); align-items:center;} }
 
 .tag{display:inline-flex; align-items:center; gap:8px; border-radius:999px;
   padding:7px 15px 7px 12px; font-size:clamp(9px,2.4vw,10.5px); letter-spacing:.16em;
@@ -107,7 +110,12 @@ h1 em{font-style:normal; color:var(--champagne);}
 .slot__text{margin:var(--sp-3) 0 0; font-size:13.5px; color:#C6C2BB;}
 
 .price{transform:translateZ(38px);}
-
+@media(min-width:1000px){
+  .stack{grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start;}
+  .hero__media{grid-column:1 / -1;}
+  .price .core{height:100%;}
+  .slot .core{height:100%;}
+}
 .price .core{display:flex; align-items:center; gap:var(--sp-6); flex-wrap:nowrap;}
 .price__num{font-family:var(--display); font-size:clamp(34px,3vw,42px); line-height:1;
   color:var(--champagne); white-space:nowrap; flex:0 0 auto;}
@@ -131,26 +139,16 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
   .dust{display:none;}
   .rise, h1 .ln > span{opacity:1; transform:none; filter:none; transition:none;}
 }
-@media(max-width:1366px) and (min-width:1000px){
-  .hero{padding-block:clamp(24px,3vh,44px);}
-  h1{font-size:clamp(34px,4.4vw,52px); margin-top:var(--sp-5);}
-  .lead{margin-top:var(--sp-5); font-size:16px;}
-  .cta{margin-top:var(--sp-6);}
-  .facts{margin-top:var(--sp-6);}
-  .stack{gap:var(--sp-4);}
-  .core{padding:var(--sp-6);}
-}
 @media(max-width:720px){
-  .hero{display:block; min-height:0; padding:0 0 var(--sp-12); background:var(--graphite);}
-  .hero__media{position:relative; inset:auto; width:100%; aspect-ratio:3 / 4; max-height:52dvh; overflow:hidden;}
-  .hero__stage{position:absolute; inset:0;}
-  .hero__poster, .hero__vid{object-position:50% 50%; transform:none;}
-  #poster{content:url('media/scene-poster-9x16.jpg');}
-  .hero__depth{background:linear-gradient(180deg, rgba(11,13,16,.20) 0%, transparent 24%, transparent 62%, var(--graphite) 100%);}
-  .hero__sweep, .dust{display:none;}
-  .hero__grid{padding-top:var(--sp-7); gap:var(--sp-8);}
-  h1{font-size:clamp(32px,8.4vw,40px); margin-top:var(--sp-5);}
-  .stack{justify-items:stretch;}
+  .hero__grid{display:flex; flex-direction:column; align-items:stretch;}
+  .stack{display:contents;}
+  .hero__media{order:-1;}
+  .copy{order:0;}
+  .price{order:1;}
+  .slot{order:2;}
+  .hero__stage{aspect-ratio:2 / 1;}
+  .hero__poster, .hero__vid{object-position:50% 72%;}
+  .hero__depth{background:linear-gradient(180deg, rgba(11,13,16,.14) 0%, transparent 30%, transparent 74%, rgba(11,13,16,.30) 100%);}
 }
 </style>
 <script>document.documentElement.classList.add('js')</script>
@@ -159,16 +157,12 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
 <div class="grain" aria-hidden="true"></div>
 
 <section class="hero" id="hero">
-  <div class="hero__media">
-    <div class="hero__stage" id="stage">
-      <img class="hero__poster" id="poster" src="media/scene-poster.jpg" alt="Мастер чистит диван экстрактором в гостиной" width="1280" height="720">
-      <video class="hero__vid" id="vid" muted playsinline loop preload="none"
-             poster="media/scene-poster.jpg" aria-hidden="true"></video>
-    </div>
   </div>
   <div class="hero__depth" aria-hidden="true"></div>
+  <div class="hero__floor" aria-hidden="true"></div>
   <canvas class="dust" id="dust" aria-hidden="true"></canvas>
   <div class="hero__sweep" aria-hidden="true"><i></i></div>
+  </div>
 
   <div class="wrap hero__grid">
     <div class="copy" id="copy">
@@ -199,6 +193,17 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
     </div>
 
     <div class="stack" id="stack">
+      <div class="hero__media rise" style="--d:2">
+        <div class="shell"><div class="hero__stage" id="stage">
+          <img class="hero__poster" id="poster" src="media/scene-poster.jpg" alt="Мастер чистит диван экстрактором в гостиной" width="1280" height="720">
+          <video class="hero__vid" id="vid" muted playsinline loop preload="none"
+                 poster="media/scene-poster.jpg" aria-hidden="true"></video>
+          <div class="hero__depth" aria-hidden="true"></div>
+          <canvas class="dust" id="dust" aria-hidden="true"></canvas>
+          <div class="hero__sweep" aria-hidden="true"><i></i></div>
+        </div></div>
+      </div>
+
       <div class="price rise" style="--d:3">
         <div class="shell"><div class="core">
           <span class="price__num">1500 ₽</span>
@@ -231,7 +236,7 @@ html:not(.js) .rise, html:not(.js) h1 .ln > span{opacity:1; transform:none; filt
 
   var vid = document.getElementById('vid');
   if (vid && !calm) {
-    var base = window.matchMedia('(max-width: 720px)').matches ? 'media/scene-9x16' : 'media/scene-16x9';
+    var base = 'media/scene-16x9';
     var armed = false;
     new IntersectionObserver(function(en){
       en.forEach(function(e){
