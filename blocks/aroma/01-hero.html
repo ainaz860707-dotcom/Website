@@ -10,18 +10,20 @@
 .hero{position:relative; min-height:100svh; display:flex; align-items:center; overflow:hidden;
   padding-block:var(--sp-12);}
 
-.hero__photo{position:absolute; inset:0; z-index:0;
-  background-image:var(--shot, url('media/team-1.jpg'));
-  background-size:cover; background-position:60% 42%;
-  transform:scale(1.06) translate3d(var(--px,0),var(--py,0),0);
-  transition:transform 900ms var(--ease-scene);
-  animation:heroBreathe 34s var(--ease-scene) infinite alternate;}
-.hero__photo::after{content:""; position:absolute; inset:0;
+.hero__stage{position:absolute; inset:0; z-index:0;
+  transform:translate3d(var(--px,0),var(--py,0),0); transition:transform 900ms var(--ease-scene);}
+.hero__stage::after{content:""; position:absolute; inset:0; z-index:2;
   background:linear-gradient(96deg,
     rgba(14,16,19,.96) 0%, rgba(14,16,19,.9) 30%,
     rgba(14,16,19,.55) 52%, rgba(14,16,19,.22) 72%, rgba(14,16,19,.5) 100%);}
-.hero__photo::before{content:""; position:absolute; inset:0; z-index:1;
+.hero__stage::before{content:""; position:absolute; inset:0; z-index:3;
   background:linear-gradient(0deg, rgba(14,16,19,.85) 0%, transparent 42%);}
+.hero__photo{position:absolute; inset:0; background-image:var(--shot);
+  background-size:cover; background-position:58% 42%;
+  opacity:0; transform:scale(1.05);
+  transition:opacity 1500ms var(--ease-scene);}
+.hero__photo.is-on{opacity:1; animation:heroBreathe 13s linear forwards;}
+.visually-hidden{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;}
 
 .hero__sweep{position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden;}
 .hero__sweep::before{content:""; position:absolute; top:-50%; bottom:-50%; left:-40%; width:30%;
@@ -64,11 +66,13 @@
 .js .is-in{opacity:1; transform:none; transition:opacity var(--dur-reveal) var(--ease-ui), transform var(--dur-reveal) var(--ease-ui); transition-delay:calc(var(--i,0) * 90ms);}
 html:not(.js) .reveal{opacity:1; transform:none;}
 
-@keyframes heroBreathe{ from{transform:scale(1.06);} to{transform:scale(1.13);} }
+@keyframes heroBreathe{ from{transform:scale(1.05);} to{transform:scale(1.13);} }
 @keyframes sweep{ 0%{transform:translate3d(0,0,0) rotate(9deg); opacity:0;} 14%{opacity:1;} 62%{opacity:.8;}
   100%{transform:translate3d(480%,0,0) rotate(9deg); opacity:0;} }
 @media (prefers-reduced-motion: reduce){
   .hero__photo{animation:none; transition:none;}
+  .hero__photo:not(.is-on){display:none;}
+  .hero__stage{transition:none;}
   .hero__sweep{display:none;}
   .reveal{opacity:1; transform:none;}
 }
@@ -78,7 +82,12 @@ html:not(.js) .reveal{opacity:1; transform:none;}
 <body>
 
 <section class="hero" id="hero">
-  <div class="hero__photo" id="heroPhoto" role="img" aria-label="Бригада химчистки с экстрактором в гостиной"></div>
+  <div class="hero__stage" id="heroStage" aria-hidden="true">
+    <div class="hero__photo is-on" style="--shot:url('media/team-1.jpg')"></div>
+    <div class="hero__photo" style="--shot:url('media/team-2.jpg')"></div>
+    <div class="hero__photo" style="--shot:url('media/team-3.jpg')"></div>
+  </div>
+  <p class="visually-hidden">Бригада химчистки с экстрактором в гостиной</p>
   <div class="hero__sweep" aria-hidden="true"></div>
 
   <div class="wrap hero__grid">
@@ -115,20 +124,38 @@ html:not(.js) .reveal{opacity:1; transform:none;}
   }, { threshold: .15 });
   reveals.forEach(function(el){ io.observe(el); });
 
-  var photo = document.getElementById('heroPhoto');
+  var stage = document.getElementById('heroStage');
   var hero = document.getElementById('hero');
+  var shots = stage ? Array.prototype.slice.call(stage.children) : [];
   var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (photo && hero && !calm && window.matchMedia('(hover: hover)').matches) {
+  if (shots.length > 1 && !calm) {
+    shots.slice(1).forEach(function(el){
+      var src = getComputedStyle(el).getPropertyValue('--shot').replace(/^url\(["']?|["']?\)$/g, '');
+      if (src) { var im = new Image(); im.src = src; }
+    });
+    var current = 0;
+    setInterval(function(){
+      shots[current].classList.remove('is-on');
+      current = (current + 1) % shots.length;
+      var next = shots[current];
+      next.style.animation = 'none';
+      void next.offsetWidth;
+      next.style.animation = '';
+      next.classList.add('is-on');
+    }, 6500);
+  }
+
+  if (stage && hero && !calm && window.matchMedia('(hover: hover)').matches) {
     hero.addEventListener('pointermove', function(ev){
       var r = hero.getBoundingClientRect();
       var dx = (ev.clientX - r.left) / r.width - .5;
       var dy = (ev.clientY - r.top) / r.height - .5;
-      photo.style.setProperty('--px', (dx * -18).toFixed(1) + 'px');
-      photo.style.setProperty('--py', (dy * -14).toFixed(1) + 'px');
+      stage.style.setProperty('--px', (dx * -18).toFixed(1) + 'px');
+      stage.style.setProperty('--py', (dy * -14).toFixed(1) + 'px');
     });
     hero.addEventListener('pointerleave', function(){
-      photo.style.setProperty('--px', '0px');
-      photo.style.setProperty('--py', '0px');
+      stage.style.setProperty('--px', '0px');
+      stage.style.setProperty('--py', '0px');
     });
   }
 })();
