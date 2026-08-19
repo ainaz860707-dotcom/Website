@@ -1,85 +1,58 @@
 #!/usr/bin/env node
-import fs from 'node:fs';
+import fs from 'node:fs/promises';
 import path from 'node:path';
-import { pathToFileURL } from 'node:url';
 
-const UA =
-  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
+const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
+const SUBSETS = new Set(['cyrillic', 'latin']);
+const MIME = { webp: 'image/webp', jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', mp4: 'video/mp4', webm: 'video/webm' };
 
-const MIME = {
-  '.webp': 'image/webp',
-  '.jpg': 'image/jpeg',
-  '.jpeg': 'image/jpeg',
-  '.png': 'image/png',
-  '.svg': 'image/svg+xml',
-  '.mp4': 'video/mp4',
-  '.webm': 'video/webm',
-};
+const [src, dst] = process.argv.slice(2);
+if (!src || !dst) {
+  console.error('использование: node tools/inline-page.mjs <исходная страница> <файл на выход> [--wrap]');
+  console.error('  шрифты Google, видео и снимки вшиваются в файл как data:; внешних запросов не остаётся');
+  process.exit(1);
+}
+const wrap = process.argv.includes('--wrap');
 
-const KEEP_SUBSETS = ['cyrillic', 'cyrillic-ext', 'latin', 'latin-ext'];
+let html = await fs.readFile(src, 'utf8');
+const dir = path.dirname(src);
 
-async function fontFaces(href, log) {
-  const res = await fetch(href, { headers: { 'User-Agent': UA } });
-  if (!res.ok) throw new Error(`Google Fonts: HTTP ${res.status}`);
-  const css = await res.text();
-  const blocks = [...css.matchAll(/\/\*\s*([a-z-]+)\s*\*\/\s*(@font-face\s*\{[^}]*\})/g)];
-  if (!blocks.length) throw new Error('в CSS нет блоков @font-face с подписью подмножества');
-
-  const kept = [];
-  for (const [, subset, block] of blocks) {
-    if (!KEEP_SUBSETS.includes(subset)) continue;
-    const url = block.match(/url\((https:\/\/[^)]+\.woff2)\)/)?.[1];
+const link = html.match(/<link href="(https:\/\/fonts\.googleapis\.com\/css2[^"]+)"/);
+if (link) {
+  const css = await (await fetch(link[1].replaceAll('&amp;', '&'), { headers: { 'User-Agent': UA } })).text();
+  let faces = '';
+  let kept = 0;
+  for (const chunk of css.split('/*').slice(1)) {
+    const subset = chunk.slice(0, chunk.indexOf('*/')).trim();
+    if (!SUBSETS.has(subset)) continue;
+    const face = chunk.slice(chunk.indexOf('*/') + 2).trim();
+    const url = face.match(/url\((https:[^)]+\.woff2)\)/);
     if (!url) continue;
-    const font = await fetch(url, { headers: { 'User-Agent': UA } });
-    if (!font.ok) throw new Error(`шрифт ${url}: HTTP ${font.status}`);
-    const base64 = Buffer.from(await font.arrayBuffer()).toString('base64');
-    kept.push(block.replace(/url\(https:\/\/[^)]+\.woff2\)/, `url(data:font/woff2;base64,${base64})`));
+    const buf = Buffer.from(await (await fetch(url[1], { headers: { 'User-Agent': UA } })).arrayBuffer());
+    faces += face.replace(
+      /url\(https:[^)]+\.woff2\)\s*format\('woff2'\)/,
+      `url(data:font/woff2;base64,${buf.toString('base64')}) format('woff2')`,
+    ).replace(/\n\s+/g, '') + '\n';
+    kept += 1;
   }
-  log(`шрифты: вшито блоков ${kept.length} из ${blocks.length}`);
-  return kept.join('\n');
+  html = html.replace(/<link rel="preconnect"[^>]*>\s*/g, '').replace(/<link href="https:\/\/fonts\.googleapis[^>]*>\s*/, '');
+  html = html.replace('<style>', '<style>\n' + faces, 1);
+  console.log(`шрифты: вшито ${kept} начертаний, ${Math.round(faces.length / 1024)} КБ`);
 }
 
-function dataUri(file) {
-  const ext = path.extname(file).toLowerCase();
-  const mime = MIME[ext];
-  if (!mime) throw new Error(`неизвестный тип файла: ${file}`);
-  return `data:${mime};base64,${fs.readFileSync(file).toString('base64')}`;
+for (const rel of [...html.matchAll(/(?:src|poster)="((?!https?:|data:)[^"]+\.(?:webp|jpe?g|png|mp4|webm))"/gi)].map((m) => m[1])) {
+  const buf = await fs.readFile(path.join(dir, rel));
+  html = html.replaceAll(rel, `data:${MIME[rel.split('.').pop().toLowerCase()]};base64,${buf.toString('base64')}`);
+}
+html = html.replace('preload="none"', 'preload="auto"');
+
+if (!wrap) {
+  const head = html.slice(html.indexOf('<head>') + 6, html.indexOf('</head>'));
+  const body = html.slice(html.indexOf('<body'), html.lastIndexOf('</body>'));
+  html = head.replace(/<meta charset[^>]*>\s*/, '').replace(/<meta name="viewport"[^>]*>\s*/, '').trim()
+    + '\n<div id="top">' + body.slice(body.indexOf('>') + 1).trim() + '</div>\n';
 }
 
-export async function inlinePage(source, { log = () => {} } = {}) {
-  const dir = path.dirname(source);
-  let html = fs.readFileSync(source, 'utf8');
-
-  const link = html.match(/<link[^>]+href="(https:\/\/fonts\.googleapis\.com\/css2[^"]+)"[^>]*>/);
-  if (link) {
-    const faces = await fontFaces(link[1].replace(/&amp;/g, '&'), log);
-    html = html.replace(link[0], `<style>\n${faces}\n</style>`);
-    html = html.replace(/<link[^>]+fonts\.(googleapis|gstatic)\.com[^>]*>\s*/g, '');
-  }
-
-  let assets = 0;
-  html = html.replace(/(src|poster)="((?!https?:|data:)[^"]+)"/g, (whole, attr, rel) => {
-    const file = path.join(dir, rel);
-    if (!fs.existsSync(file)) {
-      log(`НЕ НАЙДЕНО: ${rel}`);
-      return whole;
-    }
-    assets += 1;
-    return `${attr}="${dataUri(file)}"`;
-  });
-  log(`вшито файлов: ${assets}`);
-
-  return html;
-}
-
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const [source, target] = process.argv.slice(2);
-  if (!source || !target) {
-    process.stdout.write('использование: node tools/inline-page.mjs <исходник.html> <результат.html>\n');
-    process.exit(1);
-  }
-  const html = await inlinePage(path.resolve(source), { log: (m) => process.stdout.write(`${m}\n`) });
-  fs.writeFileSync(path.resolve(target), html);
-  const mb = (Buffer.byteLength(html) / 1048576).toFixed(2);
-  process.stdout.write(`готово: ${target}, ${mb} МБ\n`);
-}
+await fs.mkdir(path.dirname(dst), { recursive: true });
+await fs.writeFile(dst, html);
+console.log(`${dst}: ${Math.round(html.length / 1024 / 1024 * 10) / 10} МБ, внешних запросов 0`);
