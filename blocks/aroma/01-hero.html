@@ -14,8 +14,10 @@
 .hero{position:relative; isolation:isolate; overflow:hidden; background:var(--paper);
   min-height:min(100svh, 920px); display:flex; flex-direction:column;}
 .hero__bg{position:absolute; inset:0; z-index:0;}
-.hero__bg img{position:absolute; inset:0; width:100%; height:100%;
+.hero__bg img, .hero__bg video{position:absolute; inset:0; width:100%; height:100%;
   object-fit:cover; object-position:52% 62%; filter:var(--video-filter);}
+.hero__bg video{opacity:0; transition:opacity 900ms var(--glide);}
+.hero__bg video.is-on{opacity:1;}
 :root[data-theme="light"] .hero__scrim{
   background:
     linear-gradient(102deg, rgba(var(--stage),.985) 0%, rgba(var(--stage),.94) 40%, rgba(var(--stage),.62) 64%, rgba(var(--stage),.18) 92%),
@@ -116,7 +118,7 @@ html:not(.js) .rise{opacity:1; transform:none; filter:none;}
 @media(max-width:860px){
   .hero{--band:min(40svh, 340px); min-height:auto;}
   .hero__bg{inset:0 0 auto 0; height:var(--band);}
-  .hero__bg img{object-position:52% 58%;}
+  .hero__bg img, .hero__bg video{object-position:52% 58%;}
   .hero__scrim{inset:0 0 auto 0; height:var(--band);
     background:linear-gradient(180deg, rgba(var(--stage),.74) 0%, rgba(var(--stage),.04) 32%, rgba(var(--stage),.24) 68%, var(--paper) 100%);}
   .hero__in{padding-top:calc(var(--band) - 64px); padding-bottom:clamp(36px,6vh,56px);}
@@ -126,6 +128,7 @@ html:not(.js) .rise{opacity:1; transform:none; filter:none;}
     width:calc(100% - 2 * clamp(20px,4vw,56px));}
 }
 @media (prefers-reduced-motion: reduce){
+  .hero__bg video{display:none;}
   .rise{opacity:1; transform:none; filter:none; transition:none;}
 }
 </style>
@@ -137,8 +140,9 @@ html:not(.js) .rise{opacity:1; transform:none; filter:none;}
 <section class="hero" id="hero">
 
   <div class="hero__bg">
-    <img id="poster" src="media/hero-still.webp" width="1600" height="900"
-         alt="Светлый тканевый диван после химчистки в квартире клиента">
+    <img id="poster" src="media/hero-still.webp" width="1440" height="810"
+         alt="Мастер ведёт насадку экстрактора по обивке дивана, в прозрачной головке видна грязная вода">
+    <video id="vid" muted playsinline loop preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
   </div>
   <div class="hero__scrim"></div>
 
@@ -190,9 +194,32 @@ html:not(.js) .rise{opacity:1; transform:none; filter:none;}
 <script>
 (function(){
   var hero = document.getElementById('hero');
+  var vid = document.getElementById('vid');
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if (e.isIntersecting) hero.classList.add('lit'); });
   }, { threshold: .12 }).observe(hero);
+
+  if (!vid || calm) return;
+
+  var armed = false;
+  new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) { if (armed) vid.pause(); return; }
+      if (!armed) {
+        armed = true;
+        var s = document.createElement('source');
+        s.src = 'media/hero-loop.mp4';
+        s.type = 'video/mp4';
+        vid.appendChild(s);
+        vid.addEventListener('playing', function(){ vid.classList.add('is-on'); }, { once: true });
+        vid.load();
+      }
+      var pr = vid.play();
+      if (pr && pr.catch) pr.catch(function(){});
+    });
+  }, { threshold: .05 }).observe(hero);
 })();
 </script>
 </body>
