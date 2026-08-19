@@ -3,7 +3,7 @@
   background:linear-gradient(90deg,#A9821B,#C9A227 40%,#E7D08A 70%,#F6E7B8);}
 
 .fx-canvas{position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.85; mix-blend-mode:screen;}
-:root.t-light .fx-canvas{opacity:.5; mix-blend-mode:multiply;}
+:root.t-light .fx-canvas{opacity:.22; mix-blend-mode:multiply;}
 
 .hero{perspective:1400px;}
 .hero .rise, .hero.lit .rise{opacity:1; transform:none; filter:none; transition:none;}

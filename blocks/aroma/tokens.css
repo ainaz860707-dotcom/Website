@@ -60,7 +60,7 @@ a{color:inherit;}
   --on-teal:#17130A;
   --scrim:rgba(255,255,255,.86);
   --stage:251,250,247;
-  --video-filter:saturate(1.02) contrast(1.02) brightness(1.04);
+  --video-filter:saturate(1.06) contrast(1.08) brightness(0.96);
   --accent-grad:linear-gradient(96deg,#6B5210,#8A6A15 40%,#A9821B 72%,#7A5E12);
 
   --graphite:#FBFAF7;
