@@ -287,10 +287,36 @@ async function inlineImage(url) {
   return `data:${type};base64,${Buffer.from(await res.arrayBuffer()).toString('base64')}`;
 }
 
+function shortNorthStar(text) {
+  const value = (text ?? '').trim();
+  if (value.length <= 110) return value;
+  return `${value.slice(0, 110).replace(/[\s,.:;—-]+\S*$/, '')}…`;
+}
+
+function radiiOf(style) {
+  return style.radii
+    .filter((r) => Number.isFinite(r.value) && r.value <= 64)
+    .slice(0, 3)
+    .map((r) => `${Math.round(r.value)}px`)
+    .join('/');
+}
+
 async function collectRefs(text) {
   const { awwwardsSites, dribbbleShots } = await import('./reference-sources.mjs');
   const category = flag('refs')[0] ?? awwwardsCategoryOf(text);
-  const out = { category, sites: [], shots: [], notes: [] };
+  const out = { category, sites: [], shots: [], refero: [], notes: [] };
+
+  try {
+    const { loadCache, matchStyles } = await import('./refero-styles.mjs');
+    out.refero = matchStyles(loadCache(), text, { limit: 3 });
+    out.notes.push(
+      out.refero.length
+        ? `Refero Styles: подошло ${out.refero.length} — ${out.refero.map((r) => r.style.name).join(', ')}`
+        : 'Refero Styles: под эту нишу в каталоге ничего не совпало'
+    );
+  } catch (e) {
+    out.notes.push(`Refero Styles не прочитан: ${e.message}`);
+  }
 
   try {
     out.sites = (await awwwardsSites({ category })).slice(0, 8);
@@ -337,6 +363,26 @@ const refsBlock = refs
   <ul class="sites">${refs.sites
     .map((s) => `<li><a href="${s.url}" target="_blank" rel="noopener">${s.url.replace(/^https?:\/\//, '')}</a></li>`)
     .join('')}</ul>`
+      : ''
+  }
+  ${
+    refs.refero.length
+      ? `<p class="sub">Refero Styles: живые сайты, с которых уже сняты числа — палитра с ролями, шкала кеглей, радиусы, шаг сетки</p>
+  <div class="refero">${refs.refero
+    .map(
+      ({ style, hits }) => `<figure>
+      ${style.preview ? `<img src="${style.preview}" alt="${style.name.replace(/"/g, '')}" loading="lazy" decoding="async">` : ''}
+      <figcaption>
+        <span class="ttl"><strong>${style.name}</strong>${style.category ? ` · ${style.category}` : ''}</span>
+        <span class="ns">${shortNorthStar(style.northStar)}</span>
+        <span class="tok">${style.colors.slice(0, 6).map((c) => `<i style="background:${c.hex}" title="${c.name}"></i>`).join('')}</span>
+        <span class="tok">${style.fonts.map((f) => f.family).slice(0, 2).join(' + ') || '—'} · шаг ${style.baseUnit ?? '—'}px · радиусы ${radiiOf(style) || '—'}</span>
+        <span class="tok">чем подошёл: ${hits.slice(0, 5).join(', ')}</span>
+        <a href="${style.site ?? style.url}" target="_blank" rel="noopener">${(style.site ?? style.url).replace(/^https?:\/\//, '')}</a>
+      </figcaption>
+    </figure>`
+    )
+    .join('')}</div>`
       : ''
   }
   ${
@@ -412,6 +458,15 @@ body{margin:0;background:#0E0E10;color:#EDEDED;font:15px/1.6 ui-sans-serif,syste
 .refs ul.sites{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px}
 .refs ul.sites a{display:inline-block;padding:6px 11px;border:1px solid #2A2A30;border-radius:999px;color:#D6D6DC;text-decoration:none;font-size:12px}
 .refs ul.sites a:hover{border-color:#4E4E58;color:#FFF}
+.refs .refero{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin:0 0 26px}
+.refs .refero figure{margin:0;border:1px solid #2A2A30;border-radius:10px;overflow:hidden;background:#17171A}
+.refs .refero img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top}
+.refs .refero figcaption{padding:11px 13px 13px;display:flex;flex-direction:column;gap:5px;font-size:12px;color:#B7B7BE}
+.refs .refero .ttl{color:#8C8C95;font-size:12px}
+.refs .refero strong{color:#FFF;font-size:13px}
+.refs .refero .ns{color:#8FD4A8;font-style:italic}
+.refs .refero .tok i{display:inline-block;width:15px;height:15px;border-radius:3px;margin-right:4px;border:1px solid rgba(255,255,255,.14);vertical-align:middle}
+.refs .refero a{color:#D6D6DC;font-size:11px}
 .refs .shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:0}
 .refs .shots figure{margin:0;border:1px solid #2A2A30;border-radius:10px;overflow:hidden;background:#17171A}
 .refs .shots img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}

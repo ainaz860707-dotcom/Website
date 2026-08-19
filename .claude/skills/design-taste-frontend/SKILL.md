@@ -26,6 +26,20 @@ Before touching code or tweaking dials, **infer what the user actually wants**. 
 
 This repo's rule §12 (`second-brain/02_architecture/no-invented-facts.md`) outranks every instruction below. Layout, type, color, motion are yours to decide. Claims about the client's business are not: prices, years in business, client counts, awards, names, testimonials, address, phone, hours, guarantees. If it is not in the input, ship a placeholder, never a plausible invention. Never drop or substitute the city. A beautiful section filled with fabricated social proof is a failed run, not a stylistic choice.
 
+### 0.A3 Project rule — bring a real reference before you declare the design read
+
+This repo's rule §1 (owner decision, 2026-08-19): the agent fetches references itself and shows them, without being asked. Before the design read in 0.B, run:
+
+```bash
+node tools/refero-styles.mjs match "<niche, city, mood>" --limit=3
+```
+
+The catalog is 599 real sites already parsed into measurable tokens: palette with roles, type scale with line-height and tracking, radii with frequency, grid base unit, do/don't list. Show the owner 1-3 hits in Russian, one line each: name, live URL, why it fits this niche, what exactly you take from it. Then declare the design read in 0.B naming the reference it leans on.
+
+No match in the catalog — say so plainly and fall back to Awwwards and the SERP research from `niche-benchmark`. Never stretch an unrelated niche to fill the slot.
+
+The numbers you take are ladders and ratios (0.A2 still rules the content): text, prices, testimonials, names and figures from someone else's screen never travel to the client's page.
+
 ### 0.B Output a one-line "Design Read" before generating
 Before any code, state in one line: **"Reading this as: \<page kind> for \<audience>, with a \<vibe> language, leaning toward \<design system or aesthetic family>."**
 
