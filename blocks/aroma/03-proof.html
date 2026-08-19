@@ -45,6 +45,23 @@
   margin:var(--sp-4) 0 0; font-size:13px; color:var(--muted);}
 .ba__cap b{color:var(--ink); font-weight:500;}
 
+.pairs{display:grid; gap:clamp(20px,2.4vw,32px); margin-top:clamp(28px,3vw,44px);}
+.pair__shot{aspect-ratio:16 / 10;}
+.pair{margin:0;}
+.pair__shots{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:2px;
+  border-radius:var(--r); overflow:hidden; outline:1px solid var(--hair); outline-offset:-1px;
+  box-shadow:var(--shadow-soft); background:var(--hair);}
+.pair__shot{position:relative; display:block; aspect-ratio:3 / 2; overflow:hidden; background:var(--paper);}
+@media(min-width:900px){ .pair__shot{aspect-ratio:16 / 10;} }
+.pair__shot img{width:100%; height:100%; object-fit:cover; display:block;}
+.pair__shot b{position:absolute; left:10px; top:10px; padding:5px 11px; border-radius:999px;
+  font-size:9.5px; font-weight:500; letter-spacing:.16em; text-transform:uppercase;
+  background:var(--scrim); border:1px solid var(--hair); color:var(--ink);}
+.pair__shot:last-child b{color:var(--teal-ink); border-color:var(--gold-line);}
+.pair figcaption{display:flex; flex-wrap:wrap; gap:6px var(--sp-5); align-items:baseline;
+  margin-top:var(--sp-4); font-size:14px; color:var(--ink);}
+.pair figcaption span{font-size:13px; color:var(--muted);}
+
 .limits{display:grid; gap:var(--sp-4); margin-top:clamp(36px,4vw,64px);}
 @media(min-width:820px){ .limits{grid-template-columns:repeat(3,minmax(0,1fr));} }
 .limit{border:1px solid var(--hair); border-radius:var(--r); padding:var(--sp-6); background:var(--paper);
@@ -72,12 +89,6 @@ html:not(.js) .rise{opacity:1; transform:none;}
       <p class="rise" style="--d:2">Потяните ползунок. Слева вещь, какой её видит мастер на выезде, справа она же после экстракторной чистки. Кадр один и тот же: комната, ракурс и свет не менялись.</p>
     </div>
 
-    <div class="tabs rise" style="--d:2" role="tablist" aria-label="Примеры работ">
-      <button class="tab" type="button" role="tab" aria-selected="true" data-i="1">Диван светлый</button>
-      <button class="tab" type="button" role="tab" aria-selected="false" data-i="2">Диван угловой</button>
-      <button class="tab" type="button" role="tab" aria-selected="false" data-i="3">Матрас</button>
-    </div>
-
     <div class="ba rise" id="ba" style="--d:2">
       <img id="baBefore" src="media/ba1-before.webp" width="1200" height="800"
            alt="Светлый диван с пятнами на сиденьях и спинке до химчистки">
@@ -94,9 +105,43 @@ html:not(.js) .rise{opacity:1; transform:none;}
     </div>
 
     <p class="ba__cap rise" style="--d:3">
-      <b id="baCap">Диван светлый, тканевая обивка</b>
+      <b>Диван светлый, тканевая обивка</b>
       <span>Ползунок двигается мышью, пальцем и стрелками на клавиатуре</span>
     </p>
+
+    <div class="pairs">
+      <figure class="pair rise" style="--d:0">
+        <div class="pair__shots">
+          <span class="pair__shot">
+            <img src="media/ba2-before.webp" width="1200" height="800" loading="lazy"
+                 alt="Угловой диван бордового цвета с затёртостями и пятнами до химчистки">
+            <b>До</b>
+          </span>
+          <span class="pair__shot">
+            <img src="media/ba2-after.webp" width="1200" height="800" loading="lazy"
+                 alt="Тот же угловой диван после химчистки, ворс выровнен, пятен нет">
+            <b>После</b>
+          </span>
+        </div>
+        <figcaption>Диван угловой, велюр<span>Затёртости на сиденьях и подлокотниках, ворс поднят</span></figcaption>
+      </figure>
+
+      <figure class="pair rise" style="--d:1">
+        <div class="pair__shots">
+          <span class="pair__shot">
+            <img src="media/ba3-before.webp" width="1200" height="800" loading="lazy"
+                 alt="Матрас с жёлтыми разводами до химчистки">
+            <b>До</b>
+          </span>
+          <span class="pair__shot">
+            <img src="media/ba3-after.webp" width="1200" height="800" loading="lazy"
+                 alt="Тот же матрас после химчистки с двух сторон, разводов нет">
+            <b>После</b>
+          </span>
+        </div>
+        <figcaption>Матрас, чистка с двух сторон<span>Жёлтые разводы, чистка обеих сторон за один выезд</span></figcaption>
+      </figure>
+    </div>
 
     <div class="limits">
       <div class="limit limit--yes rise" style="--d:0">
@@ -122,25 +167,7 @@ html:not(.js) .rise{opacity:1; transform:none;}
   var range = document.getElementById('baRange');
   var line = document.getElementById('baLine');
   var knob = document.getElementById('baKnob');
-  var before = document.getElementById('baBefore');
-  var after = document.getElementById('baAfter');
-  var cap = document.getElementById('baCap');
-  var tabs = [].slice.call(document.querySelectorAll('.tab'));
 
-  var SHOTS = {
-    1: { before: 'media/ba1-before.webp', after: 'media/ba1-after.webp',
-         beforeAlt: 'Светлый диван с пятнами на сиденьях и спинке до химчистки',
-         afterAlt: 'Тот же светлый диван после химчистки, пятен на обивке нет',
-         cap: 'Диван светлый, тканевая обивка' },
-    2: { before: 'media/ba2-before.webp', after: 'media/ba2-after.webp',
-         beforeAlt: 'Угловой диван бордового цвета с затёртостями и пятнами до химчистки',
-         afterAlt: 'Тот же угловой диван после химчистки, ворс выровнен, пятен нет',
-         cap: 'Диван угловой, велюр' },
-    3: { before: 'media/ba3-before.webp', after: 'media/ba3-after.webp',
-         beforeAlt: 'Матрас с жёлтыми разводами до химчистки',
-         afterAlt: 'Тот же матрас после химчистки с двух сторон, разводов нет',
-         cap: 'Матрас, чистка с двух сторон' }
-  };
 
   function paint(v){
     ba.style.setProperty('--split', v + '%');
@@ -151,17 +178,6 @@ html:not(.js) .rise{opacity:1; transform:none;}
   range.addEventListener('input', function(){ paint(range.value); });
   paint(range.value);
 
-  tabs.forEach(function(tab){
-    tab.addEventListener('click', function(){
-      var shot = SHOTS[tab.dataset.i];
-      if (!shot) return;
-      tabs.forEach(function(t){ t.setAttribute('aria-selected', String(t === tab)); });
-      before.src = shot.before; before.alt = shot.beforeAlt;
-      after.src = shot.after; after.alt = shot.afterAlt;
-      cap.textContent = shot.cap;
-      range.value = 50; paint(50);
-    });
-  });
 
   new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if (e.isIntersecting) sec.classList.add('lit'); });
