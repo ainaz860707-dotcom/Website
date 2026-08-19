@@ -71,7 +71,8 @@
 .foot__brand{font-family:var(--display); font-size:16px; color:var(--ink);}
 .foot__brand em{font-style:normal; color:var(--teal-ink);}
 .foot__nav{display:flex; flex-wrap:wrap; gap:var(--sp-5);}
-.foot__nav a{text-decoration:none; transition:color 420ms var(--mass);}
+.foot__nav a{display:inline-flex; align-items:center; min-height:40px; text-decoration:none;
+  transition:color 420ms var(--mass);}
 @media (hover: hover){ .foot__nav a:hover{color:var(--teal-ink);} }
 
 .rise{opacity:0; transform:translateY(18px);}
