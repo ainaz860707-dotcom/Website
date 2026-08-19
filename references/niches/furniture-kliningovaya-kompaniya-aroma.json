@@ -1,0 +1,88 @@
+{
+  "key": "furniture-kliningovaya-kompaniya-aroma",
+  "name": "крупногабарит на дому, продаёт спасение вещи на месте — собрано по 4 референсам (pinterest)",
+  "profile": "furniture",
+  "fonts": "'NotionInter' на заголовки + 'Inter' на текст — или ближайшая пара с Google Fonts, если этих нет",
+  "palette": "фон #FFFFFF · текст #0A1317 · единственный акцент #D31130 · приглушённый #5D6C7B",
+  "layout": "скругления около 4px, шкала кеглей 9→180px, крупные рамки-слоты под снимки с подписями, много воздуха и широкие поля, тонкие линейки 1px между секциями",
+  "detail": "акцентом красится ровно одно: кнопка действия, кнопки без заливки с подчёркиванием на hover, кривые переходов как в референсах: cubic-bezier(0.19,1,0.22,1)",
+  "gallery": true,
+  "slots": [],
+  "measured": {
+    "palette": {
+      "paper": "#FFFFFF",
+      "ink": "#0A1317",
+      "accent": "#D31130",
+      "muted": "#5D6C7B"
+    },
+    "fonts": [
+      {
+        "name": "NotionInter",
+        "count": 24
+      },
+      {
+        "name": "Inter",
+        "count": 8
+      },
+      {
+        "name": "Placeholder Font",
+        "count": 6
+      },
+      {
+        "name": "acumin-pro-wide",
+        "count": 5
+      },
+      {
+        "name": "adobe-clean",
+        "count": 5
+      },
+      {
+        "name": "adobe-clean-han-japanese",
+        "count": 5
+      },
+      {
+        "name": "acumin-pro",
+        "count": 4
+      },
+      {
+        "name": "Menlo",
+        "count": 4
+      }
+    ],
+    "rhythm": {
+      "scaleMin": 9,
+      "scaleMax": 180,
+      "radius": "4px",
+      "sharp": false,
+      "easings": [
+        "cubic-bezier(0.19,1,0.22,1)",
+        "cubic-bezier(0.4,0,0.2,1)",
+        "cubic-bezier(0.78,0,0.81,0)"
+      ]
+    },
+    "subjects": []
+  },
+  "sources": [
+    {
+      "name": "Clino - Cleaning service UIUX design - Hamida Jannat ✪",
+      "url": "https://www.behance.net",
+      "from": "pinterest"
+    },
+    {
+      "name": "",
+      "url": "https://www.instagram.com",
+      "from": "pinterest"
+    },
+    {
+      "name": "Chair Cleaning Process Using Upholstery Extraction Method",
+      "url": "https://blowupcleaners.uk",
+      "from": "pinterest"
+    },
+    {
+      "name": "The \"No-Scrub\" Way to Deep Clean Your Sofa 🛋️",
+      "url": "https://www.notion.so",
+      "from": "pinterest"
+    }
+  ],
+  "date": "2026-08-17"
+}
