@@ -80,7 +80,8 @@ img, video{{max-width:100%;}}
 out = BLOCKS / 'dist' / 'aroma-klining.html'
 out.write_text(page, encoding='utf-8')
 
-light = page.replace('<title>', "<script>document.documentElement.setAttribute('data-theme','light')</script>\n<title>", 1)
+LIGHT_SWITCH = "<script>document.documentElement.classList.add('t-light')</script>\n"
+light = page.replace('<title>', LIGHT_SWITCH + '<title>', 1)
 out_light = BLOCKS / 'dist' / 'aroma-klining-light.html'
 out_light.write_text(light, encoding='utf-8')
 
@@ -91,6 +92,8 @@ st_lib = (BLOCKS / 'lib' / 'ScrollTrigger.min.js').read_text(encoding='utf-8')
 wow = page.replace('</style>', wow_css + '\n</style>', 1).rstrip()
 wow += f'\n<script>{gsap_lib}</script>\n<script>{st_lib}</script>\n<script>\n{wow_js}\n</script>\n'
 (BLOCKS / 'dist' / 'aroma-klining-wow.html').write_text(wow, encoding='utf-8')
+wow_light = wow.replace('<title>', LIGHT_SWITCH + '<title>', 1)
+(BLOCKS / 'dist' / 'aroma-klining-wow-light.html').write_text(wow_light, encoding='utf-8')
 
 print('готово:', round(len(page.encode()) / 1024 / 1024, 2), 'МБ · видео вшито:', VIDEO[:30] in page,
-      '· варианты:', out.name, out_light.name, 'aroma-klining-wow.html')
+      '· вариантов: 4')

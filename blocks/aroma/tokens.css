@@ -46,7 +46,7 @@ a{color:inherit;}
   border:1px solid var(--gold-line); background:var(--teal-soft); color:var(--teal-ink);
   font-size:10.5px; font-weight:500; letter-spacing:.2em; text-transform:uppercase;}
 
-:root[data-theme="light"]{
+:root.t-light{
   --paper:#FBFAF7;
   --card:#FFFFFF;
   --card-hover:#F6F3EC;
@@ -73,7 +73,7 @@ a{color:inherit;}
   --shadow-cta:0 14px 34px -18px rgba(169,130,27,.65);
   --shadow-cta-hover:0 20px 44px -20px rgba(169,130,27,.75);
 }
-:root[data-theme="light"] .grain{opacity:.035;}
+:root.t-light .grain{opacity:.035;}
 
 h1, h2, h3, h4{font-family:var(--display); font-weight:400;}
 
