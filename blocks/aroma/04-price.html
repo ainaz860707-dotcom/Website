@@ -81,12 +81,12 @@ html:not(.js) .rise{opacity:1; transform:none;}
   <div class="wrap">
     <span class="kicker rise" style="--d:0">Цены</span>
     <h2 class="rise" style="--d:1">Считаем до выезда, на месте цена не растёт</h2>
-    <p class="sub rise" style="--d:2">Выберите, что нужно почистить, и увидите сумму по прайсу компании. Окончательную цену мастер подтверждает на осмотре, до начала работы.</p>
+    <p class="sub rise" style="--d:2">Выберите, что нужно почистить, и увидите сумму по прайсу. Окончательную цену мастер подтверждает на осмотре, до начала работы.</p>
 
     <div class="grid">
       <div class="calc rise" style="--d:2">
         <h3>Расчёт заказа</h3>
-        <p class="calc__note">Цены с сайта компании, минимальная сумма заказа 2000 ₽.</p>
+        <p class="calc__note">Минимальная сумма заказа 2000 ₽.</p>
 
         <label class="field">
           <span>Что чистим</span>
@@ -206,7 +206,7 @@ html:not(.js) .rise{opacity:1; transform:none;}
     if (base < MIN) {
       note.innerHTML = '<b>Минимальный заказ 2000 ₽</b>По прайсу вышло ' + base.toLocaleString('ru-RU') + ' ₽';
     } else {
-      note.innerHTML = '<b>Сумма по прайсу компании</b>Окончательную цену мастер назовёт на осмотре';
+      note.innerHTML = '<b>Сумма по прайсу</b>Окончательную цену мастер назовёт на осмотре';
     }
   }
 
