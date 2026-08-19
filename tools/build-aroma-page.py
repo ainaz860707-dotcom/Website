@@ -9,6 +9,7 @@ def data_uri(path, mime):
 
 VIDEO = data_uri(BLOCKS / 'media' / 'hero-loop.mp4', 'video/mp4')
 MEDIA = {
+    'media/hero-still.webp': data_uri(BLOCKS / 'media' / 'hero-still.webp', 'image/webp'),
     'media/hero-loop-poster.jpg': data_uri(BLOCKS / 'media' / 'hero-loop-poster.jpg', 'image/jpeg'),
     'media/ba1-before.webp': data_uri(BLOCKS / 'media' / 'ba1-before.webp', 'image/webp'),
     'media/ba1-after.webp': data_uri(BLOCKS / 'media' / 'ba1-after.webp', 'image/webp'),
