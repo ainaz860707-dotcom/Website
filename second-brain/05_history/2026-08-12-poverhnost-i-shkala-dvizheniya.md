@@ -2,7 +2,7 @@
 name: 2026-08-12-poverhnost-i-shkala-dvizheniya
 title: Поверхность страницы и шкала движения — от жалобы владельца до прогона
 date: 2026-08-12
-distilled: false
+distilled: true
 related_code:
   - tools/design-directions.mjs
   - tools/design-board.mjs

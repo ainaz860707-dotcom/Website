@@ -1,7 +1,7 @@
 ---
 type: reflection
 date: 2026-08-12
-distilled: false
+distilled: true
 related_code:
   - tools/design-directions.mjs
   - tools/design-board.mjs

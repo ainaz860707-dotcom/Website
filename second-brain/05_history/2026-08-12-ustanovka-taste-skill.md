@@ -2,7 +2,7 @@
 name: 2026-08-12-ustanovka-taste-skill
 title: Установка пака taste-skill
 date: 2026-08-12
-distilled: false
+distilled: true
 ---
 
 # Установка пака taste-skill
