@@ -213,7 +213,65 @@
     }).observe(sum, { childList: true, characterData: true, subtree: true });
   }
 
+  function heroEntrance(){
+    if (!window.gsap || !hero) return;
+    hero.classList.add('lit');
+    var bits = hero.querySelectorAll('.eyebrow, h1, .lead, .cta, .facts, .slot');
+    gsap.set(bits, { clearProps: 'all', opacity: 1, y: 0, filter: 'none' });
+    gsap.timeline({ defaults: { ease: 'power3.out', force3D: true } })
+      .from(hero.querySelector('.nav__pill'), { y: -24, opacity: 0, duration: .8 })
+      .from(bits, { y: 34, opacity: 0, duration: 1, stagger: .09 }, '-=.45')
+      .from(hero.querySelector('.tape'), { y: 24, opacity: 0, duration: .8 }, '-=.7');
+  }
+
+  function servicesStrip(){
+    var serv = document.querySelector('.sec-serv .wrap');
+    if (!serv || document.querySelector('.fx-strip')) return;
+    var items = ['Диваны и кресла', 'Матрасы с двух сторон', 'Ковры и покрытия', 'Удаление запахов',
+                 'Мягкие игрушки', 'Мытьё окон', 'Уборка квартир', 'После ремонта'];
+    var strip = document.createElement('div');
+    strip.className = 'fx-strip';
+    strip.setAttribute('aria-hidden', 'true');
+    var track = document.createElement('div');
+    track.className = 'fx-strip__track';
+    for (var pass = 0; pass < 2; pass++) {
+      items.forEach(function(t){
+        var s = document.createElement('span');
+        s.textContent = t;
+        track.appendChild(s);
+      });
+    }
+    strip.appendChild(track);
+    serv.appendChild(strip);
+  }
+
+  function countUp(){
+    var sum = document.getElementById('sum');
+    if (!sum || !window.gsap) return;
+    var run = function(){
+      var target = parseInt((sum.textContent.match(/[\d\s]+/) || ['0'])[0].replace(/\s/g, ''), 10) || 0;
+      var obj = { v: 0 };
+      gsap.to(obj, { v: target, duration: 1.1, ease: 'power2.out', onUpdate: function(){
+        sum.textContent = 'от ' + Math.round(obj.v).toLocaleString('ru-RU') + ' ₽';
+      }});
+    };
+    ScrollTrigger.create({ trigger: sum, start: 'top 85%', once: true, onEnter: run });
+  }
+
+  function stepsLine(){
+    var wrap = document.querySelector('.steps');
+    if (!wrap || !window.ScrollTrigger) return;
+    ScrollTrigger.create({
+      trigger: wrap, start: 'top 82%', end: 'bottom 45%', scrub: .4,
+      onUpdate: function(self){ wrap.style.setProperty('--fx-steps', self.progress.toFixed(3)); }
+    });
+  }
+
   shaderBackdrop();
   pointerDepth();
+  servicesStrip();
   scrollScenes();
+  heroEntrance();
+  countUp();
+  stepsLine();
 })();

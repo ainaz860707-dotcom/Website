@@ -6,6 +6,7 @@
 :root[data-theme="light"] .fx-canvas{opacity:.5; mix-blend-mode:multiply;}
 
 .hero{perspective:1400px;}
+.hero .rise, .hero.lit .rise{opacity:1; transform:none; filter:none; transition:none;}
 .hero__bg{will-change:transform;}
 .hero__bg img, .hero__bg video{transform:scale(1.04);}
 .steps .step{will-change:transform;}
@@ -56,4 +57,38 @@ h1::after{content:""; position:absolute; inset:0; pointer-events:none;
 }
 @media print{
   .fx-progress, .fx-canvas{display:none;}
+}
+
+.pill--gold, .dial__cta, .calc__cta, .after__cta{position:relative; overflow:hidden;}
+.pill--gold::after, .dial__cta::after, .calc__cta::after, .after__cta::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(105deg, transparent 40%, rgba(255,255,255,.55) 50%, transparent 60%);
+  transform:translate3d(-140%,0,0); animation:fx-sheen 4.6s var(--glide) 1s infinite;}
+
+.eyebrow i, .tape i, .term i{animation:fx-pulse 2.6s ease-in-out infinite;}
+@keyframes fx-pulse{
+  0%,100%{transform:scale(1); box-shadow:0 0 0 0 rgba(201,162,39,.5);}
+  50%{transform:scale(1.25); box-shadow:0 0 0 6px rgba(201,162,39,0);}
+}
+
+.fx-strip{position:relative; overflow:hidden; margin-top:clamp(28px,3vw,44px);
+  border-top:1px solid var(--hair); border-bottom:1px solid var(--hair); padding:14px 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);}
+.fx-strip__track{display:flex; gap:clamp(28px,4vw,56px); width:max-content;
+  animation:fx-drift 38s linear infinite;}
+.fx-strip span{display:inline-flex; align-items:center; gap:12px; white-space:nowrap;
+  font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted);}
+.fx-strip span::before{content:""; width:5px; height:5px; border-radius:50%; background:var(--teal);}
+@keyframes fx-drift{ from{transform:translate3d(0,0,0);} to{transform:translate3d(-50%,0,0);} }
+
+.steps{position:relative;}
+.steps::before{content:""; position:absolute; left:0; right:0; top:0; height:2px; transform-origin:0 50%;
+  transform:scaleX(var(--fx-steps,0)); background:linear-gradient(90deg,#A9821B,#E7D08A); z-index:2;}
+
+@media (prefers-reduced-motion: reduce){
+  .pill--gold::after, .dial__cta::after, .calc__cta::after, .after__cta::after{display:none;}
+  .eyebrow i, .tape i, .term i{animation:none;}
+  .fx-strip__track{animation:none;}
+  .steps::before{display:none;}
 }
