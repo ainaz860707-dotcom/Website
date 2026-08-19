@@ -84,5 +84,13 @@ light = page.replace('<title>', "<script>document.documentElement.setAttribute('
 out_light = BLOCKS / 'dist' / 'aroma-klining-light.html'
 out_light.write_text(light, encoding='utf-8')
 
+wow_css = (BLOCKS / 'wow.css').read_text(encoding='utf-8')
+wow_js = (BLOCKS / 'wow.js').read_text(encoding='utf-8')
+gsap_lib = (BLOCKS / 'lib' / 'gsap.min.js').read_text(encoding='utf-8')
+st_lib = (BLOCKS / 'lib' / 'ScrollTrigger.min.js').read_text(encoding='utf-8')
+wow = page.replace('</style>', wow_css + '\n</style>', 1).rstrip()
+wow += f'\n<script>{gsap_lib}</script>\n<script>{st_lib}</script>\n<script>\n{wow_js}\n</script>\n'
+(BLOCKS / 'dist' / 'aroma-klining-wow.html').write_text(wow, encoding='utf-8')
+
 print('готово:', round(len(page.encode()) / 1024 / 1024, 2), 'МБ · видео вшито:', VIDEO[:30] in page,
-      '· два варианта:', out.name, out_light.name)
+      '· варианты:', out.name, out_light.name, 'aroma-klining-wow.html')

@@ -1,0 +1,59 @@
+.fx-progress{position:fixed; inset:0 0 auto 0; height:2px; z-index:60; transform-origin:0 50%;
+  transform:scaleX(var(--fx-read, 0)); pointer-events:none;
+  background:linear-gradient(90deg,#A9821B,#C9A227 40%,#E7D08A 70%,#F6E7B8);}
+
+.fx-canvas{position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.85; mix-blend-mode:screen;}
+:root[data-theme="light"] .fx-canvas{opacity:.5; mix-blend-mode:multiply;}
+
+.hero{perspective:1400px;}
+.hero__bg{will-change:transform;}
+.hero__bg img, .hero__bg video{transform:scale(1.04);}
+.steps .step{will-change:transform;}
+.serv{will-change:transform;}
+.calc{transform-style:preserve-3d;}
+
+h1{position:relative; overflow:hidden;}
+h1::after{content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(105deg, transparent 38%, rgba(246,231,184,.42) 50%, transparent 62%);
+  transform:translate3d(-120%,0,0); animation:fx-sheen 7s var(--glide) 1.6s infinite;}
+
+@keyframes fx-sheen{
+  0%{transform:translate3d(-120%,0,0);}
+  38%{transform:translate3d(120%,0,0);}
+  100%{transform:translate3d(120%,0,0);}
+}
+
+.fx-tilt{transform-style:preserve-3d; will-change:transform;
+  transition:transform 520ms var(--mass), box-shadow 520ms var(--mass), border-color 420ms var(--mass);}
+.fx-tilt.is-hot{transform:perspective(900px) rotateX(var(--fx-rx,0deg)) rotateY(var(--fx-ry,0deg)) translate3d(0,-4px,0);
+  box-shadow:var(--shadow-soft), 0 0 0 1px var(--gold-line);}
+.fx-tilt > *{transform:translateZ(24px);}
+
+.fx-spot{position:relative; isolation:isolate;}
+.fx-spot::before{content:""; position:absolute; inset:0; z-index:-1; opacity:0; pointer-events:none;
+  border-radius:inherit; transition:opacity 420ms var(--mass);
+  background:radial-gradient(220px circle at var(--fx-mx,50%) var(--fx-my,50%), rgba(201,162,39,.18), transparent 70%);}
+.fx-spot.is-hot::before{opacity:1;}
+
+.fx-magnet{will-change:transform;}
+
+.total__sum{transition:opacity 220ms var(--mass);}
+.total__sum.is-tick{opacity:.55;}
+
+.sec-serv, .sec-rev, .sec-price{position:relative;}
+.sec-serv::before, .sec-price::before{content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(60% 46% at 84% 8%, rgba(201,162,39,.09), transparent 68%);}
+
+.pair__shots{transform-style:preserve-3d;}
+
+@media (prefers-reduced-motion: reduce){
+  .fx-progress, .fx-canvas{display:none;}
+  h1::after{animation:none; display:none;}
+  .hero__bg img, .hero__bg video{transform:none;}
+  .fx-tilt, .fx-tilt.is-hot{transform:none; transition:none;}
+  .fx-tilt > *{transform:none;}
+  .fx-spot::before{display:none;}
+}
+@media print{
+  .fx-progress, .fx-canvas{display:none;}
+}
