@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Блок 8 — услуги · Арома клининг</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+.sec-serv{background:var(--paper); padding-block:clamp(56px,7vw,110px);}
+.head-serv{display:grid; gap:var(--sp-6); align-items:end;}
+@media(min-width:900px){ .head-serv{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);} }
+.head-serv h2{margin:var(--sp-5) 0 0; font-size:clamp(27px,3.4vw,44px); line-height:1.12;
+  letter-spacing:-.014em; font-weight:400; max-width:20ch; text-wrap:balance;}
+.head-serv p{margin:0; color:var(--muted); font-size:clamp(15px,1.2vw,16.5px); max-width:52ch;}
+
+.serv{display:grid; gap:1px; margin-top:clamp(36px,4vw,64px); background:var(--hair);
+  border:1px solid var(--hair); border-radius:var(--r); overflow:hidden;}
+@media(min-width:720px){ .serv{grid-template-columns:repeat(2,minmax(0,1fr));} }
+@media(min-width:1100px){ .serv{grid-template-columns:repeat(3,minmax(0,1fr));} }
+
+.srv{display:flex; flex-direction:column; gap:var(--sp-3); padding:clamp(22px,2.4vw,30px);
+  background:var(--card); transition:background 420ms var(--mass);}
+@media (hover: hover){ .srv:hover{background:var(--card-hover);} }
+.srv__ic{display:grid; place-items:center; width:40px; height:40px; border-radius:999px;
+  border:1px solid var(--gold-line); background:var(--teal-soft); color:var(--teal-ink);}
+.srv__ic svg{width:19px; height:19px;}
+.srv h3{margin:var(--sp-2) 0 0; font-size:18px; font-weight:400; line-height:1.3;}
+.srv p{margin:0; font-size:13.5px; color:var(--muted);}
+.srv__price{margin-top:auto; padding-top:var(--sp-4); border-top:1px solid var(--hair);
+  font-size:11px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--teal-ink);}
+
+.serv-note{display:flex; flex-wrap:wrap; gap:12px var(--sp-6); align-items:center;
+  margin-top:clamp(24px,2.6vw,36px); font-size:13.5px; color:var(--muted);}
+.serv-note b{color:var(--ink); font-weight:500;}
+.serv-note a{color:var(--teal-ink); text-decoration:none; border-bottom:1px solid var(--gold-line);}
+
+.rise{opacity:0; transform:translateY(18px);}
+.lit .rise{opacity:1; transform:none;
+  transition:opacity 760ms var(--glide), transform 760ms var(--glide); transition-delay:calc(var(--d,0) * 70ms);}
+html:not(.js) .rise{opacity:1; transform:none;}
+@media (prefers-reduced-motion: reduce){ .rise{opacity:1; transform:none; transition:none;} }
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<section class="sec-serv" id="services">
+  <div class="wrap">
+
+    <div class="head-serv">
+      <div>
+        <span class="kicker rise" style="--d:0">Услуги</span>
+        <h2 class="rise" style="--d:1">Химчистка и уборка по одному звонку</h2>
+      </div>
+      <p class="rise" style="--d:2">Работаем на дому и с вывозом: тяжёлую мебель чистим на месте, лёгкие вещи мастер может забрать в цех. Выезд по всем районам Новосибирска, без выходных.</p>
+    </div>
+
+    <div class="serv">
+      <article class="srv rise" style="--d:0">
+        <span class="srv__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 13V9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4"/><path d="M4 13h16v5H4z"/><path d="M6 18v2M18 18v2"/></svg></span>
+        <h3>Химчистка диванов</h3>
+        <p>Тканевые и велюровые диваны, включая выдвижное место и дополнительные секции.</p>
+        <span class="srv__price">от 1000 ₽</span>
+      </article>
+
+      <article class="srv rise" style="--d:1">
+        <span class="srv__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 8h16v9H4z"/><path d="M4 12h16"/><path d="M7 17v2M17 17v2"/></svg></span>
+        <h3>Химчистка матрасов</h3>
+        <p>Чистка с двух сторон, снимаем разводы и следы, матрас остаётся в комнате.</p>
+        <span class="srv__price">от 1000 ₽</span>
+      </article>
+
+      <article class="srv rise" style="--d:2">
+        <span class="srv__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 6h14v12H5z"/><path d="M8 6v12M16 6v12"/></svg></span>
+        <h3>Химчистка ковров</h3>
+        <p>Ковры и ковровые покрытия на дому, при желании с вывозом в цех и сушкой.</p>
+        <span class="srv__price">200-500 ₽ за м²</span>
+      </article>
+
+      <article class="srv rise" style="--d:3">
+        <span class="srv__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 4h12v16H6z"/><path d="M12 4v16M6 12h12"/></svg></span>
+        <h3>Мытьё окон и витрин</h3>
+        <p>Окна, балконные блоки, москитные сетки, решётки и нестандартное остекление.</p>
+        <span class="srv__price">от 200 ₽ за раму</span>
+      </article>
+
+      <article class="srv rise" style="--d:4">
+        <span class="srv__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 20V10l8-6 8 6v10"/><path d="M9 20v-6h6v6"/></svg></span>
+        <h3>Уборка домов и офисов</h3>
+        <p>Бригада 2-3 работника, от трёх часов. Постоянным клиентам скидка 20%.</p>
+        <span class="srv__price">от 25 ₽ за м²</span>
+      </article>
+
+      <article class="srv rise" style="--d:5">
+        <span class="srv__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m4 16 8-8 4 4-8 8H4z"/><path d="m14 6 2-2 4 4-2 2"/></svg></span>
+        <h3>Уборка после ремонта</h3>
+        <p>С мебелью и без. Снимаем строительную пыль, следы раствора и краски.</p>
+        <span class="srv__price">от 75 ₽ за м²</span>
+      </article>
+    </div>
+
+    <p class="serv-note rise" style="--d:6">
+      <span><b>Минимальная сумма заказа 2000 ₽.</b> Цены информационные, окончательную назовёт менеджер по телефону.</span>
+      <a href="#price">Весь прайс</a>
+    </p>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  var sec = document.getElementById('services');
+  new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) sec.classList.add('lit'); });
+  }, { threshold: .1 }).observe(sec);
+})();
+</script>
+</body>
+</html>

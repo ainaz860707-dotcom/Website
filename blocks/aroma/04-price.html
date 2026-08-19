@@ -8,17 +8,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tokens.css">
 <style>
-.sec{background:var(--paper); padding-block:clamp(56px,7vw,110px);}
-
-h2{margin:var(--sp-5) 0 0; font-size:clamp(27px,3.4vw,44px); line-height:1.12; letter-spacing:-.014em;
-  font-weight:400; max-width:22ch; text-wrap:balance;}
+.sec-price{background:var(--paper); padding-block:clamp(56px,7vw,110px);}
+.sec-price h2{margin:var(--sp-5) 0 0; font-size:clamp(27px,3.4vw,44px); line-height:1.12;
+  letter-spacing:-.014em; font-weight:400; max-width:22ch; text-wrap:balance;}
 .sub{margin:var(--sp-5) 0 0; max-width:56ch; color:var(--muted); font-size:clamp(15px,1.2vw,16.5px);}
 
 .grid{display:grid; gap:clamp(20px,2.4vw,32px); margin-top:clamp(36px,4vw,60px); align-items:start;}
-@media(min-width:960px){ .grid{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);} }
+@media(min-width:960px){ .grid{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);} }
 
-.calc{background:var(--card); border:1px solid var(--hair); border-radius:var(--r); padding:clamp(22px,2.4vw,32px);
-  box-shadow:var(--shadow-soft);}
+.calc{background:var(--card); border:1px solid var(--hair); border-radius:var(--r);
+  padding:clamp(22px,2.4vw,32px); box-shadow:var(--shadow-soft);}
 .calc h3{margin:0; font-size:21px; font-weight:400;}
 .calc__note{margin:var(--sp-3) 0 var(--sp-6); font-size:13.5px; color:var(--muted);}
 .field{display:grid; gap:7px; margin-bottom:var(--sp-5);}
@@ -27,7 +26,7 @@ h2{margin:var(--sp-5) 0 0; font-size:clamp(27px,3.4vw,44px); line-height:1.12; l
   color:var(--ink); background:var(--paper); border:1px solid var(--hair); border-radius:var(--r);}
 .field select:focus-visible, .field input:focus-visible{outline:2px solid var(--teal); outline-offset:1px;}
 .extras{display:flex; flex-wrap:wrap; gap:var(--sp-3); margin-bottom:var(--sp-6);}
-.chk{display:inline-flex; align-items:center; gap:9px; padding:10px 14px; border:1px solid var(--hair);
+.chk{display:inline-flex; align-items:center; gap:9px; padding:10px 16px; border:1px solid var(--hair);
   border-radius:999px; background:var(--paper); font-size:13.5px; cursor:pointer;}
 .chk input{accent-color:var(--teal); width:16px; height:16px;}
 .chk:has(input:checked){border-color:var(--gold-line); background:var(--teal-soft); color:var(--teal-ink); font-weight:500;}
@@ -35,17 +34,22 @@ h2{margin:var(--sp-5) 0 0; font-size:clamp(27px,3.4vw,44px); line-height:1.12; l
 .total{display:flex; align-items:baseline; justify-content:space-between; gap:var(--sp-4);
   padding-top:var(--sp-5); border-top:1px solid var(--hair);}
 .total__sum{font-family:var(--display); font-size:38px; font-weight:500; letter-spacing:-.01em;
-  color:var(--teal-ink); white-space:nowrap;
-  font-variant-numeric:tabular-nums;}
+  color:var(--teal-ink); white-space:nowrap; font-variant-numeric:tabular-nums;}
 .total__label{font-size:13px; color:var(--muted);}
 .total__label b{display:block; color:var(--ink); font-size:14px; font-weight:500;}
-.calc__cta{display:inline-flex; align-items:center; justify-content:center; min-height:54px; width:100%;
-  margin-top:var(--sp-5); padding:0 24px; border-radius:999px; color:var(--on-teal);
+.calc__cta{display:inline-flex; align-items:center; justify-content:center; gap:14px; min-height:56px; width:100%;
+  margin-top:var(--sp-5); padding:0 10px 0 28px; border-radius:999px; color:var(--on-teal);
   background:linear-gradient(178deg,#E7D08A,#C9A227 62%,#A9821B);
   font-weight:500; font-size:15px; text-decoration:none;
-  box-shadow:var(--shadow-cta);
-  transition:transform 240ms var(--ease), box-shadow 240ms var(--ease);}
-.calc__cta:hover{transform:translateY(-2px); box-shadow:var(--shadow-cta-hover);}
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45), var(--shadow-cta);
+  transition:transform 520ms var(--mass), box-shadow 520ms var(--mass);}
+.calc__cta span{display:grid; place-items:center; width:36px; height:36px; border-radius:50%;
+  background:rgba(23,19,10,.14); transition:transform 520ms var(--mass);}
+.calc__cta svg{width:14px; height:14px; fill:none; stroke:var(--on-teal); stroke-width:1.5;}
+@media (hover: hover){
+  .calc__cta:hover{transform:translateY(-2px); box-shadow:inset 0 1px 0 rgba(255,255,255,.5), var(--shadow-cta-hover);}
+  .calc__cta:hover span{transform:translate3d(3px,-2px,0) scale(1.05);}
+}
 .calc__warn{margin:var(--sp-4) 0 0; font-size:12.5px; color:var(--muted);}
 
 .list{background:var(--card); border:1px solid var(--hair); border-radius:var(--r); overflow:hidden;
@@ -56,15 +60,16 @@ h2{margin:var(--sp-5) 0 0; font-size:clamp(27px,3.4vw,44px); line-height:1.12; l
   letter-spacing:.2em; text-transform:uppercase; color:var(--teal-ink);}
 .row{display:flex; align-items:baseline; justify-content:space-between; gap:var(--sp-5); padding:7px 0;}
 .row span{font-size:14.5px;}
+.row small{display:block; font-size:12.5px; color:var(--muted);}
 .row b{font-size:14.5px; font-weight:500; white-space:nowrap; font-variant-numeric:tabular-nums;}
 .terms{margin-top:var(--sp-5); display:grid; gap:var(--sp-3);}
 .term{display:flex; gap:10px; align-items:flex-start; font-size:13.5px; color:var(--muted);}
-.term i{width:6px; height:6px; border-radius:50%; background:var(--teal); margin-top:7px; flex:0 0 auto;}
+.term i{width:6px; height:6px; border-radius:50%; background:var(--teal); margin-top:8px; flex:0 0 auto;}
 .term b{color:var(--ink); font-weight:500;}
 
 .rise{opacity:0; transform:translateY(16px);}
 .lit .rise{opacity:1; transform:none;
-  transition:opacity 700ms var(--ease), transform 700ms var(--ease); transition-delay:calc(var(--d,0) * 85ms);}
+  transition:opacity 700ms var(--glide), transform 700ms var(--glide); transition-delay:calc(var(--d,0) * 85ms);}
 html:not(.js) .rise{opacity:1; transform:none;}
 @media (prefers-reduced-motion: reduce){ .rise{opacity:1; transform:none; transition:none;} }
 </style>
@@ -72,16 +77,16 @@ html:not(.js) .rise{opacity:1; transform:none;}
 </head>
 <body>
 
-<section class="sec" id="price">
+<section class="sec-price" id="price">
   <div class="wrap">
     <span class="kicker rise" style="--d:0">Цены</span>
     <h2 class="rise" style="--d:1">Считаем до выезда, на месте цена не растёт</h2>
-    <p class="sub rise" style="--d:2">Выберите, что нужно почистить, и увидите сумму по нашему прайсу. Мастер назовёт её же при осмотре, до начала работы.</p>
+    <p class="sub rise" style="--d:2">Выберите, что нужно почистить, и увидите сумму по прайсу компании. Окончательную цену мастер подтверждает на осмотре, до начала работы.</p>
 
     <div class="grid">
       <div class="calc rise" style="--d:2">
         <h3>Расчёт заказа</h3>
-        <p class="calc__note">Цены действующие, из прайса компании.</p>
+        <p class="calc__note">Цены с сайта компании, минимальная сумма заказа 2000 ₽.</p>
 
         <label class="field">
           <span>Что чистим</span>
@@ -93,61 +98,82 @@ html:not(.js) .rise{opacity:1; transform:none;}
             <option value="600">Кресло</option>
             <option value="250">Стул</option>
             <option value="300">Пуфик</option>
+            <option value="200">Подушка декоративная</option>
             <option value="500">Кухонный уголок</option>
             <option value="1700">Матрас, 1 спальное место</option>
             <option value="2500">Матрас, 2 спальных места</option>
             <option value="1000">Матрас детский</option>
+            <option value="500">Мягкие игрушки</option>
           </select>
         </label>
 
         <label class="field">
-          <span>Дополнительные посадочные места, по 400 рублей</span>
-          <input id="seats" type="number" min="0" max="8" step="1" value="0" inputmode="numeric">
+          <span>Дополнительные посадочные места, по 500 рублей</span>
+          <input id="seats" type="number" min="0" max="10" step="1" value="0" inputmode="numeric">
         </label>
 
         <div class="extras">
-          <label class="chk"><input type="checkbox" id="aroma" value="400">Удаление запахов, 400 ₽</label>
-          <label class="chk"><input type="checkbox" id="dry" value="1500">Сушка оборудованием, 1500 ₽</label>
+          <label class="chk"><input id="aroma" type="checkbox"> Удаление запахов, от 200 ₽</label>
+          <label class="chk"><input id="dry" type="checkbox"> Сушка мебели, от 1500 ₽</label>
         </div>
 
         <div class="total">
-          <span class="total__sum" id="sum">2000 ₽</span>
-          <span class="total__label" id="note"><b>Минимальный заказ 2000 ₽</b>Скидка появится от 3000 ₽</span>
+          <span class="total__sum" id="sum">от 2 000 ₽</span>
+          <span class="total__label" id="note"><b>Минимальный заказ 2000 ₽</b>По прайсу вышло 1 500 ₽</span>
         </div>
 
-        <a class="calc__cta" href="tel:+73833814483">Вызвать мастера</a>
-        <p class="calc__warn">Точную сумму мастер подтверждает на осмотре: цена зависит от типа обивки и степени загрязнения.</p>
+        <a class="calc__cta" href="tel:+73833814483">Вызвать мастера
+          <span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        </a>
+        <p class="calc__warn">Цена информационная и не является публичной офертой: тип обивки и степень загрязнения мастер видит на месте.</p>
       </div>
 
       <div class="list rise" style="--d:3">
         <div class="list__group">
           <h4>Диваны, цена включает выдвижное место</h4>
-          <div class="row"><span>Детский, 2 места</span><b>1000 ₽</b></div>
+          <div class="row"><span>Детский, 2 места</span><b>от 1000 ₽</b></div>
           <div class="row"><span>3-местный</span><b>от 1500 ₽</b></div>
           <div class="row"><span>3-местный угловой</span><b>от 1800 ₽</b></div>
           <div class="row"><span>4-местный угловой</span><b>от 2000 ₽</b></div>
-          <div class="row"><span>Дополнительное посадочное место</span><b>400 ₽</b></div>
+          <div class="row"><span>Дополнительное посадочное место</span><b>500 ₽</b></div>
         </div>
+
         <div class="list__group">
           <h4>Матрасы, чистка с двух сторон</h4>
-          <div class="row"><span>1 спальное место</span><b>от 1700 ₽</b></div>
-          <div class="row"><span>2 спальных места</span><b>от 2500 ₽</b></div>
-          <div class="row"><span>Детский матрас</span><b>1000 ₽</b></div>
+          <div class="row"><span>1 спальное место</span><b>1700 ₽</b></div>
+          <div class="row"><span>2 спальных места</span><b>2500 ₽</b></div>
+          <div class="row"><span>Матрас детский</span><b>1000 ₽</b></div>
         </div>
+
         <div class="list__group">
-          <h4>Мебель и ковры</h4>
+          <h4>Мебель и текстиль</h4>
           <div class="row"><span>Кресло</span><b>600 ₽</b></div>
           <div class="row"><span>Стул</span><b>250 ₽</b></div>
           <div class="row"><span>Пуфик</span><b>300 ₽</b></div>
+          <div class="row"><span>Подушка декоративная</span><b>200 ₽</b></div>
           <div class="row"><span>Кухонный уголок</span><b>от 500 ₽</b></div>
-          <div class="row"><span>Ковры и покрытия, за м²</span><b>200-500 ₽</b></div>
+          <div class="row"><span>Мягкие игрушки</span><b>500 ₽</b></div>
         </div>
+
+        <div class="list__group">
+          <h4>Ковры и покрытия</h4>
+          <div class="row"><span>Химчистка ковров на дому<small>за квадратный метр</small></span><b>200-500 ₽</b></div>
+          <div class="row"><span>Ковровые покрытия на дому<small>за квадратный метр</small></span><b>200-500 ₽</b></div>
+          <div class="row"><span>Ароматизация ковров<small>за квадратный метр</small></span><b>30 ₽</b></div>
+        </div>
+
+        <div class="list__group">
+          <h4>Дополнительно</h4>
+          <div class="row"><span>Удаление запахов, ароматизация мебели<small>в зависимости от размера</small></span><b>200-500 ₽</b></div>
+          <div class="row"><span>Сушка мебели оборудованием</span><b>от 1500 ₽</b></div>
+        </div>
+
         <div class="list__group">
           <h4>Условия</h4>
           <div class="terms">
-            <span class="term"><i></i><span><b>Минимальный заказ 2000 ₽.</b> Если сумма выходит меньше, мастер предложит добавить позицию.</span></span>
-            <span class="term"><i></i><span><b>Скидка растёт вместе с заказом:</b> от 3000 ₽ пять процентов, от 4000 ₽ десять, от 5000 ₽ пятнадцать.</span></span>
-            <span class="term"><i></i><span><b>Письмо на почту после чистки</b> даёт десять процентов на следующий заказ.</span></span>
+            <span class="term"><i></i><span><b>Минимальный заказ 2000 ₽.</b> Если по прайсу вышло меньше, мастер предложит добавить позицию.</span></span>
+            <span class="term"><i></i><span><b>Отзыв после чистки</b> даёт скидку 10% на следующую химчистку.</span></span>
+            <span class="term"><i></i><span><b>Работаем на дому и с вывозом</b>, по всем районам Новосибирска, без выходных.</span></span>
           </div>
         </div>
       </div>
@@ -158,8 +184,8 @@ html:not(.js) .rise{opacity:1; transform:none;}
 <script>
 (function(){
   var sec = document.getElementById('price');
-  new IntersectionObserver(function(e){
-    e.forEach(function(x){ if (x.isIntersecting) sec.classList.add('lit'); });
+  new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) sec.classList.add('lit'); });
   }, { threshold: .1 }).observe(sec);
 
   var item = document.getElementById('item');
@@ -170,29 +196,17 @@ html:not(.js) .rise{opacity:1; transform:none;}
   var note = document.getElementById('note');
   var MIN = 2000;
 
-  function discount(base){
-    if (base >= 5000) return 15;
-    if (base >= 4000) return 10;
-    if (base >= 3000) return 5;
-    return 0;
-  }
-
   function recount(){
-    var base = Number(item.value)
-      + Math.max(0, Number(seats.value) || 0) * 400
-      + (aroma.checked ? 400 : 0)
-      + (dry.checked ? 1500 : 0);
-    var d = discount(base);
-    var withDiscount = Math.round(base * (100 - d) / 100);
-    var total = Math.max(MIN, withDiscount);
+    var extra = Math.max(0, Math.min(10, parseInt(seats.value || '0', 10) || 0));
+    var base = parseInt(item.value, 10) + extra * 500
+             + (aroma.checked ? 200 : 0) + (dry.checked ? 1500 : 0);
+    var total = Math.max(base, MIN);
+    sum.textContent = 'от ' + total.toLocaleString('ru-RU') + ' ₽';
 
-    sum.textContent = total.toLocaleString('ru-RU') + ' ₽';
-    if (total === MIN && withDiscount < MIN) {
-      note.innerHTML = '<b>Минимальный заказ 2000 ₽</b>По прайсу вышло ' + withDiscount.toLocaleString('ru-RU') + ' ₽';
-    } else if (d > 0) {
-      note.innerHTML = '<b>Скидка ' + d + '% уже в сумме</b>По прайсу ' + base.toLocaleString('ru-RU') + ' ₽';
+    if (base < MIN) {
+      note.innerHTML = '<b>Минимальный заказ 2000 ₽</b>По прайсу вышло ' + base.toLocaleString('ru-RU') + ' ₽';
     } else {
-      note.innerHTML = '<b>Минимальный заказ 2000 ₽</b>Скидка появится от 3000 ₽';
+      note.innerHTML = '<b>Сумма по прайсу компании</b>Окончательную цену мастер назовёт на осмотре';
     }
   }
 

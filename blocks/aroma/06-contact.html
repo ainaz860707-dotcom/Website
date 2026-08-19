@@ -29,7 +29,17 @@
   text-decoration:none; white-space:nowrap; color:var(--ink); font-variant-numeric:tabular-nums;
   transition:color 420ms var(--mass);}
 @media (hover: hover){ .dial__num:hover{color:var(--teal-ink);} }
+.dial__num--second{font-size:clamp(18px,1.8vw,22px); color:var(--muted);}
 .dial__hours{font-size:13.5px; color:var(--muted);}
+
+.contacts{display:grid; gap:var(--sp-4); margin-top:clamp(28px,3vw,44px);
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));}
+.cnt{display:grid; gap:6px; padding:var(--sp-5) var(--sp-6); border:1px solid var(--hair);
+  border-radius:var(--r); background:var(--card); text-decoration:none;
+  transition:border-color 420ms var(--mass);}
+@media (hover: hover){ a.cnt:hover{border-color:var(--gold-line);} }
+.cnt__k{font-size:10.5px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--teal-ink);}
+.cnt__v{font-size:14.5px; color:var(--ink);}
 .dial__hours b{color:var(--ink); font-weight:500;}
 .dial__cta{display:inline-flex; align-items:center; justify-content:center; gap:14px; min-height:56px;
   padding:0 10px 0 28px; border-radius:999px; text-decoration:none; color:var(--on-teal);
@@ -90,13 +100,14 @@ html:not(.js) .rise{opacity:1; transform:none;}
       <div>
         <span class="kicker">Вызов мастера</span>
         <h2>Позвоните, и бригада приедет со своим оборудованием</h2>
-        <p class="call__lead">Осмотр и расчёт по прайсу бесплатны, сумму мастер называет до начала работы. Чистим на месте, вывозить и разбирать мебель не нужно.</p>
+        <p class="call__lead">Клининговая компания «Арома клининг» работает с 2009 года. Чистим на дому и с вывозом, менеджер называет сумму по прайсу до выезда мастера.</p>
       </div>
 
       <div class="dial">
         <span class="dial__label">Новосибирск, все районы</span>
         <a class="dial__num" href="tel:+73833814483">8 (383) 381-44-83</a>
-        <span class="dial__hours">Выезд <b>с 8:00 до 22:00</b>, гарантия <b>30 дней</b></span>
+        <a class="dial__num dial__num--second" href="tel:+79139512928">+7 (913) 951-29-28</a>
+        <span class="dial__hours">Работаем <b>с 8:00 до 22:00</b>, <b>без выходных</b></span>
         <a class="dial__cta" href="tel:+73833814483">Вызвать мастера
           <span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
         </a>
@@ -121,26 +132,45 @@ html:not(.js) .rise{opacity:1; transform:none;}
       </div>
     </div>
 
-    <div class="slot-cta rise" style="--d:4">
+    <div class="contacts rise" style="--d:4">
+      <a class="cnt" href="mailto:aroma-clean@yandex.ru">
+        <span class="cnt__k">Почта</span>
+        <span class="cnt__v">aroma-clean@yandex.ru</span>
+      </a>
+      <div class="cnt">
+        <span class="cnt__k">Офис по записи</span>
+        <span class="cnt__v">Карла Маркса пр-т, 57, 7 этаж, оф. 707-1</span>
+      </div>
+      <a class="cnt" href="https://instagram.com/cleanaroma_89139512928" rel="nofollow noopener" target="_blank">
+        <span class="cnt__k">Инстаграм</span>
+        <span class="cnt__v">cleanaroma_89139512928</span>
+      </a>
+      <div class="cnt">
+        <span class="cnt__k">График</span>
+        <span class="cnt__v">С 8:00 до 22:00, без выходных</span>
+      </div>
+    </div>
+
+    <div class="slot-cta rise" style="--d:5">
       <span class="slot-cta__tag">Место под данные компании</span>
       <ul>
-        <li><i></i><span><b>Мессенджеры</b> — номер для WhatsApp и Telegram</span></li>
-        <li><i></i><span><b>Почта</b> — адрес для писем и отзывов</span></li>
-        <li><i></i><span><b>Юридические данные</b> — название, ИНН, реквизиты</span></li>
-        <li><i></i><span><b>Соцсети</b> — ссылки на аккаунты с работами</span></li>
+        <li><i></i><span><b>Юридические данные</b> — название, ИНН, реквизиты для договора</span></li>
+        <li><i></i><span><b>Мессенджеры</b> — подтвердить, принимает ли номер WhatsApp и Telegram</span></li>
       </ul>
     </div>
 
     <div class="foot rise" style="--d:5">
       <span class="foot__brand">Арома <em>клининг</em></span>
       <nav class="foot__nav">
+        <a href="#services">Услуги</a>
         <a href="#process">Как чистим</a>
         <a href="#proof">До и после</a>
         <a href="#price">Цены</a>
+        <a href="#reviews">Отзывы</a>
         <a href="#faq">Вопросы</a>
         <a href="tel:+73833814483">8 (383) 381-44-83</a>
       </nav>
-      <span>Химчистка мебели на дому, Новосибирск</span>
+      <span>Клининговая компания «Арома клининг», Новосибирск, с 2009 года</span>
     </div>
 
   </div>

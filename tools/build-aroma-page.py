@@ -10,6 +10,12 @@ def data_uri(path, mime):
 VIDEO = data_uri(BLOCKS / 'media' / 'hero-loop.mp4', 'video/mp4')
 MEDIA = {
     'media/hero-loop-poster.jpg': data_uri(BLOCKS / 'media' / 'hero-loop-poster.jpg', 'image/jpeg'),
+    'media/ba1-before.webp': data_uri(BLOCKS / 'media' / 'ba1-before.webp', 'image/webp'),
+    'media/ba1-after.webp': data_uri(BLOCKS / 'media' / 'ba1-after.webp', 'image/webp'),
+    'media/ba2-before.webp': data_uri(BLOCKS / 'media' / 'ba2-before.webp', 'image/webp'),
+    'media/ba2-after.webp': data_uri(BLOCKS / 'media' / 'ba2-after.webp', 'image/webp'),
+    'media/ba3-before.webp': data_uri(BLOCKS / 'media' / 'ba3-before.webp', 'image/webp'),
+    'media/ba3-after.webp': data_uri(BLOCKS / 'media' / 'ba3-after.webp', 'image/webp'),
     'media/work-loop-poster.jpg': data_uri(PUB / 'poster.webp', 'image/webp'),
     'media/nozzle-close.jpg': data_uri(PUB / 'nozzle.webp', 'image/webp'),
     'media/ba-before.webp': data_uri(PUB / 'ba-before.webp', 'image/webp'),
@@ -34,7 +40,9 @@ RENAMES = {
 }
 
 sections, styles, scripts = [], [], []
-for f in ['01-hero.html', '02-process.html', '03-proof.html', '04-price.html', '05-faq.html', '06-contact.html']:
+ORDER = ['01-hero.html', '08-services.html', '02-process.html', '03-proof.html',
+         '04-price.html', '07-reviews.html', '05-faq.html', '06-contact.html']
+for f in ORDER:
     src = (BLOCKS / f).read_text(encoding='utf-8')
     for a, b in RENAMES.get(f, []):
         src = src.replace(a, b)
@@ -70,4 +78,10 @@ img, video{{max-width:100%;}}
 """
 out = BLOCKS / 'dist' / 'aroma-klining.html'
 out.write_text(page, encoding='utf-8')
-print('готово:', round(len(page.encode()) / 1024 / 1024, 2), 'МБ · видео вшито:', VIDEO[:30] in page)
+
+light = page.replace('<title>', "<script>document.documentElement.setAttribute('data-theme','light')</script>\n<title>", 1)
+out_light = BLOCKS / 'dist' / 'aroma-klining-light.html'
+out_light.write_text(light, encoding='utf-8')
+
+print('готово:', round(len(page.encode()) / 1024 / 1024, 2), 'МБ · видео вшито:', VIDEO[:30] in page,
+      '· два варианта:', out.name, out_light.name)

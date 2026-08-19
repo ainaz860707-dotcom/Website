@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Блок 7 — отзывы клиентов · Арома клининг</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+.sec-rev{background:var(--paper); padding-block:clamp(56px,7vw,110px);}
+.head-rev{display:grid; gap:var(--sp-6); align-items:end;}
+@media(min-width:900px){ .head-rev{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);} }
+.head-rev h2{margin:var(--sp-5) 0 0; font-size:clamp(27px,3.4vw,44px); line-height:1.12;
+  letter-spacing:-.014em; font-weight:400; max-width:18ch; text-wrap:balance;}
+.head-rev p{margin:0; color:var(--muted); font-size:clamp(15px,1.2vw,16.5px); max-width:50ch;}
+
+.revs{display:grid; gap:var(--sp-4); margin-top:clamp(36px,4vw,64px);}
+@media(min-width:760px){ .revs{grid-template-columns:repeat(2,minmax(0,1fr));} }
+@media(min-width:1120px){ .revs{grid-template-columns:repeat(3,minmax(0,1fr));} }
+
+.rev{display:flex; flex-direction:column; gap:var(--sp-4); padding:clamp(20px,2.2vw,28px);
+  border:1px solid var(--hair); border-radius:var(--r); background:var(--card);
+  transition:border-color 420ms var(--mass), transform 520ms var(--mass);}
+@media (hover: hover){ .rev:hover{border-color:var(--gold-line); transform:translateY(-2px);} }
+.rev__q{margin:0; font-size:14.5px; color:var(--muted); line-height:1.62;}
+.rev__q b{color:var(--ink); font-weight:500;}
+.rev__who{display:flex; align-items:center; gap:12px; margin-top:auto; padding-top:var(--sp-4);
+  border-top:1px solid var(--hair);}
+.rev__ini{display:grid; place-items:center; width:38px; height:38px; border-radius:999px; flex:0 0 auto;
+  border:1px solid var(--gold-line); background:var(--teal-soft); color:var(--teal-ink);
+  font-family:var(--display); font-size:14px; font-weight:500;}
+.rev__name{display:block; font-size:14px; font-weight:500; color:var(--ink);}
+.rev__date{display:block; font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums;}
+
+.rev-note{display:flex; flex-wrap:wrap; gap:10px var(--sp-5); align-items:center;
+  margin-top:clamp(26px,3vw,40px); font-size:13px; color:var(--muted);}
+.rev-note a{color:var(--teal-ink); text-decoration:none; border-bottom:1px solid var(--gold-line);}
+.rev-note b{color:var(--ink); font-weight:500;}
+
+.rise{opacity:0; transform:translateY(18px);}
+.lit .rise{opacity:1; transform:none;
+  transition:opacity 760ms var(--glide), transform 760ms var(--glide); transition-delay:calc(var(--d,0) * 70ms);}
+html:not(.js) .rise{opacity:1; transform:none;}
+@media (prefers-reduced-motion: reduce){ .rise{opacity:1; transform:none; transition:none;} }
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<section class="sec-rev" id="reviews">
+  <div class="wrap">
+
+    <div class="head-rev">
+      <div>
+        <span class="kicker rise" style="--d:0">Отзывы клиентов</span>
+        <h2 class="rise" style="--d:1">Что пишут после выезда мастера</h2>
+      </div>
+      <p class="rise" style="--d:2">Отзывы взяты с сайта компании, имена и даты сохранены как есть. Оставьте свой после чистки и получите скидку 10% на следующую.</p>
+    </div>
+
+    <div class="revs">
+      <article class="rev rise" style="--d:0">
+        <p class="rev__q">Химчистка на дому спасла нашу семью, когда нужно было очистить мягкие игрушки нашего маленького ребёнка. <b>Особенно впечатлило качество чистки подушек, они словно новые, без единого пятнышка.</b> Плюсом за компанию почистили диванные подушки.</p>
+        <div class="rev__who">
+          <span class="rev__ini" aria-hidden="true">ЯН</span>
+          <span><b class="rev__name">Яворская Настя</b><span class="rev__date">15 апреля 2026</span></span>
+        </div>
+      </article>
+
+      <article class="rev rise" style="--d:1">
+        <p class="rev__q">Обратился для химчистки своего любимого дивана из светлого велюра. <b>Мастер приехал точно в назначенное время</b>, аккуратно обработал подлокотники, я переживал, что ткань может повредиться. Результат превзошёл ожидания: все запахи ушли.</p>
+        <div class="rev__who">
+          <span class="rev__ini" aria-hidden="true">ВХ</span>
+          <span><b class="rev__name">Владислав Х</b><span class="rev__date">4 февраля 2026</span></span>
+        </div>
+      </article>
+
+      <article class="rev rise" style="--d:2">
+        <p class="rev__q">Пригласил домой службу химчистки, чтобы привести в порядок диван и пару кресел. У меня дома собака, поэтому шерсть на мебели привычное дело. <b>После обработки мебель приобрела прежний вид без шерсти и посторонних запахов.</b></p>
+        <div class="rev__who">
+          <span class="rev__ini" aria-hidden="true">КА</span>
+          <span><b class="rev__name">Кирилл Алексеевич</b><span class="rev__date">18 декабря 2025</span></span>
+        </div>
+      </article>
+
+      <article class="rev rise" style="--d:3">
+        <p class="rev__q">Когда я случайно разлила красное вино на свои дорогие стулья, казалось, что придётся менять всю обивку. <b>Но грязные стулья стали чистыми, как будто их только что купили.</b> Мастер показал заботу о каждой детали.</p>
+        <div class="rev__who">
+          <span class="rev__ini" aria-hidden="true">Е</span>
+          <span><b class="rev__name">Елизавета</b><span class="rev__date">15 октября 2025</span></span>
+        </div>
+      </article>
+
+      <article class="rev rise" style="--d:4">
+        <p class="rev__q">Меня беспокоила аллергия на пыль и шерсть кошки, которая накапливалась на ковре. <b>После работы мастера ковёр стал удивительно чистым, без малейших следов шерсти и пыли.</b> Особенно порадовало, что после чистки он быстро высох.</p>
+        <div class="rev__who">
+          <span class="rev__ini" aria-hidden="true">ВИ</span>
+          <span><b class="rev__name">Владимир Иванов</b><span class="rev__date">28 июня 2025</span></span>
+        </div>
+      </article>
+
+      <article class="rev rise" style="--d:5">
+        <p class="rev__q">Прекрасный результат химчистки дивана: обивка стала как новая, все пятна удалены. <b>Диван уже начал подсыхать, по комнате приятный запах чистоты.</b> Раньше ванишем справлялась, но вызвать специалиста удобнее, и результат качественнее.</p>
+        <div class="rev__who">
+          <span class="rev__ini" aria-hidden="true">ДС</span>
+          <span><b class="rev__name">Дарья Степановна</b><span class="rev__date">30 октября 2024</span></span>
+        </div>
+      </article>
+    </div>
+
+    <p class="rev-note rise" style="--d:6">
+      <span><b>Работаем с 2009 года</b>, Новосибирск и все районы</span>
+      <a href="http://aroma-clean.ru/2-otzyvy-klientov.html">Все отзывы на сайте компании</a>
+    </p>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  var sec = document.getElementById('reviews');
+  new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) sec.classList.add('lit'); });
+  }, { threshold: .1 }).observe(sec);
+})();
+</script>
+</body>
+</html>
