@@ -15,7 +15,7 @@
   min-height:min(100svh, 920px); display:flex; flex-direction:column;}
 .hero__bg{position:absolute; inset:0; z-index:0;}
 .hero__bg img, .hero__bg video{position:absolute; inset:0; width:100%; height:100%;
-  object-fit:cover; object-position:52% 62%; filter:var(--video-filter);}
+  object-fit:cover; object-position:52% 58%; filter:var(--video-filter);}
 .hero__bg video{opacity:0; transition:opacity 900ms var(--glide);}
 .hero__bg video.is-on{opacity:1;}
 :root.t-light .hero__scrim{
@@ -141,7 +141,7 @@ html:not(.js) .rise{opacity:1; transform:none; filter:none;}
 
   <div class="hero__bg">
     <img id="poster" src="media/hero-still.webp" width="1440" height="810"
-         alt="Мастер ведёт насадку экстрактора по обивке дивана, в прозрачной головке видна грязная вода">
+         alt="Мастер ведёт насадку экстрактора по подушке дивана, за насадкой остаётся чистая полоса">
     <video id="vid" muted playsinline loop preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
   </div>
   <div class="hero__scrim"></div>
