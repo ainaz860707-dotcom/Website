@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.classList.add('js')</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Химчистка диванов, матрасов и ковров на дому — «Арома клининг», Новосибирск</title>
+<meta name="description" content="Химчистка мебели, матрасов и ковров на дому в Новосибирске. Все районы города, с 8:00 до 22:00 без выходных. Диван 3-местный от 1500 ₽, матрас от 1700 ₽. Телефон 8 (383) 381-44-83.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Onest:wght@400;500;600&family=Prata&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Клининговая компания «Арома клининг»",
+  "url": "http://aroma-clean.ru/",
+  "telephone": ["8 (383) 381-44-83", "+7 (913) 951-29-28"],
+  "email": "aroma-clean@yandex.ru",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Новосибирск",
+    "streetAddress": "Карла Маркса пр-т, д. 57, 7 этаж, оф. 707-1"
+  },
+  "openingHours": "Mo-Su 08:00-22:00",
+  "areaServed": "Новосибирск"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Сколько стоит химчистка дивана?","acceptedAnswer":{"@type":"Answer","text":"Детский или 2-местный диван с выдвижным местом — 1000 ₽. 3-местный с выдвижным местом — от 1500 ₽, 3-местный угловой — от 1800 ₽, 4-местный угловой — от 2000 ₽. Дополнительное посадочное место — 400 ₽. Итоговая цена зависит от размера предмета, особенностей материала и сложности работ."}},
+    {"@type":"Question","name":"Матрас чистите с двух сторон?","acceptedAnswer":{"@type":"Answer","text":"Да, матрасы чистим с двух сторон. Одно спальное место — от 1700 ₽, два спальных места — от 2500 ₽, детский матрас — 1000 ₽."}},
+    {"@type":"Question","name":"В какие районы Новосибирска выезжаете?","acceptedAnswer":{"@type":"Answer","text":"Работаем во всех районах Новосибирска. Офис — Карла Маркса пр-т, д. 57, 7 этаж, оф. 707-1, приём по предварительной записи."}},
+    {"@type":"Question","name":"Когда можно вызвать мастера?","acceptedAnswer":{"@type":"Answer","text":"С 8:00 до 22:00, без выходных. Телефоны: 8 (383) 381-44-83 и +7 (913) 951-29-28."}},
+    {"@type":"Question","name":"Ковёр нужно везти к вам или чистите на дому?","acceptedAnswer":{"@type":"Answer","text":"Ковры и ковровые покрытия чистим на дому, без вывоза: 200—500 ₽ за м² в зависимости от состояния. Ароматизация ковров — 30 ₽ за м²."}},
+    {"@type":"Question","name":"Что вы делаете кроме химчистки мебели?","acceptedAnswer":{"@type":"Answer","text":"Моем окна, убираем квартиры и офисы, а также помещения после ремонта. Постоянным клиентам на уборку — скидка 20%."}}
+  ]
+}
+</script>
+<style>
+:root{
+  --dur-hover:120ms;
+  --dur-ui:200ms;
+  --dur-modal:280ms;
+  --dur-reveal:500ms;
+  --dur-hero:700ms;
+  --stagger:80ms;
+  --dur-ui-out:160ms;
+  --dur-modal-out:220ms;
+  --ease-ui:cubic-bezier(0.165,0.84,0.44,1);
+  --ease-scene:cubic-bezier(0.4,0,0.2,1);
+  --ease-move:cubic-bezier(0.645,0.045,0.355,1);
+  --rise:24px;
+  --press:0.96;
+  --loop-glow:14s;
+
+  --canvas:#0f0f10;
+  --layer:#1d1d1f;
+  --layer-2:#232529;
+  --bone:#fefef7;
+  --cream:#f7f3ee;
+  --pewter:#86868b;
+  --steel:#868f97;
+  --hair:rgba(179,179,179,.18);
+  --hair-strong:rgba(179,179,179,.34);
+  --bronze:#f2b98b;
+  --apricot:#ffaf7c;
+  --amber:#d49065;
+
+  --u:4px;
+  --r-btn:6px;
+  --r-badge:12px;
+  --r-card:16px;
+  --r-media:36px;
+  --edge:-1px 2px 0 rgba(242,185,139,.14);
+  --measure:1220px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--bone);
+  background-color:var(--canvas);
+  background-image:radial-gradient(130% 70% at 50% -12%,rgba(212,144,101,.13) 0%,transparent 58%);
+  background-attachment:fixed;
+  font-family:Onest,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:16px;line-height:1.5;letter-spacing:.013em;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+h1,h2,h3{font-family:Oswald,"Onest",sans-serif;font-weight:600;margin:0;line-height:1;letter-spacing:.005em}
+h1{font-size:clamp(40px,7.4vw,84px);font-weight:700;line-height:.98}
+h2{font-size:clamp(28px,4.4vw,56px)}
+h3{font-size:20px;line-height:1.2;font-weight:600}
+p{margin:0}
+a{color:inherit}
+img,video{display:block;max-width:100%}
+.wrap{max-width:var(--measure);margin:0 auto;padding:0 24px;position:relative}
+.eyebrow{font-family:Onest,sans-serif;font-size:11px;font-weight:600;letter-spacing:.167em;text-transform:uppercase;color:var(--bronze);display:flex;align-items:center;gap:12px}
+.eyebrow::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(242,185,139,.5),transparent)}
+.lead{font-size:18px;line-height:1.55;color:var(--pewter);max-width:56ch}
+.mono{font-variant-numeric:tabular-nums}
+
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.5'/></svg>");
+  background-size:160px 160px}
+.glow{position:fixed;inset:auto 0 -30vh 0;height:80vh;z-index:0;pointer-events:none;
+  background:radial-gradient(60% 70% at 50% 100%,rgba(212,144,101,.30) 0%,rgba(212,144,101,.10) 45%,transparent 72%);
+  filter:blur(20px)}
+.js .glow{animation:breathe var(--loop-glow) var(--ease-scene) infinite alternate}
+@keyframes breathe{from{transform:translateY(4%) scale(1)}to{transform:translateY(-4%) scale(1.06)}}
+
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;transform-origin:0 50%;
+  background:linear-gradient(90deg,var(--amber),var(--apricot),var(--bronze))}
+@supports (animation-timeline:scroll(root)){
+  .progress{transform:scaleX(0);animation:bar linear both;animation-timeline:scroll(root)}
+  @keyframes bar{to{transform:scaleX(1)}}
+}
+@supports not (animation-timeline:scroll(root)){ .progress{display:none} }
+
+.top{position:sticky;top:0;z-index:50;background:rgba(15,15,16,.82);backdrop-filter:blur(14px) saturate(120%);border-bottom:1px solid var(--hair)}
+.top .wrap{display:flex;align-items:center;gap:28px;height:72px}
+.brand{font-family:Oswald,sans-serif;font-size:22px;font-weight:600;letter-spacing:.02em;text-decoration:none;text-transform:uppercase;white-space:nowrap;line-height:1}
+.brand small{display:block;font-family:Onest,sans-serif;font-size:10px;font-weight:600;letter-spacing:.167em;color:var(--steel);margin-top:5px}
+.top nav{display:none;gap:26px;margin-left:auto;font-size:15px}
+.top nav a{text-decoration:none;color:var(--pewter);padding:4px 0;position:relative;transition:color var(--dur-hover) var(--ease-ui)}
+.top nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--bronze);transform:scaleX(0);transform-origin:0 50%;transition:transform var(--dur-ui) var(--ease-ui)}
+.top nav a:hover{color:var(--bone)}
+.top nav a:hover::after{transform:scaleX(1)}
+.top .call{margin-left:auto;font-family:Oswald,sans-serif;font-size:18px;font-weight:500;letter-spacing:.02em;text-decoration:none;white-space:nowrap;border:1px solid var(--hair-strong);border-radius:var(--r-btn);padding:9px 16px;transition:border-color var(--dur-hover) var(--ease-ui),color var(--dur-hover) var(--ease-ui)}
+.top .call:hover{border-color:var(--bronze);color:var(--bronze)}
+@media (min-width:960px){ .top nav{display:flex} .top .call{margin-left:0} }
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;
+  border:1px solid var(--bone);background:var(--bone);color:var(--canvas);text-decoration:none;
+  font-weight:600;font-size:16px;border-radius:var(--r-btn);
+  transition:transform var(--dur-hover) var(--ease-ui),background var(--dur-hover) var(--ease-ui),color var(--dur-hover) var(--ease-ui),border-color var(--dur-hover) var(--ease-ui)}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(var(--press))}
+.btn:focus-visible{outline:2px solid var(--bronze);outline-offset:2px}
+.btn.ghost{background:transparent;color:var(--bronze);border-color:rgba(242,185,139,.45)}
+.btn.ghost:hover{border-color:var(--bronze);background:transparent;color:var(--bronze)}
+
+.section{position:relative;z-index:1;padding:clamp(64px,8vw,112px) 0}
+.section-head{display:grid;gap:20px;margin-bottom:clamp(36px,5vw,64px)}
+@media (min-width:900px){ .section-head{grid-template-columns:minmax(0,1fr) minmax(0,26rem);align-items:end;gap:48px} }
+
+/* ── первый экран ─────────────────────────────────────────── */
+.hero{position:relative;z-index:1;padding:clamp(40px,6vw,72px) 0 clamp(48px,6vw,88px)}
+.hero-stack{position:relative}
+.hero-panel{position:relative;border-radius:var(--r-media);overflow:hidden;background:var(--layer);
+  border:1px solid var(--hair);box-shadow:var(--edge);
+  aspect-ratio:16/10;max-height:66vh}
+.hero-panel video,.hero-panel img{width:100%;height:100%;object-fit:cover}
+.hero-panel::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(175deg,rgba(15,15,16,.20) 0%,rgba(15,15,16,.55) 58%,rgba(15,15,16,.92) 100%)}
+.hero-copy{position:relative;z-index:3;margin-top:-14%;padding:0 clamp(4px,3vw,40px)}
+.hero-copy h1{max-width:15ch;text-wrap:balance}
+.hero-copy .lead{margin-top:22px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.hero-chip{position:absolute;z-index:4;right:clamp(12px,4vw,40px);top:clamp(16px,5vw,48px);
+  background:rgba(29,29,31,.78);backdrop-filter:blur(10px);border:1px solid var(--hair-strong);
+  border-radius:var(--r-card);padding:16px 20px;max-width:16rem;box-shadow:var(--edge)}
+.hero-chip .k{font-family:Oswald,sans-serif;font-size:28px;font-weight:600;color:var(--bone);line-height:1}
+.hero-chip .v{font-size:13px;color:var(--steel);margin-top:8px}
+.facts{display:grid;gap:1px;margin-top:clamp(40px,6vw,72px);background:var(--hair);
+  border:1px solid var(--hair);border-radius:var(--r-card);overflow:hidden}
+@media (min-width:760px){ .facts{grid-template-columns:repeat(4,1fr)} }
+.facts div{background:var(--layer);padding:22px 20px}
+.facts dt{font-size:11px;font-weight:600;letter-spacing:.167em;text-transform:uppercase;color:var(--steel)}
+.facts dd{margin:10px 0 0;font-family:Oswald,sans-serif;font-size:22px;font-weight:500;letter-spacing:.01em;color:var(--bone)}
+
+@media (max-width:760px){
+  .hero-stack{display:grid;grid-template-columns:1fr}
+  .hero-panel{aspect-ratio:4/5;max-height:none;order:1}
+  .hero-copy{order:2;margin-top:-18%;padding:0 4px}
+  .hero-chip{order:3;position:static;max-width:none;margin-top:28px;background:var(--layer);backdrop-filter:none}
+  .hero-cta .btn{flex:1 1 100%}
+}
+
+@supports (animation-timeline:scroll()){
+  @media (prefers-reduced-motion:no-preference){
+    .hero-panel video,.hero-panel img{animation:drift linear both;animation-timeline:scroll();animation-range:0 70vh}
+    @keyframes drift{to{transform:translateY(-38px) scale(1.06)}}
+    .hero-chip{animation:lift linear both;animation-timeline:scroll();animation-range:0 70vh}
+    @keyframes lift{to{transform:translateY(-56px)}}
+  }
+}
+
+/* ── до и после ───────────────────────────────────────────── */
+.works{display:grid;gap:clamp(28px,4vw,56px)}
+@media (min-width:900px){ .works{grid-template-columns:repeat(3,1fr);align-items:start} }
+.work{position:relative}
+.ba{position:relative;border-radius:var(--r-media);overflow:hidden;border:1px solid var(--hair);background:var(--layer);box-shadow:var(--edge)}
+.ba img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.ba img+img{position:absolute;inset:0;height:100%;clip-path:inset(0 0 0 var(--pos,50%))}
+.ba .tag{position:absolute;top:14px;z-index:3;font-size:10px;font-weight:600;letter-spacing:.167em;text-transform:uppercase;
+  padding:6px 10px;border-radius:var(--r-badge);background:rgba(15,15,16,.72);backdrop-filter:blur(6px);border:1px solid var(--hair-strong)}
+.ba .tag.a{left:14px;color:var(--bronze)}
+.ba .tag.b{right:14px;color:var(--bone)}
+.ba .seam{position:absolute;top:0;bottom:0;z-index:3;width:1px;left:var(--pos,50%);background:var(--bronze);pointer-events:none}
+.ba .seam::after{content:"";position:absolute;top:50%;left:50%;width:44px;height:44px;transform:translate(-50%,-50%);
+  border-radius:50%;border:1px solid var(--bronze);background:rgba(15,15,16,.42);backdrop-filter:blur(4px);
+  box-shadow:0 0 0 1px rgba(15,15,16,.5),0 0 24px rgba(242,185,139,.35)}
+.ba .seam::before{content:"";position:absolute;top:50%;left:50%;z-index:2;width:16px;height:8px;transform:translate(-50%,-50%);
+  background:linear-gradient(90deg,var(--bronze) 0 6px,transparent 6px 10px,var(--bronze) 10px 16px);
+  clip-path:polygon(0 50%,5px 0,5px 100%,11px 0,16px 50%,11px 100%,5px 100%)}
+.ba input[type=range]{position:absolute;inset:0;z-index:4;width:100%;height:100%;margin:0;padding:0;
+  appearance:none;-webkit-appearance:none;background:transparent;cursor:ew-resize}
+.ba input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:44px;height:100%;background:transparent;cursor:ew-resize}
+.ba input[type=range]::-moz-range-thumb{width:44px;height:220px;border:0;background:transparent;cursor:ew-resize}
+.ba input[type=range]:focus-visible{outline:2px solid var(--bronze);outline-offset:2px}
+.work h3{margin-top:20px}
+.work p{margin-top:8px;font-size:15px;color:var(--pewter)}
+@media (min-width:900px){
+  .work:nth-child(2){margin-top:48px}
+  .work:nth-child(3){margin-top:20px}
+}
+@supports (animation-timeline:scroll()){
+  @media (min-width:900px) and (prefers-reduced-motion:no-preference){
+    .work:nth-child(1) .ba{animation:slow linear both;animation-timeline:scroll();animation-range:cover 0% cover 100%}
+    .work:nth-child(3) .ba{animation:fast linear both;animation-timeline:scroll();animation-range:cover 0% cover 100%}
+    @keyframes slow{from{transform:translateY(26px)}to{transform:translateY(-26px)}}
+    @keyframes fast{from{transform:translateY(46px)}to{transform:translateY(-46px)}}
+  }
+}
+
+/* ── что чистим ───────────────────────────────────────────── */
+.grid{display:grid;gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:var(--r-card);overflow:hidden;position:relative}
+@media (min-width:700px){ .grid{grid-template-columns:repeat(2,1fr)} }
+@media (min-width:1000px){ .grid{grid-template-columns:repeat(3,1fr)} }
+.cell{background:var(--layer);padding:clamp(24px,3vw,34px);position:relative;display:flex;flex-direction:column;transition:background var(--dur-ui) var(--ease-ui)}
+.cell:hover{background:var(--layer-2)}
+.cell h3{margin-bottom:12px}
+.cell p{font-size:15px;color:var(--pewter);margin-bottom:22px}
+.cell .price{margin-top:auto;padding-top:16px;border-top:1px solid var(--hair);
+  font-family:Oswald,sans-serif;font-size:20px;font-weight:500;letter-spacing:.01em;color:var(--bronze)}
+.cell .price span{display:block;font-family:Onest,sans-serif;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--steel);margin-top:6px}
+@media (hover:hover) and (pointer:fine){
+  .grid::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:radial-gradient(220px 220px at var(--mx,-500px) var(--my,-500px),rgba(242,185,139,.10),transparent 70%)}
+}
+
+/* ── цены: закреплённая сцена ─────────────────────────────── */
+.price-scene{display:grid;gap:clamp(28px,4vw,56px)}
+@media (min-width:1000px){ .price-scene{grid-template-columns:minmax(0,17rem) minmax(0,1fr);align-items:start} }
+.price-nav{position:sticky;top:104px;display:grid;gap:2px}
+.price-nav a{text-decoration:none;font-family:Oswald,sans-serif;font-size:20px;font-weight:500;letter-spacing:.01em;
+  color:var(--steel);padding:10px 0 10px 18px;border-left:1px solid var(--hair);
+  transition:color var(--dur-ui) var(--ease-ui),border-color var(--dur-ui) var(--ease-ui)}
+.price-nav a:hover{color:var(--bone)}
+.price-nav a.is-cur{color:var(--bronze);border-left-color:var(--bronze)}
+.price-block{scroll-margin-top:110px}
+.price-block+.price-block{margin-top:clamp(40px,5vw,72px)}
+.price-block h3{font-size:24px;color:var(--bone);padding-bottom:16px;border-bottom:1px solid var(--hair-strong)}
+.price-block dl{margin:0}
+.price-row{display:flex;align-items:baseline;gap:12px;padding:14px 0;border-bottom:1px solid var(--hair)}
+.price-row dt{flex:1;font-size:15px;color:var(--pewter)}
+.price-row dd{margin:0;font-family:Oswald,sans-serif;font-size:18px;font-weight:500;letter-spacing:.01em;color:var(--bone);white-space:nowrap}
+.note{margin-top:28px;font-size:13px;line-height:1.6;color:var(--steel);padding-left:16px;border-left:1px solid rgba(242,185,139,.4)}
+
+/* ── отзывы ───────────────────────────────────────────────── */
+.rail{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 24px 24px;margin:0 -24px;
+  scrollbar-width:thin;scrollbar-color:var(--hair-strong) transparent}
+.rev{scroll-snap-align:start;flex:0 0 min(88vw,26rem);background:var(--layer);border:1px solid var(--hair);
+  border-radius:var(--r-card);padding:28px;display:flex;flex-direction:column;box-shadow:var(--edge)}
+.rev .q{font-family:Prata,Georgia,serif;font-size:34px;line-height:1;color:var(--bronze);margin-bottom:14px}
+.rev p{font-size:15px;line-height:1.6;color:var(--bone)}
+.rev footer{margin-top:auto;padding-top:22px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--steel)}
+.rev footer b{display:block;font-weight:600;letter-spacing:.04em;text-transform:none;font-size:15px;color:var(--pewter);margin-bottom:4px}
+
+/* ── частые вопросы ───────────────────────────────────────── */
+.faq{display:grid;gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:var(--r-card);overflow:hidden}
+.faq details{background:var(--layer);transition:background var(--dur-ui) var(--ease-ui)}
+.faq details[open]{background:var(--layer-2)}
+.faq summary{list-style:none;cursor:pointer;display:flex;align-items:flex-start;gap:16px;
+  padding:24px clamp(20px,3vw,32px);font-family:Oswald,sans-serif;font-size:20px;font-weight:500;letter-spacing:.01em;color:var(--bone)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:0 0 12px;width:12px;height:12px;margin-top:7px;margin-left:auto;
+  border-right:1px solid var(--bronze);border-bottom:1px solid var(--bronze);
+  transform:rotate(45deg);transition:transform var(--dur-ui) var(--ease-ui)}
+.faq details[open] summary::after{transform:rotate(225deg)}
+.faq summary:hover{color:var(--bronze)}
+.faq summary:focus-visible{outline:2px solid var(--bronze);outline-offset:-4px}
+.faq .answer{padding:0 clamp(20px,3vw,32px) 26px;font-size:15px;line-height:1.65;color:var(--pewter);max-width:70ch}
+
+/* ── заявка на светлой плите ──────────────────────────────── */
+.form-plate{background:var(--cream);color:var(--canvas);border-radius:var(--r-media);
+  padding:clamp(32px,5vw,64px);display:grid;gap:clamp(28px,4vw,56px)}
+@media (min-width:900px){ .form-plate{grid-template-columns:minmax(0,1fr) minmax(0,26rem)} }
+.form-plate h2{color:var(--canvas)}
+.form-plate .eyebrow{color:#8a5a35}
+.form-plate .eyebrow::after{background:linear-gradient(90deg,rgba(138,90,53,.45),transparent)}
+.form-plate .lead{color:#4a4a4d;margin-top:18px}
+.plate-facts{margin-top:32px;display:grid;gap:10px;font-size:15px;color:#4a4a4d}
+.plate-facts a{font-family:Oswald,sans-serif;font-size:22px;font-weight:500;letter-spacing:.01em;color:var(--canvas);text-decoration:none;border-bottom:1px solid rgba(15,15,16,.25)}
+.plate-facts a:hover{border-color:var(--canvas)}
+.field{display:grid;gap:8px;margin-bottom:16px}
+.field label{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6d6d70}
+.field input,.field textarea{font:inherit;font-size:16px;padding:14px;border:1px solid rgba(15,15,16,.18);
+  border-radius:var(--r-btn);background:#fff;color:var(--canvas);
+  transition:border-color var(--dur-hover) var(--ease-ui),box-shadow var(--dur-hover) var(--ease-ui)}
+.field input:focus,.field textarea:focus{outline:none;border-color:#8a5a35;box-shadow:0 0 0 3px rgba(212,144,101,.28)}
+.field textarea{min-height:104px;resize:vertical}
+form .btn{width:100%;background:var(--canvas);border-color:var(--canvas);color:var(--cream)}
+form .btn:hover{background:#000;border-color:#000}
+form .hint{margin-top:14px;font-size:13px;line-height:1.6;color:#6d6d70}
+
+/* ── контакты и подвал ────────────────────────────────────── */
+.contacts{display:grid;gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:var(--r-card);overflow:hidden}
+@media (min-width:700px){ .contacts{grid-template-columns:repeat(2,1fr)} }
+@media (min-width:1000px){ .contacts{grid-template-columns:repeat(3,1fr)} }
+.contacts div{background:var(--layer);padding:26px}
+.contacts dt{font-size:11px;font-weight:600;letter-spacing:.167em;text-transform:uppercase;color:var(--steel)}
+.contacts dd{margin:12px 0 0;font-size:16px;line-height:1.5;color:var(--bone)}
+.contacts dd a{text-decoration:none;border-bottom:1px solid rgba(242,185,139,.4)}
+.contacts dd a:hover{border-color:var(--bronze);color:var(--bronze)}
+.foot{position:relative;z-index:1;border-top:1px solid var(--hair);padding:36px 0 56px;font-size:14px;color:var(--steel)}
+.foot .wrap{display:grid;gap:10px}
+
+/* ── появление по скроллу ─────────────────────────────────── */
+.reveal{opacity:1}
+.js .reveal{opacity:0;transform:translateY(var(--rise));
+  transition:opacity var(--dur-reveal) var(--ease-scene),transform var(--dur-reveal) var(--ease-scene);
+  transition-delay:calc(var(--i,0) * var(--stagger))}
+.js .reveal.is-in{opacity:1;transform:none}
+.hero-in{opacity:1}
+.js .hero-in{opacity:0;animation:rise-in var(--dur-hero) var(--ease-scene) both;
+  animation-delay:calc(var(--i,0) * var(--stagger))}
+@keyframes rise-in{from{opacity:0;transform:translateY(var(--rise))}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .js .reveal{opacity:1 !important;transform:none !important}
+}
+@media print{
+  .js .reveal{opacity:1 !important;transform:none !important;animation:none !important}
+  canvas{display:none}
+}
+</style>
+</head>
+<body id="top">
+<div class="progress" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Арома клининг<small>Новосибирск</small></a>
+    <nav>
+      <a href="#works">До и после</a>
+      <a href="#services">Что чистим</a>
+      <a href="#prices">Цены</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#faq">Вопросы</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a class="call" href="tel:+73833814483">8 (383) 381-44-83</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-stack">
+      <div class="hero-panel hero-in" style="--i:0">
+        <video id="heroVideo" src="media/hero-loop.mp4" poster="media/hero-poster.webp" width="1400" height="782" autoplay muted loop playsinline preload="none" aria-label="Насадка машины для химчистки проходит по обивке дивана"></video>
+      </div>
+      <div class="hero-chip hero-in" style="--i:1">
+        <div class="k">8:00 — 22:00</div>
+        <div class="v">Без выходных, выезд во все районы Новосибирска</div>
+      </div>
+      <div class="hero-copy">
+        <p class="eyebrow hero-in" style="--i:2">Химчистка на дому · Новосибирск</p>
+        <h1 class="hero-in" style="--i:3">Диван, матрас и ковёр чистим у вас дома</h1>
+        <p class="lead hero-in" style="--i:4">Выезжаем во все районы города. Работаем с 8:00 до 22:00, без выходных.</p>
+        <div class="hero-cta hero-in" style="--i:5">
+          <a class="btn" href="#order">Оставить заявку</a>
+          <a class="btn ghost" href="tel:+73833814483">Позвонить</a>
+        </div>
+      </div>
+    </div>
+
+    <dl class="facts hero-in" style="--i:6">
+      <div><dt>Диван 3-местный</dt><dd>от 1500 ₽</dd></div>
+      <div><dt>Матрас, две стороны</dt><dd>от 1700 ₽</dd></div>
+      <div><dt>Ковёр на дому</dt><dd>200—500 ₽/м²</dd></div>
+      <div><dt>Уборка квартиры</dt><dd>от 25 ₽/м²</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section" id="works">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow reveal" style="--i:0">Работы</p>
+        <h2 class="reveal" style="--i:1;margin-top:18px">До и после</h2>
+      </div>
+      <p class="lead reveal" style="--i:2">Потяните ползунок, чтобы сравнить. Слева — состояние до чистки, справа — после: диваны в тканевой обивке и матрас, вычищенный с двух сторон.</p>
+    </div>
+
+    <div class="works">
+      <article class="work reveal" style="--i:0">
+        <div class="ba" style="--pos:50%">
+          <img src="media/matras-do.webp" width="1400" height="1021" alt="Матрас с жёлтыми пятнами до химчистки" loading="lazy" decoding="async">
+          <img src="media/matras-posle.webp" width="1400" height="1021" alt="Тот же матрас после химчистки" loading="lazy" decoding="async">
+          <span class="tag a">До</span>
+          <span class="tag b">После</span>
+          <span class="seam" aria-hidden="true"></span>
+          <input type="range" min="0" max="100" value="50" aria-label="Сравнить матрас до и после химчистки"
+                 oninput="this.closest('.ba').style.setProperty('--pos', this.value + '%')">
+        </div>
+        <h3>Матрас, две стороны</h3>
+        <p>Жёлтые разводы по стёжке.</p>
+      </article>
+
+      <article class="work reveal" style="--i:1">
+        <div class="ba" style="--pos:50%">
+          <img src="media/divan-bordo-do.webp" width="1400" height="1021" alt="Угловой диван бордового цвета до химчистки" loading="lazy" decoding="async">
+          <img src="media/divan-bordo-posle.webp" width="1400" height="1021" alt="Тот же угловой диван после химчистки" loading="lazy" decoding="async">
+          <span class="tag a">До</span>
+          <span class="tag b">После</span>
+          <span class="seam" aria-hidden="true"></span>
+          <input type="range" min="0" max="100" value="50" aria-label="Сравнить угловой диван до и после химчистки"
+                 oninput="this.closest('.ba').style.setProperty('--pos', this.value + '%')">
+        </div>
+        <h3>Угловой диван</h3>
+        <p>Пыль и ворс по сиденьям и спинке.</p>
+      </article>
+
+      <article class="work reveal" style="--i:2">
+        <div class="ba" style="--pos:50%">
+          <img src="media/divan-seryy-do.webp" width="1400" height="933" alt="Светло-серый диван с пятнами до химчистки" loading="lazy" decoding="async">
+          <img src="media/divan-seryy-posle.webp" width="1400" height="933" alt="Тот же светло-серый диван после химчистки" loading="lazy" decoding="async">
+          <span class="tag a">До</span>
+          <span class="tag b">После</span>
+          <span class="seam" aria-hidden="true"></span>
+          <input type="range" min="0" max="100" value="50" aria-label="Сравнить светлый диван до и после химчистки"
+                 oninput="this.closest('.ba').style.setProperty('--pos', this.value + '%')">
+        </div>
+        <h3>Диван в светлой обивке</h3>
+        <p>Пятна на сиденьях и подлокотнике.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow reveal" style="--i:0">Услуги</p>
+        <h2 class="reveal" style="--i:1">Что чистим</h2>
+      </div>
+      <p class="lead reveal" style="--i:2">Химчистка мебели, матрасов и ковров — на дому. Кроме этого моем окна, убираем квартиры, офисы и помещения после ремонта.</p>
+    </div>
+
+    <div class="grid reveal" id="serviceGrid" style="--i:0">
+      <div class="cell">
+        <h3>Диваны</h3>
+        <p>Прямые и угловые, вместе с выдвижным местом. Дополнительное посадочное место — 400 ₽.</p>
+        <p class="price">от 1500 ₽<span>3-местный диван</span></p>
+      </div>
+      <div class="cell">
+        <h3>Кресла, стулья, пуфы</h3>
+        <p>Стул — 250 ₽, кресло — 600 ₽, пуфик — 300 ₽, декоративная подушка — 200 ₽.</p>
+        <p class="price">от 200 ₽<span>за предмет</span></p>
+      </div>
+      <div class="cell">
+        <h3>Матрасы</h3>
+        <p>Чистим с двух сторон. Детский матрас — 1000 ₽, мягкие игрушки — 500 ₽.</p>
+        <p class="price">от 1700 ₽<span>одно спальное место</span></p>
+      </div>
+      <div class="cell">
+        <h3>Ковры на дому</h3>
+        <p>Ковры и ковровые покрытия без вывоза. Ароматизация — 30 ₽ за м².</p>
+        <p class="price">200—500 ₽ за м²<span>по состоянию</span></p>
+      </div>
+      <div class="cell">
+        <h3>Мытьё окон</h3>
+        <p>Одна рама — 200 ₽, две рамы — 300 ₽, балкон — 800 ₽, москитная сетка — 80 ₽.</p>
+        <p class="price">от 80 ₽<span>за элемент</span></p>
+      </div>
+      <div class="cell">
+        <h3>Уборка</h3>
+        <p>Квартиры и офисы, а также уборка после ремонта. Постоянным клиентам — скидка 20%.</p>
+        <p class="price">от 25 ₽ за м²<span>в квартире</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="prices">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow reveal" style="--i:0">Прайс</p>
+        <h2 class="reveal" style="--i:1">Цены</h2>
+      </div>
+      <p class="lead reveal" style="--i:2">Итоговая цена зависит от размера предмета, особенностей материала и сложности работ — её называют по телефону.</p>
+    </div>
+
+    <div class="price-scene">
+      <nav class="price-nav" aria-label="Разделы прайса">
+        <a href="#price-mebel">Химчистка мебели</a>
+        <a href="#price-matras">Матрасы и ковры</a>
+        <a href="#price-okna">Мытьё окон</a>
+        <a href="#price-uborka">Уборка и допуслуги</a>
+      </nav>
+
+      <div>
+        <div class="price-block" id="price-mebel">
+          <h3>Химчистка мебели</h3>
+          <dl>
+            <div class="price-row"><dt>Диван детский, 2-местный, с выдвижным местом</dt><dd class="mono">1000 ₽</dd></div>
+            <div class="price-row"><dt>Диван 3-местный, с выдвижным местом</dt><dd class="mono">от 1500 ₽</dd></div>
+            <div class="price-row"><dt>Диван 3-местный угловой</dt><dd class="mono">от 1800 ₽</dd></div>
+            <div class="price-row"><dt>Диван 4-местный угловой</dt><dd class="mono">от 2000 ₽</dd></div>
+            <div class="price-row"><dt>Дополнительное посадочное место</dt><dd class="mono">400 ₽</dd></div>
+            <div class="price-row"><dt>Кресло</dt><dd class="mono">600 ₽</dd></div>
+            <div class="price-row"><dt>Стул</dt><dd class="mono">250 ₽</dd></div>
+            <div class="price-row"><dt>Пуфик</dt><dd class="mono">300 ₽</dd></div>
+            <div class="price-row"><dt>Подушка декоративная</dt><dd class="mono">200 ₽</dd></div>
+            <div class="price-row"><dt>Кухонный уголок</dt><dd class="mono">от 500 ₽</dd></div>
+          </dl>
+        </div>
+
+        <div class="price-block" id="price-matras">
+          <h3>Матрасы и ковры</h3>
+          <dl>
+            <div class="price-row"><dt>Матрас, 1 спальное место, с двух сторон</dt><dd class="mono">от 1700 ₽</dd></div>
+            <div class="price-row"><dt>Матрас, 2 спальных места, с двух сторон</dt><dd class="mono">от 2500 ₽</dd></div>
+            <div class="price-row"><dt>Матрас детский, с двух сторон</dt><dd class="mono">1000 ₽</dd></div>
+            <div class="price-row"><dt>Мягкие игрушки</dt><dd class="mono">500 ₽</dd></div>
+            <div class="price-row"><dt>Ковры и ковровые покрытия на дому</dt><dd class="mono">200—500 ₽/м²</dd></div>
+            <div class="price-row"><dt>Ароматизация ковров</dt><dd class="mono">30 ₽/м²</dd></div>
+          </dl>
+        </div>
+
+        <div class="price-block" id="price-okna">
+          <h3>Мытьё окон</h3>
+          <dl>
+            <div class="price-row"><dt>Окно, одна рама</dt><dd class="mono">200 ₽</dd></div>
+            <div class="price-row"><dt>Окно, две рамы</dt><dd class="mono">300 ₽</dd></div>
+            <div class="price-row"><dt>Балкон</dt><dd class="mono">800 ₽</dd></div>
+            <div class="price-row"><dt>Балконная дверь</dt><dd class="mono">300 ₽</dd></div>
+            <div class="price-row"><dt>Балконный блок (дверь + окно)</dt><dd class="mono">500 ₽</dd></div>
+            <div class="price-row"><dt>Москитная сетка</dt><dd class="mono">80 ₽</dd></div>
+            <div class="price-row"><dt>Сайдинг, облицовочные покрытия</dt><dd class="mono">100 ₽</dd></div>
+            <div class="price-row"><dt>Оконные решётки</dt><dd class="mono">100 ₽</dd></div>
+            <div class="price-row"><dt>Нестандартное остекление, обе стороны</dt><dd class="mono">50—180 ₽/м²</dd></div>
+          </dl>
+        </div>
+
+        <div class="price-block" id="price-uborka">
+          <h3>Уборка и допуслуги</h3>
+          <dl>
+            <div class="price-row"><dt>Уборка квартир, от 3 часов, 2—3 работника</dt><dd class="mono">25 ₽/м²</dd></div>
+            <div class="price-row"><dt>Уборка офисов, от 3 часов, 2—3 работника</dt><dd class="mono">38 ₽/м²</dd></div>
+            <div class="price-row"><dt>После ремонта, без мебели</dt><dd class="mono">75 ₽/м²</dd></div>
+            <div class="price-row"><dt>После ремонта, с мебелью</dt><dd class="mono">100 ₽/м²</dd></div>
+            <div class="price-row"><dt>Удаление запахов (ароматизация)</dt><dd class="mono">200—500 ₽</dd></div>
+            <div class="price-row"><dt>Сушка мебели</dt><dd class="mono">от 1500 ₽</dd></div>
+          </dl>
+          <p class="note">Постоянным клиентам на уборку — скидка 20%. Указанная цена носит информационный характер и не является публичной офертой: окончательную цену уточняйте у менеджера по телефону 8 (383) 381-44-83.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow reveal" style="--i:0">Отзывы</p>
+        <h2 class="reveal" style="--i:1">Что пишут клиенты</h2>
+      </div>
+      <p class="lead reveal" style="--i:2">Отзывы, оставленные на нашем сайте. Имена и даты — как их указали сами клиенты.</p>
+    </div>
+
+    <div class="rail reveal" style="--i:0">
+      <article class="rev">
+        <p class="q" aria-hidden="true">«</p>
+        <p>Химчистка на дому спасла нашу семью, когда нужно было очистить мягкие игрушки нашего маленького ребенка. Особенно впечатлило качество чистки подушек — они словно новые, без единого пятнышка!</p>
+        <footer><b>Яворская Настя</b>15 апреля 2026</footer>
+      </article>
+      <article class="rev">
+        <p class="q" aria-hidden="true">«</p>
+        <p>Обратился для химчистки своего любимого дивана из светлого велюра. Мастер приехал точно в назначенное время. Особенно порадовало, как аккуратно и деликатно он обработал отбивку на подлокотниках.</p>
+        <footer><b>Владислав Х</b>4 февраля 2026</footer>
+      </article>
+      <article class="rev">
+        <p class="q" aria-hidden="true">«</p>
+        <p>У меня дома содержится собака, поэтому шерсть на мебели — привычное дело. После обработки вся грязь исчезла, а мебель приобрела прежний вид без шерсти и посторонних запахов.</p>
+        <footer><b>Кирилл Алексеевич</b>18 декабря 2025</footer>
+      </article>
+      <article class="rev">
+        <p class="q" aria-hidden="true">«</p>
+        <p>Когда я случайно разлила красное вино на свои дорогие стулья, казалось, что придется менять всю обивку. Но грязные стулья стали чистыми, как будто их только что купили!</p>
+        <footer><b>Елизавета</b>15 октября 2025</footer>
+      </article>
+      <article class="rev">
+        <p class="q" aria-hidden="true">«</p>
+        <p>Меня беспокоила аллергия на пыль и шерсть кошки, которая постоянно накапливалась на ковре. После работы мастера ковер стал удивительно чистым, без малейших следов шерсти и пыли. Порадовало, что после чистки он быстро высох.</p>
+        <footer><b>Владимир Иванов</b>28 июня 2025</footer>
+      </article>
+      <article class="rev">
+        <p class="q" aria-hidden="true">«</p>
+        <p>Давно сотрудничаем с данной организацией. Итогом работы удовлетворены. Специалист приезжает точно в срок.</p>
+        <footer><b>«Источник. Вода для здоровья»</b>19 декабря 2024</footer>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow reveal" style="--i:0">Вопросы</p>
+        <h2 class="reveal" style="--i:1">Что спрашивают чаще всего</h2>
+      </div>
+      <p class="lead reveal" style="--i:2">Короткие ответы по нашим условиям и прайсу. Всё остальное — по телефону 8 (383) 381-44-83.</p>
+    </div>
+
+    <div class="faq reveal" style="--i:0">
+      <details>
+        <summary>Сколько стоит химчистка дивана?</summary>
+        <p class="answer">Детский или 2-местный диван с выдвижным местом — 1000 ₽. 3-местный с выдвижным местом — от 1500 ₽, 3-местный угловой — от 1800 ₽, 4-местный угловой — от 2000 ₽. Дополнительное посадочное место — 400 ₽. Итоговая цена зависит от размера предмета, особенностей материала и сложности работ — её называют по телефону.</p>
+      </details>
+      <details>
+        <summary>Матрас чистите с двух сторон?</summary>
+        <p class="answer">Да, матрасы чистим с двух сторон. Одно спальное место — от 1700 ₽, два спальных места — от 2500 ₽, детский матрас — 1000 ₽. Мягкие игрушки — 500 ₽.</p>
+      </details>
+      <details>
+        <summary>В какие районы Новосибирска выезжаете?</summary>
+        <p class="answer">Работаем во всех районах Новосибирска. Офис — Карла Маркса пр-т, д. 57, 7 этаж, оф. 707-1, приём по предварительной записи.</p>
+      </details>
+      <details>
+        <summary>Когда можно вызвать мастера?</summary>
+        <p class="answer">С 8:00 до 22:00, без выходных. Телефоны: 8 (383) 381-44-83 и +7 (913) 951-29-28, почта — aroma-clean@yandex.ru.</p>
+      </details>
+      <details>
+        <summary>Ковёр нужно везти к вам или чистите на дому?</summary>
+        <p class="answer">Ковры и ковровые покрытия чистим на дому, без вывоза: 200—500 ₽ за м² в зависимости от состояния. Ароматизация ковров — 30 ₽ за м².</p>
+      </details>
+      <details>
+        <summary>Что вы делаете кроме химчистки мебели?</summary>
+        <p class="answer">Моем окна: одна рама — 200 ₽, две рамы — 300 ₽, балкон — 800 ₽, москитная сетка — 80 ₽. Убираем квартиры — 25 ₽ за м², офисы — 38 ₽ за м², помещения после ремонта — 75 ₽ за м² без мебели и 100 ₽ за м² с мебелью. Постоянным клиентам на уборку — скидка 20%.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="order">
+  <div class="wrap">
+    <div class="form-plate reveal" style="--i:0">
+      <div>
+        <p class="eyebrow">Заявка</p>
+        <h2 style="margin-top:18px">Вызвать мастера</h2>
+        <p class="lead">Оставьте телефон и напишите, что нужно почистить. Или позвоните сами: с 8:00 до 22:00, без выходных.</p>
+        <div class="plate-facts">
+          <div><a href="tel:+73833814483">8 (383) 381-44-83</a></div>
+          <div><a href="tel:+79139512928">+7 (913) 951-29-28</a></div>
+          <div>Почта <a href="mailto:aroma-clean@yandex.ru" style="font-size:16px">aroma-clean@yandex.ru</a></div>
+        </div>
+      </div>
+
+      <form id="lead" novalidate>
+        <div class="field">
+          <label for="name">Как к вам обращаться</label>
+          <input id="name" name="name" type="text" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="phone">Телефон</label>
+          <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required>
+        </div>
+        <div class="field">
+          <label for="task">Что нужно почистить</label>
+          <textarea id="task" name="task" placeholder="Например: угловой диван и два кресла, Ленинский район"></textarea>
+        </div>
+        <button class="btn" type="submit">Отправить заявку</button>
+        <p class="hint">Заявка уйдёт на aroma-clean@yandex.ru. Если удобнее голосом — 8 (383) 381-44-83.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contacts" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow reveal" style="--i:0">Контакты</p>
+        <h2 class="reveal" style="--i:1">Как связаться</h2>
+      </div>
+    </div>
+    <dl class="contacts reveal" style="--i:0">
+      <div><dt>Телефоны</dt><dd><a href="tel:+73833814483">8 (383) 381-44-83</a><br><a href="tel:+79139512928">+7 (913) 951-29-28</a></dd></div>
+      <div><dt>Часы</dt><dd>с 8:00 до 22:00, без выходных</dd></div>
+      <div><dt>Район</dt><dd>Новосибирск, работаем во всех районах</dd></div>
+      <div><dt>Почта</dt><dd><a href="mailto:aroma-clean@yandex.ru">aroma-clean@yandex.ru</a></dd></div>
+      <div><dt>Офис</dt><dd>Карла Маркса пр-т, д. 57, 7 этаж, оф. 707-1 — по предварительной записи</dd></div>
+    </dl>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div>Клининговая компания «Арома клининг», Новосибирск</div>
+    <div>8 (383) 381-44-83 · +7 (913) 951-29-28 · aroma-clean@yandex.ru</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var w = new IntersectionObserver(function (es) {
+      for (var i = 0; i < es.length; i++) {
+        if (es[i].isIntersecting) { es[i].target.classList.add('is-in'); w.unobserve(es[i].target); }
+      }
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+    for (var i = 0; i < reveals.length; i++) w.observe(reveals[i]);
+  } else {
+    for (var j = 0; j < reveals.length; j++) reveals[j].classList.add('is-in');
+  }
+
+  var video = document.getElementById('heroVideo');
+  if (video && 'IntersectionObserver' in window) {
+    var vw = new IntersectionObserver(function (es) {
+      for (var k = 0; k < es.length; k++) {
+        if (es[k].isIntersecting) { video.play().catch(function () {}); }
+        else { video.pause(); }
+      }
+    }, { threshold: 0.15 });
+    vw.observe(video);
+  }
+
+  var grid = document.getElementById('serviceGrid');
+  if (grid && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    grid.addEventListener('pointermove', function (e) {
+      var r = grid.getBoundingClientRect();
+      grid.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      grid.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+    grid.addEventListener('pointerleave', function () {
+      grid.style.setProperty('--mx', '-500px');
+      grid.style.setProperty('--my', '-500px');
+    });
+  }
+
+  var blocks = document.querySelectorAll('.price-block');
+  var links = document.querySelectorAll('.price-nav a');
+  if (blocks.length && links.length && 'IntersectionObserver' in window) {
+    var pw = new IntersectionObserver(function (es) {
+      for (var n = 0; n < es.length; n++) {
+        if (!es[n].isIntersecting) continue;
+        for (var m = 0; m < links.length; m++) {
+          links[m].classList.toggle('is-cur', links[m].getAttribute('href') === '#' + es[n].target.id);
+        }
+      }
+    }, { rootMargin: '-25% 0px -60% 0px', threshold: 0 });
+    for (var b = 0; b < blocks.length; b++) pw.observe(blocks[b]);
+  }
+
+  var form = document.getElementById('lead');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var phone = form.phone.value.trim();
+      if (!phone) { form.phone.focus(); return; }
+      var body = 'Имя: ' + form.name.value.trim() + '\nТелефон: ' + phone + '\nЗадача: ' + form.task.value.trim();
+      window.location.href = 'mailto:aroma-clean@yandex.ru?subject=' +
+        encodeURIComponent('Заявка с сайта') + '&body=' + encodeURIComponent(body);
+    });
+  }
+})();
+</script>
+</body>
+</html>
